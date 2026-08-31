@@ -1,0 +1,36 @@
+name: Validate PR flow
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - main
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-pr-flow:
+    name: Validate PR flow
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate branch flow
+        env:
+          BASE_BRANCH: ${{ github.base_ref }}
+          HEAD_BRANCH: ${{ github.head_ref }}
+        run: |
+          echo "Validating PR: ${HEAD_BRANCH} -> ${BASE_BRANCH}"
+
+          if [[ "${BASE_BRANCH}" == "main" && "${HEAD_BRANCH}" != "dev" ]]; then
+            echo "ERROR: Only dev may be merged into main."
+            exit 1
+          fi
+
+          if [[ "${BASE_BRANCH}" == "dev" && "${HEAD_BRANCH}" == "main" ]]; then
+            echo "ERROR: main may not be merged into dev."
+            exit 1
+          fi
+
+          echo "Branch flow is valid."
