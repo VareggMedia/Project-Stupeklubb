@@ -1,0 +1,31 @@
+name: Update project status on merge
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  update-project-status:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show merge direction
+        run: |
+          echo "Merged from: ${{ github.event.pull_request.head.ref }}"
+          echo "Merged into: ${{ github.event.pull_request.base.ref }}"
+
+      - name: Determine target status
+        id: status
+        run: |
+          if [[ "${{ github.event.pull_request.base.ref }}" == "dev" ]]; then
+            echo "status=Dev" >> "$GITHUB_OUTPUT"
+          elif [[ "${{ github.event.pull_request.base.ref }}" == "main" ]]; then
+            echo "status=Done" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=ignore" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Show selected status
+        run: |
+          echo "Selected project status: ${{ steps.status.outputs.status }}"
