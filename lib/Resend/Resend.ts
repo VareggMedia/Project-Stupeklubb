@@ -7,6 +7,8 @@ interface mailType{
     text: string;
 }
 
-export default async function sendSkjema() {
-    return
+export default async function sendSkjema(request: Request): Promise<mailType> {
+    const data = await request.json()
+
+    return data
 }
