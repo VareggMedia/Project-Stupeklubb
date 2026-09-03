@@ -7,3 +7,6 @@ interface mailType{
     text: string;
 }
 
+export default async function sendSkjema() {
+    return
+}
