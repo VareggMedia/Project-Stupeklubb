@@ -1,4 +1,4 @@
-import { usePåmelding } from "./påmeldingStruktur";
+import { usePåmelding } from "../PåmeldingStruktur/påmeldingStruktur";
 import { useRouter } from "next/router";
 
 
@@ -8,15 +8,6 @@ export default function PåmeldingSkjema() {
     
     const {påmelding, setPåmelding} = usePåmelding();
     const router = useRouter()
-    /*
-    const [navn, setNavn] = useState<string>();
-    const [etternavn, setEtternavn] = useState<string>()
-    const [alder, setAlder] = useState<number>()
-    const [mobil, setMobil] = useState<null>();
-    const [email, setEmail] = useState<string>();
-    const [valg, setValg] = useState<boolean>(true)
-    const [samtykke,setSamtykke] = useState<boolean>(false)
-    const [melding, setMelding] = useState<string>(''); */
     
     function submit (e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -26,7 +17,6 @@ export default function PåmeldingSkjema() {
 
     const isFormValid = (
         påmelding.navn !== '' &&
-        påmelding.etternavn !== '' &&
         påmelding.alder !== '' &&
         påmelding.email !== '' &&
         påmelding.mobil !== ''
@@ -78,6 +68,9 @@ export default function PåmeldingSkjema() {
                                     }))
                                 }}
                             />
+                        </div>
+                        <div>
+                            <label htmlFor="valg"></label>
                         </div>
                     </section>
                     <div>

@@ -4,7 +4,6 @@ import {useState, useContext, createContext, ReactNode} from 'react'
 
 type PåmeldingData = {
     navn: string;
-    etternavn: string;
     alder: string;
     mobil: string;
     email: string;
@@ -23,7 +22,6 @@ const PåmeldingContext = createContext<PåmeldingContextType | undefined>(undef
 export function PåmeldingProvider({children}: {children: ReactNode}) {
     const [påmelding, setPåmelding] = useState<PåmeldingData>({
         navn: '',
-        etternavn: '',
         alder: '',
         mobil: '',
         email: '',
