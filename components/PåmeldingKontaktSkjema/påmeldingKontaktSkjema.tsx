@@ -1,8 +1,5 @@
-import { usePåmelding } from "../PåmeldingStruktur/påmeldingStruktur";
+import { usePåmelding } from "../PåmeldingStruktur/PåmeldingStruktur";
 import { useRouter } from "next/router";
-
-
-
 
 export default function PåmeldingSkjema() {
     
@@ -17,7 +14,7 @@ export default function PåmeldingSkjema() {
 
     const isFormValid = (
         påmelding.navn !== '' &&
-        påmelding.alder !== '' &&
+        påmelding.fødseldato !== '' &&
         påmelding.email !== '' &&
         påmelding.mobil !== ''
     );

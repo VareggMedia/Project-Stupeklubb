@@ -2,12 +2,17 @@
 
 import {useState, useContext, createContext, ReactNode} from 'react'
 
-type PåmeldingData = {
+
+
+export type PåmeldingData = {
+    medlemstype: string;
     navn: string;
-    alder: string;
+    kjønn: 'Gutt' | 'Jente' | 'Ikke-binær' | null;
+    fødseldato: string;
     mobil: string;
     email: string;
-    valg: boolean;
+    adresse: string;
+    valg: 'megSelv' | 'andre';
     samtykke: boolean;
     melding?: string;
 }
@@ -21,11 +26,14 @@ const PåmeldingContext = createContext<PåmeldingContextType | undefined>(undef
 
 export function PåmeldingProvider({children}: {children: ReactNode}) {
     const [påmelding, setPåmelding] = useState<PåmeldingData>({
+        medlemstype: 'Ny medlem',
         navn: '',
-        alder: '',
+        kjønn: null ,
+        fødseldato: '',
         mobil: '',
         email: '',
-        valg: false,
+        adresse: '',
+        valg: 'megSelv',
         samtykke: false,
         melding: ''
     })
