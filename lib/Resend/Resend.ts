@@ -78,10 +78,8 @@ export default async function sendSkjema(data: PåmeldingData): Promise<mailType
                     </dl>
                 </div>`
         })
-        if (error) {
-            return 
-        }
     } catch (error) {
+        console.error('Feil med å sende email', error)
         return 
     }
 }
