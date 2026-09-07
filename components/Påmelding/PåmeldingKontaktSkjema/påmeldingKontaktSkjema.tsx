@@ -1,4 +1,4 @@
-import { usePåmelding } from "../PåmeldingStruktur/PåmeldingStruktur";
+import { usePåmelding } from "../PåmeldingStruktur/påmeldingStruktur";
 import { useRouter } from "next/router";
 
 export default function PåmeldingSkjema() {

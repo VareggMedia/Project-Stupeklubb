@@ -11,6 +11,7 @@ export type PåmeldingData = {
     fødseldato: string;
     mobil: string;
     email: string;
+    nasjon: string;
     adresse: string;
     valg: 'megSelv' | 'andre';
     samtykke: boolean;
@@ -32,6 +33,7 @@ export function PåmeldingProvider({children}: {children: ReactNode}) {
         fødseldato: '',
         mobil: '',
         email: '',
+        nasjon: '',
         adresse: '',
         valg: 'megSelv',
         samtykke: false,

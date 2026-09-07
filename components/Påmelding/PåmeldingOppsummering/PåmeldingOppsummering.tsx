@@ -1,16 +1,17 @@
-import { usePåmelding } from "../PåmeldingStruktur/PåmeldingStruktur"
+import { usePåmelding } from "../PåmeldingStruktur/påmeldingStruktur"
 import sendSkjema from "@/lib/Resend/Resend"
 
 
 
 export default function PåmeldingOversikt() {
     const {påmelding} = usePåmelding()
-
-    async function sendPåmelding() {
+    
+    async function sendPåmelding(e: React.SubmitEvent<HTMLFormElement>) {
+        e.preventDefault()
         await sendSkjema(påmelding)
     } 
     return (
-        <>
+        
             <form onSubmit={sendPåmelding}>
                 <div>
                     <dl>
@@ -32,19 +33,19 @@ export default function PåmeldingOversikt() {
                         </div>
                         <div>
                             <dt>Fødselsdato</dt>
-                            <dd > {påmelding.fødseldato} </dd>
+                            <dd> {påmelding.fødseldato} </dd>
                         </div>
-                        <div >
+                        <div>
                             <dt>Telefon</dt>
                             <dd > {påmelding.mobil} </dd>
                         </div>
-                        <div >
+                        <div>
                             <dt>E-post</dt>
                             <dd > {påmelding.email} </dd>
                         </div>
-                        <div >
+                        <div>
                             <dt>Adresse</dt>
-                            <dd >
+                            <dd>
                                 <address>
                                     {påmelding.adresse}
                                 </address>
@@ -53,15 +54,15 @@ export default function PåmeldingOversikt() {
                     </dl>
                     <dl></dl>
                     <dl>
-                        <div >
+                        <div>
                             <dt>Familie til aktiv</dt>
                             <dd ></dd>
                         </div>
-                        <div >
+                        <div>
                             <dt>Støttepersonell til arrangement</dt>
                             <dd ></dd>
                         </div>
-                        <div >
+                        <div>
                             <dt>Ny i klubben</dt>
                             <dd></dd>
                         </div>
@@ -71,6 +72,6 @@ export default function PåmeldingOversikt() {
                     <button></button>
                 </div>
             </form>
-        </>
+        
     )
 }
