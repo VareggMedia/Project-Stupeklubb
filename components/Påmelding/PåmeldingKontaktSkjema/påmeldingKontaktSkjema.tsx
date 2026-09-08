@@ -1,5 +1,19 @@
+'use client'
 import { usePåmelding } from "../PåmeldingStruktur/påmeldingStruktur";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import Select from 'react-select';
+import countries from 'i18n-iso-countries'
+import norsk from 'i18n-iso-countries/langs/nb.json'
+
+countries.registerLocale(norsk)
+
+const landnavn = countries.getNames('nb', {select:'official'})
+const alternativer = Object.entries(landnavn).map(
+    ([kode, navn]) => ({
+        value: kode,
+        label: navn,
+    })
+)
 
 export default function PåmeldingSkjema() {
     
@@ -39,6 +53,20 @@ export default function PåmeldingSkjema() {
                             />
                         </div>
                         <div>
+                            <label htmlFor="nasjon">Nasjonalitet:</label>
+                            <Select
+                                id="valg"
+                                options={alternativer}
+                                onChange={(valgt) => {
+                                    setPåmelding((prev) => ({
+                                        ...prev,
+                                        nasjon: valgt?.value ?? ''
+                                    }));
+                                }}
+
+                            />
+                        </div>
+                        <div>
                             <label htmlFor="email">Email:</label>
                             <input
                                 id="email"
@@ -68,6 +96,7 @@ export default function PåmeldingSkjema() {
                         </div>
                         <div>
                             <label htmlFor="valg"></label>
+                            
                         </div>
                     </section>
                     <div>
