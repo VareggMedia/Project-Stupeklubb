@@ -10,7 +10,7 @@ export default function EmailInnhold( {data} : EmailProp ) {
 
     return (
         <>
-            <h1></h1>
+            <h1>Bergen Stupeklubb</h1>
             <div>
                 <dl>
                     <div>
