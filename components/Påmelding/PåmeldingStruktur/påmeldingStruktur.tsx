@@ -33,7 +33,7 @@ export function PåmeldingProvider({children}: {children: ReactNode}) {
         fødseldato: '',
         mobil: '',
         email: '',
-        nasjon: '',
+        nasjon: 'NO',
         adresse: '',
         valg: 'megSelv',
         samtykke: false,

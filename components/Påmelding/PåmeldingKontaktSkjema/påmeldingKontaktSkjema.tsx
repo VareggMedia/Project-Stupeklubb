@@ -1,5 +1,5 @@
 'use client'
-import { usePåmelding } from "../PåmeldingStruktur/påmeldingStruktur";
+import { PåmeldingData, usePåmelding } from "../PåmeldingStruktur/påmeldingStruktur";
 import { useRouter } from "next/navigation";
 import Select from 'react-select';
 import countries from 'i18n-iso-countries'
@@ -25,6 +25,15 @@ export default function PåmeldingSkjema() {
 
         router.push('/')
     }
+
+    const kjønnvalg: {
+        value: PåmeldingData['kjønn'];
+        label: string;
+    }[] = [
+        {value: 'Gutt', label: 'Gutt'},
+        {value: 'Jente', label: 'Jente'},
+        {value: 'Ikke-binær', label: 'Ikke-binær'}
+    ]
 
     const isFormValid = (
         påmelding.navn !== '' &&
@@ -53,9 +62,24 @@ export default function PåmeldingSkjema() {
                             />
                         </div>
                         <div>
+                            <label htmlFor="valg">Kjønn:</label>
+                            <Select
+                                inputId="valg"
+                                instanceId='kjønn'
+                                options={kjønnvalg}
+                                onChange={(valgt) => {
+                                    setPåmelding((prev) => ({
+                                        ...prev,
+                                        kjønn: valgt?.value ?? null
+                                    }))
+                                }}
+                            />
+                        </div>
+                        <div>
                             <label htmlFor="nasjon">Nasjonalitet:</label>
                             <Select
-                                id="valg"
+                                inputId="nasjon"
+                                instanceId='nasjon'
                                 options={alternativer}
                                 onChange={(valgt) => {
                                     setPåmelding((prev) => ({
@@ -94,10 +118,7 @@ export default function PåmeldingSkjema() {
                                 }}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="valg"></label>
-                            
-                        </div>
+                        
                     </section>
                     <div>
                         <button disabled={!isFormValid} >Send in Påmelding</button>

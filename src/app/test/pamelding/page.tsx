@@ -3,9 +3,6 @@ import P책meldingSkjema from "@/components/P책melding/P책meldingKontaktSkjema/p�
 export default function testP책melding() {
     return(
         <>
-            <div>
-                <h1>hello</h1>
-            </div>
             <P책meldingSkjema />
         </>
         
