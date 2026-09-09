@@ -1,3 +1,4 @@
+'use client'
 import { usePåmelding } from "../PåmeldingStruktur/påmeldingStruktur"
 import sendSkjema from "@/lib/Resend/Resend"
 
@@ -5,6 +6,10 @@ import sendSkjema from "@/lib/Resend/Resend"
 
 export default function PåmeldingOversikt() {
     const {påmelding} = usePåmelding()
+
+    const tidform = påmelding.fødseldato
+    const [år, månde, dag] = tidform.split('-')
+    const visDato = `${dag}.${månde}.${år}`
     
     async function sendPåmelding(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -33,7 +38,7 @@ export default function PåmeldingOversikt() {
                         </div>
                         <div>
                             <dt>Fødselsdato</dt>
-                            <dd> {påmelding.fødseldato} </dd>
+                            <dd> {visDato} </dd>
                         </div>
                         <div>
                             <dt>Telefon</dt>

@@ -62,6 +62,21 @@ export default function PåmeldingSkjema() {
                             />
                         </div>
                         <div>
+                            <label htmlFor="nasjon">Nasjonalitet:</label>
+                            <Select
+                                inputId="nasjon"
+                                instanceId='nasjon'
+                                options={alternativer}
+                                onChange={(valgt) => {
+                                    setPåmelding((prev) => ({
+                                        ...prev,
+                                        nasjon: valgt?.value ?? ''
+                                    }));
+                                }}
+
+                            />
+                        </div>
+                        <div>
                             <label htmlFor="valg">Kjønn:</label>
                             <Select
                                 inputId="valg"
@@ -75,19 +90,17 @@ export default function PåmeldingSkjema() {
                                 }}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="nasjon">Nasjonalitet:</label>
-                            <Select
-                                inputId="nasjon"
-                                instanceId='nasjon'
-                                options={alternativer}
-                                onChange={(valgt) => {
-                                    setPåmelding((prev) => ({
+                        <div className="m-2" >
+                            <label className="" htmlFor="bursdag" >Fødselsdato:</label>
+                            <input
+                                id="bursdag"
+                                type="date"
+                                onChange={(e) =>{
+                                    setPåmelding((prev)=> ({
                                         ...prev,
-                                        nasjon: valgt?.value ?? ''
-                                    }));
+                                        fødseldato: e.target.value
+                                    }))
                                 }}
-
                             />
                         </div>
                         <div>
@@ -118,10 +131,22 @@ export default function PåmeldingSkjema() {
                                 }}
                             />
                         </div>
-                        
+                        <div>
+                            <label htmlFor="adresse" >Adresse:</label>
+                            <input 
+                                id="adresse"
+                                type="text"
+                                onChange={(e) => {
+                                    setPåmelding((prev) => ({
+                                        ...prev,
+                                        adresse: e.target.value
+                                    }))
+                                }}
+                            />
+                        </div>
                     </section>
                     <div>
-                        <button disabled={!isFormValid} >Send in Påmelding</button>
+                        <button className=" border rounded-xl p-2 bg-gray-200 disabled:bg-gray-500" disabled={!isFormValid} >Send in Påmelding</button>
                     </div>
                 </form>
             </div>
