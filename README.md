@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bergen StupeKlubb
 
-## Getting Started
+Velkommen til Stupekubben sin nettside.
+Under finner du info om de forskjellige mappene om hva de gjør og/eller hva de inneholder.
 
-First, run the development server:
+## SRC/APP
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Her ligger alle sidene til nettsiden i forskjellige under mapper.
+til venstre er mappen og til høyre er en liten beskrivelse på hva den gjør. (vis det står ikke rør så IKKE RØR)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **api** - inneholder api til forskjellige tjenester
+- **bliMedlem og bliMedlem/påmeldingSkjema** - her ligger info for å bli medlem i stupe klubben (under components/Påmelding ligger alle de forskjellige formene som brukes til å lage/sende skjemet for siden)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## PUBLIC
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Her ligger alle bildene som vi bruker til prosjekte.
 
-## Learn More
+## COMPONENTS
 
-To learn more about Next.js, take a look at the following resources:
+Her ligger egene komponenter som skjema, articler, stucturer eller fulle sider som blir plasser i [`src/app/<next.js-mappe>/page.tsx`].
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## LIB
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Her ligger all TypeScript/JavaScript som vi bruker for enkle klasser (class) eller funkjoner (function) som vi ser går igjen. Alt blir importert til de forskjellige page.tsx eller components-mappen

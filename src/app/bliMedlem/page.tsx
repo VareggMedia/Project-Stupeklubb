@@ -1,0 +1,1 @@
+// Info om priser, hva de som søker kan få tilgang til, hvilke programmer man kan melde seg på og påmelding knappen
