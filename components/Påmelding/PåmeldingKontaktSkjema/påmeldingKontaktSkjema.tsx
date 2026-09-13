@@ -14,7 +14,7 @@ const alternativer = Object.entries(landnavn).map(
         label: navn,
     })
 )
-
+const defaultland = alternativer.find((land)=> land.value === 'NO')
 export default function PåmeldingSkjema() {
     
     const {påmelding, setPåmelding} = usePåmelding();
@@ -66,6 +66,7 @@ export default function PåmeldingSkjema() {
                             <Select
                                 inputId="nasjon"
                                 instanceId='nasjon'
+                                defaultValue={defaultland}
                                 options={alternativer}
                                 onChange={(valgt) => {
                                     setPåmelding((prev) => ({
