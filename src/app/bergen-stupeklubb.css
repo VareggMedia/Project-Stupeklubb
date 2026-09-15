@@ -49,6 +49,32 @@
   outline: 2px solid var(--aqua);
   outline-offset: 3px;
 }
+.bsk .btn-coral {
+  background: var(--coral);
+
+  color: var(--ink);
+
+  font-weight: 600;
+}
+
+.bsk .btn-coral:hover {
+  background: var(--coral);
+
+  color: var(--ink);
+
+  animation: coral-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes coral-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .bsk * {
     animation: none !important;
@@ -59,24 +85,27 @@
 /* ---------- NAV ---------- */
 .nav {
   position: fixed;
+
   top: 0;
+
   left: 0;
+
   right: 0;
+
   z-index: 50;
-  padding: 18px 0;
-  transition:
-    background 0.25s ease,
-    padding 0.25s ease,
-    box-shadow 0.25s ease;
-}
-.nav.solid {
-  background: var(--ink);
+
   padding: 12px 0;
+
+  background: var(--ink);
+
   box-shadow: 0 1px 0 var(--line-dark);
 }
+
 .nav-row {
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
 }
 .brand {
@@ -86,7 +115,7 @@
   color: var(--foam);
   font-family: "Bricolage Grotesque", sans-serif;
   font-weight: 700;
-  font-size: 17px;
+  font-size: 30px;
   letter-spacing: 0.01em;
 }
 .ripple-mark {
@@ -164,19 +193,26 @@
 .hero {
   position: relative;
 
-  background: radial-gradient(
-    120% 140% at 78% 8%,
+  background:
+    radial-gradient(
+      120% 10% at 6% 1%,
 
-    var(--pool-light) 10%,
+      rgba(73, 214, 198, 0.55) 50%,
 
-    var(--pool) 50%,
+      rgba(13, 107, 126, 0.65) 60%,
 
-    var(--ink) 100%
-  );
+      rgba(8, 33, 41, 0.33) 20%
+    ),
+    url("/images/diver4.avif");
 
-  padding: 150px 0 0;
+  background-size: cover;
+
+  background-position: center;
+
+  padding: 140px 0 0;
 
   overflow: hidden;
+  padding-bottom: 80px;
 }
 
 .hero::before {
@@ -186,11 +222,7 @@
 
   inset: 0;
 
-  background: url("/images/badebasseng.avif") center / cover no-repeat;
-
-  opacity: 0.85;
-
-  mix-blend-mode: soft-light;
+  opacity: 0.5;
 
   pointer-events: none;
 }
