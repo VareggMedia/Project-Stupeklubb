@@ -139,7 +139,7 @@
   transition: color 0.15s ease;
 }
 .nav-links a:hover {
-  color: var(--aqua);
+  color: var(--yellow);
 }
 .nav-cta {
   background: var(--aqua);

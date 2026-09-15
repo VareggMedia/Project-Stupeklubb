@@ -100,19 +100,30 @@ const FOOTER_LINKS = [
   { label: "Påmelding", href: "#pamelding" },
 ];
 
-function WaveDivider({ to }: { to: string }) {
+type WaveDividerProps = {
+  flip?: boolean; // true = flipped, use at the bottom of a section
+  color?: string; // should match the section it "belongs" to
+};
+
+export function WaveDivider({
+  flip = false,
+  color = "#ffffff",
+}: WaveDividerProps) {
   return (
-    <svg
-      className="wave-divider"
-      viewBox="0 0 1200 90"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M0,40 C150,90 350,0 600,35 C850,70 1050,10 1200,45 L1200,90 L0,90 Z"
-        fill={to}
-      />
-    </svg>
+    <div className={`wave-divider ${flip ? "wave-divider--flip" : ""}`}>
+      <svg
+        className="wave-divider"
+        viewBox="0 0 1200 90"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <rect x="0" y="50" width="1200" height="90" fill={color} />
+        <path
+          d="M0,40 C150,90 350,0 600,35 C850,70 1050,10 1200,45 L1200,90 L0,90 Z"
+          fill={color}
+        />
+      </svg>
+    </div>
   );
 }
 function RippleMark() {
@@ -208,7 +219,7 @@ export default function App() {
           </div>
         </div>
       </section>
-      <WaveDivider to="var(--foam)" />
+      <WaveDivider flip={true} color="white" />
 
       {/* BODY: feature rows */}
       <section className="body-zone" id="stupskolen">
@@ -230,54 +241,13 @@ export default function App() {
               </a>
             </div>
             <div className="feature-art alt">
-              <svg viewBox="0 0 400 260" preserveAspectRatio="none">
-                <line
-                  x1="30"
-                  y1="60"
-                  x2="370"
-                  y2="60"
-                  stroke="#23a596"
-                  strokeWidth="1"
-                  opacity="0.4"
-                />
-                <line
-                  x1="30"
-                  y1="110"
-                  x2="370"
-                  y2="110"
-                  stroke="#23a596"
-                  strokeWidth="1"
-                  opacity="0.4"
-                />
-                <line
-                  x1="30"
-                  y1="160"
-                  x2="370"
-                  y2="160"
-                  stroke="#23a596"
-                  strokeWidth="1"
-                  opacity="0.4"
-                />
-                <line
-                  x1="30"
-                  y1="210"
-                  x2="370"
-                  y2="210"
-                  stroke="#23a596"
-                  strokeWidth="1"
-                  opacity="0.4"
-                />
-                <circle cx="30" cy="60" r="4" fill="#ff6f4d" />
-              </svg>
+              <img src="/images/divingboard.avif" alt="Bergen Stupeklubb" />
             </div>
           </div>
         </div>
       </section>
-      <WaveDivider to="var(--foam)" />
 
       {/* TESTIMONIALS + SAFEGUARDING */}
-
-      <WaveDivider to="var(--foam)" />
 
       {/* INCLUSIVITY */}
       <section className="body-zone inclusive">
@@ -307,7 +277,7 @@ export default function App() {
           </div>
         </div>
       </section>
-      <WaveDivider to="var(--foam)" />
+      <WaveDivider flip={false} color="var(--ink)" />
 
       {/* CONTACT */}
       <section className="contact-zone" id="kontakt">
