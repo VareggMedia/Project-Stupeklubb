@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -40,13 +41,16 @@ export default function Navbar() {
             <RippleMark />
             Bergen Stupeklubb
           </Link>
-          <nav className="nav-links">
-            {NAV_LINKS.map((l) => (
-              <Link key={l.href} href={l.href}>
-                {l.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="nav-actions">
+            <nav className="nav-links">
+              {NAV_LINKS.map((l) => (
+                <Link key={l.href} href={l.href}>
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
+            <LanguageSwitcher />
+          </div>
           <button
             className="menu-btn"
             aria-label={menuOpen ? "Lukk meny" : "Åpne meny"}
