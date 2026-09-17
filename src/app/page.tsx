@@ -2,63 +2,13 @@
 import "./bergen-stupeklubb.css";
 
 import { useEffect, useState } from "react";
-import {
-  Menu,
-  X,
-  ArrowUpRight,
-  Mail,
-  Phone,
-  MapPin,
-  ShieldCheck,
-} from "lucide-react";
-
-function InstagramIcon({ size = 19 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-function FacebookIcon({ size = 19 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    >
-      <path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v7h3v-7h2.2l.8-3H14v-1.6c0-.5.4-.9.9-.9H16V8Z" />
-    </svg>
-  );
-}
+import { ArrowUpRight } from "lucide-react";
 
 /**
  * BERGEN STUPEKLUBB — redesigned landing page
  * Rebuilt from bergenstupeklubb.no with an original aquatic visual identity.
  * Single-file component, custom CSS (no Tailwind), lucide-react icons only.
  */
-
-const NAV_LINKS = [
-  // { label: "Om oss", href: "#om-oss" },
-  { label: "Nyheter", href: "#nyheter" },
-  { label: "Stupskolen", href: "#stupskolen" },
-  // { label: "Klubbutstyr", href: "#klubbutstyr" },
-
-  // { label: "Sponsing", href: "#sponsorer" },
-  { label: "Kontakt", href: "#kontakt" },
-];
 
 const TESTIMONIALS = [
   {
@@ -86,9 +36,31 @@ const TESTIMONIALS = [
     detail: "12 år",
   },
 ];
+const SPONSORS = [
+  {
+    name: "Zur Hår & Rubb",
 
-const SPONSORS = ["Zur Hår & Rubb", "Beerenberg", "OBOS", "Rehab.shop"];
+    image: "/images/sponsor_img/zurhaar.png",
+  },
 
+  {
+    name: "Beerenberg",
+
+    image: "/images/sponsor_img/beerenberg.png",
+  },
+
+  {
+    name: "OBOS",
+
+    image: "/images/sponsor_img/obos.png",
+  },
+
+  {
+    name: "Rehab.shop",
+
+    image: "/images/sponsor_img/rehab_shop.png",
+  },
+];
 const FOOTER_LINKS = [
   { label: "Hjem", href: "#" },
   { label: "Om oss", href: "#om-oss" },
@@ -150,7 +122,7 @@ export default function App() {
   return (
     <div className="bsk">
       {/* NAV */}
-      <header className={`nav ${scrolled ? "solid" : ""}`}>
+      {/* <header className={`nav ${scrolled ? "solid" : ""}`}>
         <div className=" wrap nav-row text-white ">
           <a href="#" className="brand  ">
             <RippleMark />
@@ -181,7 +153,7 @@ export default function App() {
             Påmelding
           </a>
         </div>
-      </header>
+      </header> */}
 
       {/* HERO */}
       <section className="hero" id="om-oss">
@@ -264,9 +236,11 @@ export default function App() {
       <section className="body-zone sponsors" id="sponsorer">
         <div className="wrap">
           <h2>Våre sponsorer</h2>
-          <div className="sponsor-row">
-            {SPONSORS.map((s) => (
-              <span key={s}>{s}</span>
+          <div className="sponsors">
+            {SPONSORS.map((sponsor) => (
+              <div className="sponsor-image" key={sponsor.name}>
+                <img src={sponsor.image} alt={sponsor.name} />
+              </div>
             ))}
           </div>
           <div className="sponsors-cta">
@@ -280,79 +254,6 @@ export default function App() {
       <WaveDivider flip={false} color="var(--ink)" />
 
       {/* CONTACT */}
-      <section className="contact-zone" id="kontakt">
-        <div className="wrap">
-          <div className="contact-grid">
-            <div>
-              <h2>Ta kontakt!</h2>
-              <p>
-                For oss er det viktig at du føler deg velkommen. Har du spørsmål
-                vi ikke har svart på her, vil vi at du skal ta kontakt fort som
-                bare rakkeren. Vi digger spørsmål — vi er jo tross alt
-                bergensere.
-              </p>
-              <div className="social-row">
-                <a
-                  href="https://www.instagram.com/bergendivingclub/"
-                  aria-label="Instagram"
-                >
-                  <InstagramIcon />
-                </a>
-                <a
-                  href="https://www.facebook.com/bergenstupeklubb"
-                  aria-label="Facebook"
-                >
-                  <FacebookIcon />
-                </a>
-                <a
-                  href="mailto:dagligleder@bergen-stupeklubb.no"
-                  aria-label="E-post"
-                >
-                  <Mail size={19} />
-                </a>
-              </div>
-            </div>
-            <div className="contact-details">
-              <div className="contact-item">
-                <Mail className="icon" size={19} />
-                <div>
-                  <strong>E-post</strong>
-                  <a href="mailto:hovedtrener@bergen-stupeklubb.no">
-                    hovedtrener@bergen-stupeklubb.no
-                  </a>
-                </div>
-              </div>
-              <div className="contact-item">
-                <Phone className="icon" size={19} />
-                <div>
-                  <strong>Telefon</strong>
-                  <a href="tel:+4793299995">(+47) 932 99 995</a>
-                </div>
-              </div>
-              <div className="contact-item">
-                <MapPin className="icon" size={19} />
-                <div>
-                  <strong>Adresse</strong>
-                  <span>ADO Arena, Lungegårdskaien 40, 5015 Bergen</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="footer-bottom">
-            <div className="footer-links">
-              {FOOTER_LINKS.map((l) => (
-                <a key={l.label} href={l.href}>
-                  {l.label}
-                </a>
-              ))}
-            </div>
-            <div className="footer-brand">
-              Bergen Stupeklubb — ADO Arena, Lungegårdskaien 40, 5015 Bergen
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

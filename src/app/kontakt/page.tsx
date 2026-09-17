@@ -1,7 +1,7 @@
-export default function pamelding() {
+export default function kontakt() {
   return (
     <main>
-      <h1>påmelding</h1>
+      <h1>kontakt</h1>
 
       <p>Get in touch with us.</p>
     </main>
