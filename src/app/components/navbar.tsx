@@ -5,8 +5,8 @@ import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   // { label: "Om oss", href: "#om-oss" },
-  { label: "Nyheter", href: "#nyheter" },
-  { label: "Stupskolen", href: "#stupskolen" },
+  { label: "Nyheter", href: "/nyheter" },
+  { label: "Stupskolen", href: "/stupskolen" },
   // { label: "Klubbutstyr", href: "#klubbutstyr" },
 
   // { label: "Sponsing", href: "#sponsorer" },
@@ -36,15 +36,15 @@ export default function Navbar() {
     <div className="bsk">
       <header className={`nav ${scrolled ? "solid" : ""}`}>
         <div className=" wrap nav-row text-white ">
-          <a href="#" className="brand  ">
+          <Link href="/" className="brand  ">
             <RippleMark />
             Bergen Stupeklubb
-          </a>
+          </Link>
           <nav className="nav-links">
             {NAV_LINKS.map((l) => (
-              <a key={l.href} href={l.href}>
+              <Link key={l.href} href={l.href}>
                 {l.label}
-              </a>
+              </Link>
             ))}
           </nav>
           <button

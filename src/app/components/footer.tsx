@@ -1,5 +1,5 @@
 import { Menu, X, ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
-
+import Link from "next/link";
 function InstagramIcon({ size = 19 }: { size?: number }) {
   return (
     <svg
@@ -37,7 +37,7 @@ const FOOTER_LINKS = [
   { label: "Bli medlem", href: "#stupskolen" },
   { label: "Våre trenere", href: "#om-oss" },
   { label: "Sponsing", href: "#sponsorer" },
-  { label: "Hva skjer?", href: "#nyheter" },
+  { label: "Hva skjer?", href: "/nyheter" },
   { label: "Kontakt oss", href: "/kontakt" },
   { label: "Påmelding", href: "#pamelding" },
 ];
@@ -106,9 +106,9 @@ export default function Footer() {
           <div className="footer-bottom">
             <div className="footer-links">
               {FOOTER_LINKS.map((l) => (
-                <a key={l.label} href={l.href}>
+                <Link key={l.label} href={l.href}>
                   {l.label}
-                </a>
+                </Link>
               ))}
             </div>
             <div className="footer-brand">

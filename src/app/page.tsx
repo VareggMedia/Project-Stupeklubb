@@ -1,4 +1,5 @@
 "use client";
+
 import "./bergen-stupeklubb.css";
 
 import { useEffect, useState } from "react";
@@ -67,8 +68,8 @@ const FOOTER_LINKS = [
   { label: "Bli medlem", href: "#stupskolen" },
   { label: "Våre trenere", href: "#om-oss" },
   { label: "Sponsing", href: "#sponsorer" },
-  { label: "Hva skjer?", href: "#nyheter" },
-  { label: "Kontakt oss", href: "#kontakt" },
+  { label: "Hva skjer?", href: "/nyheter" },
+  { label: "Kontakt oss", href: "/kontakt" },
   { label: "Påmelding", href: "#pamelding" },
 ];
 
