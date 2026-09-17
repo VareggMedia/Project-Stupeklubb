@@ -1,7 +1,7 @@
 "use client";
 
 import "./bergen-stupeklubb.css";
-
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
@@ -70,7 +70,7 @@ const FOOTER_LINKS = [
   { label: "Sponsing", href: "#sponsorer" },
   { label: "Hva skjer?", href: "/nyheter" },
   { label: "Kontakt oss", href: "/kontakt" },
-  { label: "Påmelding", href: "#pamelding" },
+  { label: "Påmelding", href: "/pamelding" },
 ];
 
 type WaveDividerProps = {
@@ -122,40 +122,6 @@ export default function App() {
 
   return (
     <div className="bsk">
-      {/* NAV */}
-      {/* <header className={`nav ${scrolled ? "solid" : ""}`}>
-        <div className=" wrap nav-row text-white ">
-          <a href="#" className="brand  ">
-            <RippleMark />
-            Bergen Stupeklubb
-          </a>
-          <nav className="nav-links">
-            {NAV_LINKS.map((l) => (
-              <a key={l.href} href={l.href}>
-                {l.label}
-              </a>
-            ))}
-          </nav>
-          <button
-            className="menu-btn"
-            aria-label={menuOpen ? "Lukk meny" : "Åpne meny"}
-            onClick={() => setMenuOpen((v) => !v)}
-          >
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-        <div className={`wrap mobile-panel ${menuOpen ? "open" : ""}`}>
-          {NAV_LINKS.map((l) => (
-            <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>
-              {l.label}
-            </a>
-          ))}
-          <a href="#pamelding" onClick={() => setMenuOpen(false)}>
-            Påmelding
-          </a>
-        </div>
-      </header> */}
-
       {/* HERO */}
       <section className="hero" id="om-oss">
         <div className="wrap hero-grid">
@@ -170,10 +136,10 @@ export default function App() {
               Bergen Stupeklubb.
             </p>
             <div className="hero-ctas">
-              <a href="#påmelding" className="btn btn-primary">
+              <Link href="/pamelding" className="btn btn-primary">
                 Meld deg på stupskolen
                 <ArrowUpRight size={17} />
-              </a>
+              </Link>
             </div>
             <div className="hero-stats">
               <div>
@@ -192,35 +158,6 @@ export default function App() {
           </div>
         </div>
       </section>
-      <WaveDivider flip={true} color="white" />
-
-      {/* BODY: feature rows */}
-      <section className="body-zone" id="stupskolen">
-        <div className="wrap">
-          <div
-            className="feature-row reverse"
-            id="nyheter"
-            style={{ borderBottom: "none" }}
-          >
-            <div className="feature-copy">
-              <h2>Hold deg oppdatert</h2>
-              <p>
-                På nyhetssiden vår skriver vi om alt fra treningsoppdateringer
-                og konkurranseresultater til andre gode nyheter fra klubben.
-              </p>
-              <a href="#" className="btn btn-ghost-light">
-                Les siste nytt
-                <ArrowUpRight size={16} />
-              </a>
-            </div>
-            <div className="feature-art alt">
-              <img src="/images/divingboard.avif" alt="Bergen Stupeklubb" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS + SAFEGUARDING */}
 
       {/* INCLUSIVITY */}
       <section className="body-zone inclusive">

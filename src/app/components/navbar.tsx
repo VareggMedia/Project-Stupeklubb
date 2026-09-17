@@ -8,7 +8,6 @@ const NAV_LINKS = [
   { label: "Nyheter", href: "/nyheter" },
   { label: "Stupskolen", href: "/stupskolen" },
   // { label: "Klubbutstyr", href: "#klubbutstyr" },
-
   // { label: "Sponsing", href: "#sponsorer" },
   { label: "Kontakt", href: "/kontakt" },
 ];
