@@ -794,3 +794,8 @@
     row-gap: 20px;
   }
 }
+
+.pamelding {
+  background: var(--ink);
+  padding: 96px 0;
+}

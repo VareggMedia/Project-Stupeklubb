@@ -62,16 +62,6 @@ const SPONSORS = [
     image: "/images/sponsor_img/rehab_shop.png",
   },
 ];
-const FOOTER_LINKS = [
-  { label: "Hjem", href: "#" },
-  { label: "Om oss", href: "#om-oss" },
-  { label: "Bli medlem", href: "#stupskolen" },
-  { label: "Våre trenere", href: "#om-oss" },
-  { label: "Sponsing", href: "#sponsorer" },
-  { label: "Hva skjer?", href: "/nyheter" },
-  { label: "Kontakt oss", href: "/kontakt" },
-  { label: "Påmelding", href: "/pamelding" },
-];
 
 type WaveDividerProps = {
   flip?: boolean; // true = flipped, use at the bottom of a section
@@ -99,27 +89,8 @@ export function WaveDivider({
     </div>
   );
 }
-function RippleMark() {
-  return (
-    <svg viewBox="0 0 44 44" className="ripple-mark" aria-hidden="true">
-      <circle cx="22" cy="22" r="20" />
-      <circle cx="22" cy="22" r="13" />
-      <circle cx="22" cy="22" r="4" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
 
 export default function App() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <div className="bsk">
       {/* HERO */}
