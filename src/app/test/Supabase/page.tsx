@@ -1,3 +1,5 @@
+// TEST FOR SUPABASE-SERVER (BEHOLDER INTIL VIDERE)
+
 import { createClient } from '@/lib/Supabase/server'
 
 export default async function Page() {

@@ -1,3 +1,5 @@
+// BLIR IKKE BRUKT TIL NOE, BARE "test/Supabase/page.tsx". (La stå inntil videre)
+
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 

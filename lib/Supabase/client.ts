@@ -1,3 +1,4 @@
+// Supabase sin client verjson som blir brukt med påmeldingskjemaet
 
 import { createBrowserClient } from "@supabase/ssr";
 
