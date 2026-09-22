@@ -28,3 +28,12 @@ Her ligger all TypeScript/JavaScript som vi bruker for enkle klasser (class) ell
 - **Resend** - er oppsette til å sende meldinger
 - **Supabase/client** - er det som kan vises på client siden for frontend-delen uten at den viser sensetiv info/logik
 - **Supabase/server** - er det som ikke skal vise på client siden for det inneholder backend-delen
+
+## .ENV.LOCAL
+
+Her skal all dine API nøkkler ligge og skal **ALDRI** deles. Lag alltid dine egene nøkkler fra Resend og Supabase.
+Dette er nøkkle som må fylles ut for at Resend og Supabase skal funke:
+
+- RESEND_API
+- NEXT_PUBLIC_SUPABASE_URL
+- NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
