@@ -17,8 +17,8 @@ export default async function sendSkjema(data: PåmeldingData): Promise<mailType
 
     try{
         const {error} = await resend.emails.send({
-            from: 'påmelding@gmail.com',
-            to: `${email}`,
+            from: 'onboarding@resend.dev', // Denne endres når vi gir den til Stupeklubben, 
+            to: `${email}`, // kan kun sende til den adressen dere har på Resend
             subject: `Påmelding for ${navn}`,
             react: createElement(EmailInnhold, {data})
         })

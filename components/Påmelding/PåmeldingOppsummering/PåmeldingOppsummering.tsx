@@ -1,9 +1,11 @@
 'use client'
+//import { createClient } from "@/lib/Supabase/client"
 import { usePåmelding } from "../PåmeldingStruktur/påmeldingStruktur"
 import sendSkjema from "@/lib/Resend/Resend"
 
 export default function PåmeldingOversikt() {
     const { påmelding } = usePåmelding()
+    //const supabase = createClient()
 
     const tidform = påmelding.fødseldato
     const [år, månde, dag] = tidform.split('-')
@@ -11,7 +13,25 @@ export default function PåmeldingOversikt() {
 
     async function sendPåmelding(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault()
+        /*
+        const {error} = await supabase
+            .from("påmelding")
+            .insert({
+                navn: påmelding.navn,
+                fødselsdato: påmelding.fødseldato,
+                mobil: påmelding.mobil,
+                email: påmelding.email,
+                adresse: påmelding.adresse,
+                nasjon: påmelding.nasjon,
+                kjønn: påmelding.kjønn,
+                status: påmelding.medlemstype
+            })
+        if (error) {
+            console.error("Noe gikk galt med Supabase: ", error)
+            return
+        } */
         await sendSkjema(påmelding)
+
     }
 
     return (
