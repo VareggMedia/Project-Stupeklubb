@@ -1,1 +1,0 @@
-// her kommer koden til Supabase
