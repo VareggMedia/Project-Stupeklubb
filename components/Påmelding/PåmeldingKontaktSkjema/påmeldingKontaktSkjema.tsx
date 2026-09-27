@@ -1,9 +1,9 @@
 'use client'
 import { PåmeldingData, usePåmelding } from "../PåmeldingStruktur/påmeldingStruktur";
-import { useRouter } from "next/navigation";
 import Select, { StylesConfig } from 'react-select';
 import countries from 'i18n-iso-countries'
 import norsk from 'i18n-iso-countries/langs/nb.json'
+import React from "react";
 
 countries.registerLocale(norsk)
 
@@ -11,7 +11,7 @@ type SelectOption = {
     value: string | null;
     label: string;
 }
-
+type setStepProp = {setStep: React.Dispatch<React.SetStateAction<number>>}
 const landnavn = countries.getNames('nb', { select: 'official' })
 const alternativer = Object.entries(landnavn).map(
     ([kode, navn]) => ({
@@ -21,13 +21,11 @@ const alternativer = Object.entries(landnavn).map(
 )
 const defaultland = alternativer.find((land) => land.value === 'NO')
 
-export default function PåmeldingSkjema() {
+export default function PåmeldingSkjema({setStep}: setStepProp) {
     const { påmelding, setPåmelding } = usePåmelding();
-    const router = useRouter()
-
-    function submit(e: React.FormEvent<HTMLFormElement>) {
+    function submit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
-        router.push('/')
+        setStep(2)
     }
 
     const kjønnvalg: {
@@ -73,11 +71,8 @@ export default function PåmeldingSkjema() {
     }
 
     return (
-        <div className="min-h-screen bg-linear-to-b from-sky-50 to-cyan-100 flex items-center justify-center px-4 py-12">
+        <div className="min-h-screen bg-linear-to-b flex items-center justify-center px-4 py-12">
             <div className="w-full max-w-lg bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-cyan-100/50 border border-cyan-200/40 p-8">
-                <h2 className="text-2xl font-semibold text-cyan-900 text-center mb-6">
-                    Påmelding
-                </h2>
                 <form onSubmit={submit} className="space-y-4">
                     <section className="space-y-4">
                         <div>
@@ -198,7 +193,7 @@ export default function PåmeldingSkjema() {
                             disabled={!isFormValid}
                             className="w-full rounded-xl bg-cyan-600 px-4 py-3 text-sm font-semibold text-white hover:bg-cyan-700 active:bg-cyan-800 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 disabled:bg-cyan-300 disabled:cursor-not-allowed cursor-pointer"
                         >
-                            Send inn påmelding
+                            Neste
                         </button>
                     </div>
                 </form>
