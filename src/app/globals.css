@@ -1,26 +1,73 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-ink: #082129;
+  --color-pool: #0d3f4d;
+  --color-pool-light: #12586a;
+  --color-aqua: #49d6c6;
+  --color-aqua-light: #6fe2d4;
+  --color-aqua-deep: #23a596;
+  --color-foam: #f2f8f7;
+  --color-foam-dim: #e5eeec;
+  --color-coral: #ff6f4d;
+  --color-yellow: #ffea00;
+  --color-muted: #3a5560;
+  --color-mist: #7d9aa1;
+  --color-line-dark: rgba(255, 255, 255, 0.16);
+  --color-line-light: rgba(8, 33, 41, 0.12);
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-inter), sans-serif;
+  --font-display: var(--font-bricolage), sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --animate-ring-pulse: ring-pulse 3.2s ease-out infinite;
+  --animate-coral-pulse: coral-pulse 1.2s ease-in-out infinite;
+
+  @keyframes ring-pulse {
+    0% {
+      opacity: 0.9;
+      transform: scale(0.7);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes coral-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Shared page container */
+@utility wrap {
+  margin-inline: auto;
+  max-width: 1120px;
+  padding-inline: 28px;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-bold tracking-[-0.01em];
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-3 outline-aqua;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
 }
