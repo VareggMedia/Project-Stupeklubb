@@ -1,7 +1,6 @@
 "use client";
-import "./bergen-stupeklubb.css";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Menu,
   X,
@@ -11,43 +10,14 @@ import {
   MapPin,
   ShieldCheck,
 } from "lucide-react";
-
-function InstagramIcon({ size = 19 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-function FacebookIcon({ size = 19 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    >
-      <path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v7h3v-7h2.2l.8-3H14v-1.6c0-.5.4-.9.9-.9H16V8Z" />
-    </svg>
-  );
-}
+import { buttonStyles } from "../components/button";
+import FeatureRow from "../components/FeatureRow";
+import { RippleMark } from "../components/navbar";
+import { FacebookIcon, InstagramIcon } from "../components/footer";
 
 /**
  * BERGEN STUPEKLUBB — redesigned landing page
  * Rebuilt from bergenstupeklubb.no with an original aquatic visual identity.
- * Single-file component, custom CSS (no Tailwind), lucide-react icons only.
  */
 
 const NAV_LINKS = [
@@ -99,10 +69,22 @@ const FOOTER_LINKS = [
   { label: "Påmelding", href: "#pamelding" },
 ];
 
+const HERO_STATS = [
+  {
+    title: "Alle aldre",
+    text: "Nybegynner til konkurransestuper, tilpasset ditt nivå.",
+  },
+  { title: "ADO Arena", text: "Lungegårdskaien 40, midt i Bergen sentrum." },
+  { title: "Trygt miljø", text: "Erfarne trenere og en klubb som stiller opp." },
+];
+
+const socialLinkStyles =
+  "flex size-10.5 items-center justify-center rounded-full border border-line-dark text-foam transition-colors duration-150 hover:border-aqua hover:text-aqua";
+
 function WaveDivider({ from, to }: { from: string; to: string }) {
   return (
     <svg
-      className="wave-divider"
+      className="block h-15 w-full"
       viewBox="0 0 1200 90"
       preserveAspectRatio="none"
       aria-hidden="true"
@@ -116,109 +98,136 @@ function WaveDivider({ from, to }: { from: string; to: string }) {
   );
 }
 
-function RippleMark() {
-  return (
-    <svg viewBox="0 0 44 44" className="ripple-mark" aria-hidden="true">
-      <circle cx="22" cy="22" r="20" />
-      <circle cx="22" cy="22" r="13" />
-      <circle cx="22" cy="22" r="4" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
 export default function App() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <div className="bsk">
+    <div>
       {/* NAV */}
-      <header className={`nav ${scrolled ? "solid" : ""}`}>
-        <div className=" wrap nav-row text-white">
-          <a href="#" className="brand  ">
+      <header className="fixed inset-x-0 top-0 z-50 bg-ink py-3 shadow-[0_1px_0_var(--color-line-dark)]">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-7 text-white">
+          <a
+            href="#"
+            className="flex items-center gap-2.5 font-display text-[30px] font-bold tracking-[0.01em] text-foam"
+          >
             <RippleMark />
             Bergen Stupeklubb
           </a>
-          <nav className="nav-links">
+          <nav className="flex items-center gap-7.5">
             {NAV_LINKS.map((l) => (
-              <a key={l.href} href={l.href}>
+              <a
+                key={l.href}
+                href={l.href}
+                className="text-[14.5px] font-medium text-foam/82 transition-colors duration-150 hover:text-yellow"
+              >
                 {l.label}
               </a>
             ))}
-            <a href="#pamelding" className="bsk btn btn-coral">
+            <a
+              href="#pamelding"
+              className={`${buttonStyles.coral} text-[14.5px]`}
+            >
               Påmelding
             </a>
           </nav>
           <button
-            className="menu-btn"
+            className="hidden cursor-pointer p-1 text-foam max-[860px]:block"
             aria-label={menuOpen ? "Lukk meny" : "Åpne meny"}
             onClick={() => setMenuOpen((v) => !v)}
           >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-        <div className={`wrap mobile-panel ${menuOpen ? "open" : ""}`}>
+        <div
+          className={`wrap hidden flex-col gap-0.5 pt-2.5 pb-1 ${
+            menuOpen ? "max-[860px]:flex" : ""
+          }`}
+        >
           {NAV_LINKS.map((l) => (
-            <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={() => setMenuOpen(false)}
+              className="border-b border-line-dark px-1 py-3 text-[15px] text-foam"
+            >
               {l.label}
             </a>
           ))}
-          <a href="#pamelding" onClick={() => setMenuOpen(false)}>
+          <a
+            href="#pamelding"
+            onClick={() => setMenuOpen(false)}
+            className="border-b border-line-dark px-1 py-3 text-[15px] text-foam"
+          >
             Påmelding
           </a>
         </div>
       </header>
 
       {/* HERO */}
-      <section className="hero" id="om-oss">
-        <div className="wrap hero-grid">
+      <section
+        className="relative overflow-hidden bg-[radial-gradient(120%_10%_at_6%_1%,rgba(73,214,198,0.55)_50%,rgba(13,107,126,0.65)_60%,rgba(8,33,41,0.33)_20%),url('/images/diver4.avif')] bg-cover bg-center pt-35 pb-20"
+        id="om-oss"
+      >
+        <div className="wrap grid grid-cols-[1.05fr_0.95fr] items-center gap-10 pb-17.5 max-[900px]:grid-cols-1">
           <div>
-            <span className="eyebrow-tag">
-              <span className="dot" />
+            <span className="mb-5.5 inline-flex items-center gap-2 text-[13.5px] font-semibold text-aqua">
+              <span className="size-1.5 rounded-full bg-aqua" />
               Bergens eneste stupeklubb
             </span>
-            <h1>Vannets vakreste sport begynner her</h1>
-            <p className="hero-sub">
+            <h1 className="max-w-[12ch] text-[clamp(38px,5.4vw,60px)] leading-[1.04] text-foam">
+              Vannets vakreste sport begynner her
+            </h1>
+            <p className="mt-5.5 max-w-[42ch] text-[18px] text-foam/78">
               La vannets vakreste sport utfordre deg! Bli en del av gjengen i
               Bergen Stupeklubb.
             </p>
-            <div className="hero-ctas">
-              <a href="#påmelding" className="btn btn-primary">
+            <div className="mt-8.5 flex flex-wrap gap-3.5">
+              <a href="#påmelding" className={buttonStyles.primary}>
                 Meld deg på stupskolen
                 <ArrowUpRight size={17} />
               </a>
-              <a href="#stupskolen" className="btn btn-ghost-dark">
+              <a href="#stupskolen" className={buttonStyles.ghostDark}>
                 Se stupskolen
               </a>
             </div>
-            <div className="hero-stats">
-              <div>
-                <strong>Alle aldre</strong>
-                Nybegynner til konkurransestuper, tilpasset ditt nivå.
-              </div>
-              <div>
-                <strong>ADO Arena</strong>
-                Lungegårdskaien 40, midt i Bergen sentrum.
-              </div>
-              <div>
-                <strong>Trygt miljø</strong>
-                Erfarne trenere og en klubb som stiller opp.
-              </div>
+            <div className="mt-13.5 flex gap-7.5 border-t border-line-dark pt-6.5 max-[900px]:flex-wrap max-[900px]:gap-y-5">
+              {HERO_STATS.map((s) => (
+                <div
+                  key={s.title}
+                  className="max-w-[16ch] text-[13.5px] text-foam/65"
+                >
+                  <strong className="mb-0.75 block font-display text-[15px] text-foam">
+                    {s.title}
+                  </strong>
+                  {s.text}
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="hero-visual" aria-hidden="true">
-            <svg viewBox="0 0 420 420">
-              <circle className="ring pulse" cx="270" cy="330" r="40" />
-              <circle className="ring pulse delay" cx="270" cy="330" r="70" />
-              <circle className="ring pulse delay2" cx="270" cy="330" r="100" />
+          <div
+            className="relative h-105 max-[900px]:-order-1 max-[900px]:h-65"
+            aria-hidden="true"
+          >
+            <svg viewBox="0 0 420 420" className="size-full">
+              <circle
+                className="animate-ring-pulse fill-none stroke-aqua/35 stroke-1"
+                cx="270"
+                cy="330"
+                r="40"
+              />
+              <circle
+                className="animate-ring-pulse fill-none stroke-aqua/35 stroke-1 [animation-delay:1.1s]"
+                cx="270"
+                cy="330"
+                r="70"
+              />
+              <circle
+                className="animate-ring-pulse fill-none stroke-aqua/35 stroke-1 [animation-delay:2.2s]"
+                cx="270"
+                cy="330"
+                r="100"
+              />
 
               {/* diving board */}
               <line
@@ -239,7 +248,10 @@ export default function App() {
               />
 
               {/* faint trailing guide for the fall (purely decorative) */}
-              <path className="arc-path" d="M130,55 C205,75 245,190 270,330" />
+              <path
+                className="fill-none stroke-aqua stroke-2 [stroke-dasharray:4_7]"
+                d="M130,55 C205,75 245,190 270,330"
+              />
 
               {/* hidden path the diver actually travels: board run, then the dive */}
               <path
@@ -250,7 +262,7 @@ export default function App() {
               />
 
               {/* splash — flashes on at landing, fades before the loop restarts */}
-              <g className="splash-mark">
+              <g className="stroke-aqua stroke-[1.5] opacity-0 [stroke-linecap:round]">
                 <line x1="245" y1="345" x2="235" y2="362" />
                 <line x1="295" y1="345" x2="305" y2="362" />
                 <line x1="270" y1="350" x2="270" y2="370" />
@@ -265,11 +277,29 @@ export default function App() {
 
               {/* the diver: a head + lean-aligned body so the same pose reads as
       "running lean" when horizontal and "streamlined dive" when vertical */}
-              <g className="diver-figure">
-                <circle cx="0" cy="-18" r="6" className="diver-head" />
-                <line x1="0" y1="-12" x2="0" y2="6" className="diver-body" />
-                <line x1="0" y1="6" x2="-7" y2="20" className="diver-leg" />
-                <line x1="0" y1="6" x2="7" y2="20" className="diver-leg" />
+              <g>
+                <circle cx="0" cy="-18" r="6" className="fill-coral" />
+                <line
+                  x1="0"
+                  y1="-12"
+                  x2="0"
+                  y2="6"
+                  className="stroke-coral stroke-5 [stroke-linecap:round]"
+                />
+                <line
+                  x1="0"
+                  y1="6"
+                  x2="-7"
+                  y2="20"
+                  className="stroke-coral stroke-4 opacity-75 [stroke-linecap:round]"
+                />
+                <line
+                  x1="0"
+                  y1="6"
+                  x2="7"
+                  y2="20"
+                  className="stroke-coral stroke-4 opacity-75 [stroke-linecap:round]"
+                />
 
                 <animateMotion
                   dur="4.5s"
@@ -294,26 +324,14 @@ export default function App() {
           </div>
         </div>
       </section>
-      <WaveDivider from="var(--ink)" to="var(--foam)" />
+      <WaveDivider from="var(--color-ink)" to="var(--color-foam)" />
 
       {/* BODY: feature rows */}
-      <section className="body-zone" id="stupskolen">
+      <section className="bg-foam" id="stupskolen">
         <div className="wrap">
-          <div className="feature-row">
-            <div className="feature-copy">
-              <h2>Meld deg på stupskole for høsten 2026</h2>
-              <p>
-                Med fokus på fysisk og mental læring utfordrer stuping sider ved
-                deg selv du ikke visste fantes. Det tester grenser på en trygg
-                og artig måte — midt i hjertet av Bergen.
-              </p>
-              <p>Vi tilbyr stuping for alle aldre og tilpasser ved behov.</p>
-              <a href="#" className="btn btn-ghost-light">
-                Les mer om stupskolen
-                <ArrowUpRight size={16} />
-              </a>
-            </div>
-            <div className="feature-art">
+          <FeatureRow
+            title="Meld deg på stupskole for høsten 2026"
+            art={
               <svg viewBox="0 0 400 260" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
@@ -332,27 +350,25 @@ export default function App() {
                   />
                 ))}
               </svg>
-            </div>
-          </div>
+            }
+          >
+            <p>
+              Med fokus på fysisk og mental læring utfordrer stuping sider ved
+              deg selv du ikke visste fantes. Det tester grenser på en trygg og
+              artig måte — midt i hjertet av Bergen.
+            </p>
+            <p>Vi tilbyr stuping for alle aldre og tilpasser ved behov.</p>
+            <a href="#" className={buttonStyles.ghostLight}>
+              Les mer om stupskolen
+              <ArrowUpRight size={16} />
+            </a>
+          </FeatureRow>
 
-          <div className="feature-row reverse">
-            <div className="feature-copy">
-              <h2>Aldri prøvd å stupe før?</h2>
-              <p>
-                Vi tilbyr en rekke kurs for alle aldersgrupper og
-                erfaringsnivåer. Har du aldri stått på et stupebrett før? Vi tar
-                godt vare på deg, fra første hopp.
-              </p>
-              <div className="feature-links">
-                <a href="#" className="btn btn-ghost-light">
-                  Les mer om medlemskap
-                </a>
-                <a href="#pamelding" className="btn btn-coral">
-                  Meld deg på her
-                </a>
-              </div>
-            </div>
-            <div className="feature-art alt">
+          <FeatureRow
+            title="Aldri prøvd å stupe før?"
+            reverse
+            lightArt
+            art={
               <svg viewBox="0 0 400 260" preserveAspectRatio="none">
                 <circle cx="330" cy="60" r="70" fill="rgba(35,165,150,0.12)" />
                 <circle cx="80" cy="210" r="90" fill="rgba(35,165,150,0.08)" />
@@ -364,23 +380,27 @@ export default function App() {
                   strokeDasharray="3 8"
                 />
               </svg>
-            </div>
-          </div>
-
-          <div className="feature-row" id="klubbutstyr">
-            <div className="feature-copy">
-              <h2>Klubbutstyr</h2>
-              <p>
-                Vi har klubbtøy fra Craft. I nettbutikken finner du
-                treningsjakker og -bukser, hettegensere, t-skjorter og shorts
-                fra vår egen kolleksjon.
-              </p>
-              <a href="#" className="btn btn-ghost-light">
-                Gå til nettbutikken
-                <ArrowUpRight size={16} />
+            }
+          >
+            <p>
+              Vi tilbyr en rekke kurs for alle aldersgrupper og
+              erfaringsnivåer. Har du aldri stått på et stupebrett før? Vi tar
+              godt vare på deg, fra første hopp.
+            </p>
+            <div className="mt-6.5 flex flex-wrap gap-3.5">
+              <a href="#" className={buttonStyles.ghostLight}>
+                Les mer om medlemskap
+              </a>
+              <a href="#pamelding" className={buttonStyles.coral}>
+                Meld deg på her
               </a>
             </div>
-            <div className="feature-art">
+          </FeatureRow>
+
+          <FeatureRow
+            id="klubbutstyr"
+            title="Klubbutstyr"
+            art={
               <svg viewBox="0 0 400 260" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
@@ -412,116 +432,114 @@ export default function App() {
                   opacity="0.3"
                 />
               </svg>
-            </div>
-          </div>
-
-          <div
-            className="feature-row reverse"
-            id="nyheter"
-            style={{ borderBottom: "none" }}
+            }
           >
-            <div className="feature-copy">
-              <h2>Hold deg oppdatert</h2>
-              <p>
-                På nyhetssiden vår skriver vi om alt fra treningsoppdateringer
-                og konkurranseresultater til andre gode nyheter fra klubben.
-              </p>
-              <a href="#" className="btn btn-ghost-light">
-                Les siste nytt
-                <ArrowUpRight size={16} />
-              </a>
-            </div>
-            <div className="feature-art alt">
+            <p>
+              Vi har klubbtøy fra Craft. I nettbutikken finner du
+              treningsjakker og -bukser, hettegensere, t-skjorter og shorts fra
+              vår egen kolleksjon.
+            </p>
+            <a href="#" className={buttonStyles.ghostLight}>
+              Gå til nettbutikken
+              <ArrowUpRight size={16} />
+            </a>
+          </FeatureRow>
+
+          <FeatureRow
+            id="nyheter"
+            title="Hold deg oppdatert"
+            reverse
+            lightArt
+            last
+            art={
               <svg viewBox="0 0 400 260" preserveAspectRatio="none">
-                <line
-                  x1="30"
-                  y1="60"
-                  x2="370"
-                  y2="60"
-                  stroke="#23a596"
-                  strokeWidth="1"
-                  opacity="0.4"
-                />
-                <line
-                  x1="30"
-                  y1="110"
-                  x2="370"
-                  y2="110"
-                  stroke="#23a596"
-                  strokeWidth="1"
-                  opacity="0.4"
-                />
-                <line
-                  x1="30"
-                  y1="160"
-                  x2="370"
-                  y2="160"
-                  stroke="#23a596"
-                  strokeWidth="1"
-                  opacity="0.4"
-                />
-                <line
-                  x1="30"
-                  y1="210"
-                  x2="370"
-                  y2="210"
-                  stroke="#23a596"
-                  strokeWidth="1"
-                  opacity="0.4"
-                />
+                {[60, 110, 160, 210].map((y) => (
+                  <line
+                    key={y}
+                    x1="30"
+                    y1={y}
+                    x2="370"
+                    y2={y}
+                    stroke="#23a596"
+                    strokeWidth="1"
+                    opacity="0.4"
+                  />
+                ))}
                 <circle cx="30" cy="60" r="4" fill="#ff6f4d" />
               </svg>
-            </div>
-          </div>
+            }
+          >
+            <p>
+              På nyhetssiden vår skriver vi om alt fra treningsoppdateringer og
+              konkurranseresultater til andre gode nyheter fra klubben.
+            </p>
+            <a href="#" className={buttonStyles.ghostLight}>
+              Les siste nytt
+              <ArrowUpRight size={16} />
+            </a>
+          </FeatureRow>
         </div>
       </section>
-      <WaveDivider from="var(--foam)" to="var(--ink)" />
+      <WaveDivider from="var(--color-foam)" to="var(--color-ink)" />
 
       {/* TESTIMONIALS + SAFEGUARDING */}
-      <section className="dark-zone">
+      <section className="bg-ink py-24">
         <div className="wrap">
-          <div className="zone-head">
-            <h2>Hva sier stuperne våre?</h2>
-            <p>
+          <div className="mb-13 max-w-[46ch]">
+            <h2 className="text-[clamp(26px,3vw,34px)] text-foam">
+              Hva sier stuperne våre?
+            </h2>
+            <p className="mt-3.5 text-base text-foam/70">
               Stemmer fra medlemmene — fra ferske nybegynnere til stupere som
               har vokst opp i klubben.
             </p>
           </div>
-          <div className="quote-grid">
+          <div className="grid grid-cols-2 gap-px border border-line-dark bg-line-dark max-[900px]:grid-cols-1">
             {TESTIMONIALS.map((t) => (
-              <div className="quote-card" key={t.name}>
-                <p>&ldquo;{t.quote}&rdquo;</p>
-                <footer>
-                  {t.name} <span>— {t.detail}</span>
+              <div className="bg-ink px-8 py-8.5" key={t.name}>
+                <p className="mb-4.5 text-[17px] leading-[1.55] text-foam">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <footer className="flex items-baseline gap-2 text-[14px] font-semibold text-aqua">
+                  {t.name}{" "}
+                  <span className="font-normal text-foam/50">
+                    — {t.detail}
+                  </span>
                 </footer>
               </div>
             ))}
           </div>
 
-          <div className="safe-banner">
-            <div className="left">
-              <div className="icon-wrap">
+          <div className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded bg-pool px-9.5 py-8.5">
+            <div className="flex items-center gap-4">
+              <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-aqua/15 text-aqua">
                 <ShieldCheck size={20} />
               </div>
               <div>
-                <h3>Vi tar varsler på alvor</h3>
-                <p>Trygghet for alle stupere er vårt viktigste ansvar.</p>
+                <h3 className="text-[19px] text-foam">
+                  Vi tar varsler på alvor
+                </h3>
+                <p className="mt-1 text-[14.5px] text-foam/68">
+                  Trygghet for alle stupere er vårt viktigste ansvar.
+                </p>
               </div>
             </div>
-            <a href="#" className="btn btn-ghost-dark">
+            <a href="#" className={buttonStyles.ghostDark}>
               Les mer
               <ArrowUpRight size={16} />
             </a>
           </div>
         </div>
       </section>
-      <WaveDivider from="var(--ink)" to="var(--foam)" />
+      <WaveDivider from="var(--color-ink)" to="var(--color-foam)" />
 
       {/* INCLUSIVITY */}
-      <section className="body-zone inclusive">
-        <div className="wrap">
-          <h2>I Bergen Stupeklubb er alle velkomne</h2>
-          <p>
+      <section className="bg-foam py-22.5 text-center">
+        <div className="mx-auto max-w-160 px-7">
+          <h2 className="text-[clamp(24px,3vw,30px)]">
+            I Bergen Stupeklubb er alle velkomne
+          </h2>
+          <p className="mt-4 text-[16.5px] text-muted">
             Å tilpasse trening til deg eller dine er aldri noe problem. Trenerne
             våre er erfarne i akkurat det. Velkommen skal du være.
           </p>
@@ -529,60 +547,72 @@ export default function App() {
       </section>
 
       {/* SPONSORS */}
-      <section className="body-zone sponsors" id="sponsorer">
+      <section className="bg-foam pb-24" id="sponsorer">
         <div className="wrap">
-          <h2>Våre sponsorer</h2>
-          <div className="sponsor-row">
+          <h2 className="mb-10 text-center font-sans text-[22px] font-semibold text-muted">
+            Våre sponsorer
+          </h2>
+          <div className="flex flex-wrap items-center justify-center gap-12">
             {SPONSORS.map((s) => (
-              <span key={s}>{s}</span>
+              <span
+                key={s}
+                className="font-display text-[18px] font-semibold text-mist"
+              >
+                {s}
+              </span>
             ))}
           </div>
-          <div className="sponsors-cta">
-            <a href="#" className="btn btn-ghost-light">
+          <div className="mt-9 text-center">
+            <a href="#" className={buttonStyles.ghostLight}>
               Les mer om sponsing
               <ArrowUpRight size={16} />
             </a>
           </div>
         </div>
       </section>
-      <WaveDivider from="var(--foam)" to="var(--ink)" />
+      <WaveDivider from="var(--color-foam)" to="var(--color-ink)" />
 
       {/* CONTACT */}
-      <section className="contact-zone" id="kontakt">
+      <section className="bg-ink pt-24" id="kontakt">
         <div className="wrap">
-          <div className="contact-grid">
+          <div className="grid grid-cols-[1.2fr_1fr] gap-15 border-b border-line-dark pb-20 max-[900px]:grid-cols-1 max-[900px]:gap-11">
             <div>
-              <h2>Ta kontakt!</h2>
-              <p>
+              <h2 className="max-w-[12ch] text-[clamp(28px,3.4vw,38px)] text-foam">
+                Ta kontakt!
+              </h2>
+              <p className="mt-4.5 max-w-[44ch] text-base text-foam/70">
                 For oss er det viktig at du føler deg velkommen. Har du spørsmål
                 vi ikke har svart på her, vil vi at du skal ta kontakt fort som
                 bare rakkeren. Vi digger spørsmål — vi er jo tross alt
                 bergensere.
               </p>
-              <div className="social-row">
+              <div className="mt-7 flex gap-3.5">
                 <a
                   href="https://www.instagram.com/bergendivingclub/"
                   aria-label="Instagram"
+                  className={socialLinkStyles}
                 >
                   <InstagramIcon />
                 </a>
                 <a
                   href="https://www.facebook.com/bergenstupeklubb"
                   aria-label="Facebook"
+                  className={socialLinkStyles}
                 >
                   <FacebookIcon />
                 </a>
                 <a
                   href="mailto:dagligleder@bergen-stupeklubb.no"
                   aria-label="E-post"
+                  className={socialLinkStyles}
                 >
                   <Mail size={19} />
                 </a>
               </div>
             </div>
-            <div className="contact-details">
-              <div className="contact-item">
-                <Mail className="icon" size={19} />
+            <div className="flex flex-col gap-5 text-[15px] text-foam/85 [&_strong]:mb-0.75 [&_strong]:block [&_strong]:text-[13px] [&_strong]:font-semibold [&_strong]:text-foam">
+              <div className="flex items-start gap-3.5">
+                <Mail className="mt-0.5 shrink-0 text-aqua" size={19} />
                 <div>
                   <strong>E-post</strong>
                   <a href="mailto:hovedtrener@bergen-stupeklubb.no">
@@ -590,15 +620,15 @@ export default function App() {
                   </a>
                 </div>
               </div>
-              <div className="contact-item">
-                <Phone className="icon" size={19} />
+              <div className="flex items-start gap-3.5">
+                <Phone className="mt-0.5 shrink-0 text-aqua" size={19} />
                 <div>
                   <strong>Telefon</strong>
                   <a href="tel:+4793299995">(+47) 932 99 995</a>
                 </div>
               </div>
-              <div className="contact-item">
-                <MapPin className="icon" size={19} />
+              <div className="flex items-start gap-3.5">
+                <MapPin className="mt-0.5 shrink-0 text-aqua" size={19} />
                 <div>
                   <strong>Adresse</strong>
                   <span>ADO Arena, Lungegårdskaien 40, 5015 Bergen</span>
@@ -607,15 +637,19 @@ export default function App() {
             </div>
           </div>
 
-          <div className="footer-bottom">
-            <div className="footer-links">
+          <div className="flex flex-wrap items-center justify-between gap-4 py-9">
+            <div className="flex flex-wrap gap-5">
               {FOOTER_LINKS.map((l) => (
-                <a key={l.label} href={l.href}>
+                <a
+                  key={l.label}
+                  href={l.href}
+                  className="text-[13.5px] text-foam/55 hover:text-aqua"
+                >
                   {l.label}
                 </a>
               ))}
             </div>
-            <div className="footer-brand">
+            <div className="text-[13px] text-foam/40">
               Bergen Stupeklubb — ADO Arena, Lungegårdskaien 40, 5015 Bergen
             </div>
           </div>
