@@ -1,5 +1,5 @@
-import EmailInnhold from "@/components/Påmelding/EmailInnhold/EmailInnhold";
-import type { PåmeldingData } from "@/components/Påmelding/PåmeldingStruktur/påmeldingStruktur";
+import EmailInnhold from "@/src/app/components/Påmelding/EmailInnhold";
+import type { PåmeldingData } from "@/src/app/components/Påmelding/påmeldingStruktur";
 
 export default function EpostTestSide() {
     const testPåmelding: PåmeldingData = {
