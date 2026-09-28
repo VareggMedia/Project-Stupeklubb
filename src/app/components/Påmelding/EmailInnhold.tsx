@@ -1,4 +1,4 @@
-import { PåmeldingData } from "../PåmeldingStruktur/påmeldingStruktur";
+import { PåmeldingData } from "../påmeldingStruktur";
 
 type EmailProp = {
     data: PåmeldingData

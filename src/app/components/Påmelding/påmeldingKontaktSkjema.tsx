@@ -1,9 +1,9 @@
 'use client'
-import { PåmeldingData, usePåmelding } from "../PåmeldingStruktur/påmeldingStruktur";
+import { PåmeldingData, usePåmelding } from "./påmeldingStruktur";
 import Select, { StylesConfig } from 'react-select';
 import countries from 'i18n-iso-countries'
 import norsk from 'i18n-iso-countries/langs/nb.json'
-import React from "react";
+import React, { useEffect } from "react";
 
 countries.registerLocale(norsk)
 
@@ -11,7 +11,11 @@ type SelectOption = {
     value: string | null;
     label: string;
 }
-type setStepProp = {setStep: React.Dispatch<React.SetStateAction<number>>}
+type setStepProp = {
+    setStep: React.Dispatch<React.SetStateAction<number>>;
+    step: number;
+    setKontakt: React.Dispatch<React.SetStateAction<boolean>>;
+}
 const landnavn = countries.getNames('nb', { select: 'official' })
 const alternativer = Object.entries(landnavn).map(
     ([kode, navn]) => ({
@@ -21,7 +25,7 @@ const alternativer = Object.entries(landnavn).map(
 )
 const defaultland = alternativer.find((land) => land.value === 'NO')
 
-export default function PåmeldingSkjema({setStep}: setStepProp) {
+export default function PåmeldingSkjema({step, setStep, setKontakt}: setStepProp) {
     const { påmelding, setPåmelding } = usePåmelding();
     function submit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -41,7 +45,8 @@ export default function PåmeldingSkjema({setStep}: setStepProp) {
         påmelding.navn !== '' &&
         påmelding.fødseldato !== '' &&
         påmelding.email !== '' &&
-        påmelding.mobil !== ''
+        påmelding.mobil !== '' &&
+        step === 2 
     );
 
     const inputStyle = "w-full rounded-lg border border-cyan-200 bg-white/70 px-3 py-2 text-sm text-cyan-950 placeholder:text-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-colors"
@@ -69,6 +74,10 @@ export default function PåmeldingSkjema({setStep}: setStepProp) {
             color: '#083344',
         }),
     }
+
+    useEffect(()=>{
+        setKontakt(isFormValid)
+    }, [isFormValid, setKontakt])
 
     return (
         <div className="flex items-center justify-center">

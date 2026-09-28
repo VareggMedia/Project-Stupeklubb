@@ -1,4 +1,4 @@
-import { PåmeldingProvider } from "@/components/Påmelding/PåmeldingStruktur/påmeldingStruktur";
+import { PåmeldingProvider } from "@/src/app/components/Påmelding/påmeldingStruktur";
 
 
 export default function testlayout({children}: {children: React.ReactNode}) {

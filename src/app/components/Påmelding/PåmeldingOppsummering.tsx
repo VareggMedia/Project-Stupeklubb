@@ -1,6 +1,6 @@
 'use client'
 import { createClient } from "@/lib/Supabase/client"
-import { usePåmelding } from "../PåmeldingStruktur/påmeldingStruktur"
+import { usePåmelding } from "./påmeldingStruktur"
 import sendSkjema from "@/lib/Resend/Resend"
 
 export default function PåmeldingOversikt() {
@@ -35,10 +35,10 @@ export default function PåmeldingOversikt() {
     }
 
     return (
-        <div className="flex items-center justify-center px-4 py-6">
+        <div className="flex items-center justify-center">
             <form
                 onSubmit={sendPåmelding}
-                className="w-full max-w-lg bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-cyan-100/50 border border-cyan-200/40 p-8 space-y-6"
+                className="w-full bg-white/80 backdrop-blur-sm rounded-b-2xl shadow-lg shadow-cyan-100/50 border border-cyan-200/40 p-8 space-y-6"
             >
                 <h2 className="text-2xl font-semibold text-cyan-900 text-center">
                     Oppsummering
