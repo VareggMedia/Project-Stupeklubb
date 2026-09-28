@@ -71,8 +71,8 @@ export default function PåmeldingSkjema({setStep}: setStepProp) {
     }
 
     return (
-        <div className="flex items-center justify-center px-4 py-6">
-            <div className="w-full max-w-lg bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-cyan-100/50 border border-cyan-200/40 p-8">
+        <div className="flex items-center justify-center">
+            <div className="w-full bg-white/80 backdrop-blur-sm rounded-b-2xl shadow-lg shadow-cyan-100/50 border border-cyan-200/40 p-8">
                 <form onSubmit={submit} className="space-y-4">
                     <section className="space-y-4">
                         <div>

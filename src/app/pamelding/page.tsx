@@ -7,22 +7,31 @@ export default function Påmelding() {
   const [step, setStep] = useState<number>(1)
   return (
     <div className="py-24 grid justify-center">
-      <div className="">
-        <h1 className="">Påmelding</h1>
+      <div className="flex justify-center my-10">
+        <h1 className="text-5xl">Påmelding</h1>
       </div>
-      <div className="w-140">
-        <h1>hei</h1>
-        <div className="" onClick={()=> setStep(2)}>
-          {step === 1 &&(
-          <section>
-            <PåmeldingSkjema setStep={setStep} />
-          </section>)}
+      <div className="flex justify-evenly items-center">
+        <div onClick={()=> setStep(1)} className="font-semibold bg-taupe-300 rounded-t-lg cursor-pointer px-19 py-2">
+          <p>Kontaktinfo</p>
         </div>
-        <div onClick={()=> setStep(1)}>
+        <div onClick={()=> setStep(2)} className="font-semibold bg-taupe-300 rounded-t-lg cursor-pointer px-19 py-2">
+          <p>Oppsummering</p>
+        </div>
+      </div>
+      <div className="w-130">
+        <div className="" >
+          {step === 1 &&(
+            <section>
+              <PåmeldingSkjema setStep={setStep} />
+            </section>
+          )}
+        </div>
+        <div>
           {step === 2 &&(
-          <section>
-            <PåmeldingOversikt />
-          </section>)}
+            <section>
+              <PåmeldingOversikt />
+            </section>
+          )}
         </div>
       </div>
     </div>
