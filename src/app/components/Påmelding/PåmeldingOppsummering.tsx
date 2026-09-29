@@ -54,6 +54,7 @@ export default function PåmeldingOversikt() {
                         ["Fødselsdato", visDato],
                         ["Telefon", påmelding.mobil],
                         ["E-post", påmelding.email],
+                        ["Adresse", påmelding.adresse]
                     ].map(([label, value]) => (
                         <div key={label} className="flex justify-between py-3">
                             <dt className="text-sm text-cyan-700">{label}</dt>
@@ -62,14 +63,6 @@ export default function PåmeldingOversikt() {
                             </dd>
                         </div>
                     ))}
-                    <div className="flex justify-between py-3">
-                        <dt className="text-sm text-cyan-700">Adresse</dt>
-                        <dd className="text-sm font-medium text-cyan-950 text-right">
-                            <address className="not-italic">
-                                {påmelding.adresse}
-                            </address>
-                        </dd>
-                    </div>
                 </dl>
 
                 {/* Klubb-info }

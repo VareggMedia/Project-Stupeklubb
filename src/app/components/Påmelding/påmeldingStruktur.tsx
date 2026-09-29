@@ -27,13 +27,13 @@ const PåmeldingContext = createContext<PåmeldingContextType | undefined>(undef
 
 export function PåmeldingProvider({children}: {children: ReactNode}) {
     const [påmelding, setPåmelding] = useState<PåmeldingData>({
-        medlemstype: 'Ny medlem',
+        medlemstype: '',
         navn: '',
         kjønn: null ,
         fødseldato: '',
         mobil: '',
         email: '',
-        nasjon: 'NO',
+        nasjon: 'Norge',
         adresse: '',
         valg: 'megSelv',
         samtykke: false,

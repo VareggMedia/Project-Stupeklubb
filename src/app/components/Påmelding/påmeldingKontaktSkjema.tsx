@@ -122,6 +122,7 @@ export default function PåmeldingSkjema({step, setStep, setKontakt}: setStepPro
                             <Select<SelectOption, false>
                                 inputId="valg"
                                 instanceId="kjønn"
+                                placeholder="-- Velg --"
                                 options={kjønnvalg}
                                 styles={selectStyles}
                                 onChange={(valgt) => {
