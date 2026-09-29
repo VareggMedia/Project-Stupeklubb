@@ -13,7 +13,6 @@ type SelectOption = {
 }
 type setStepProp = {
     setStep: React.Dispatch<React.SetStateAction<number>>;
-    step: number;
     setKontakt: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const landnavn = countries.getNames('nb', { select: 'official' })
@@ -25,7 +24,7 @@ const alternativer = Object.entries(landnavn).map(
 )
 const defaultland = alternativer.find((land) => land.value === 'NO')
 
-export default function PåmeldingSkjema({step, setStep, setKontakt}: setStepProp) {
+export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
     const { påmelding, setPåmelding } = usePåmelding();
     function submit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -45,8 +44,7 @@ export default function PåmeldingSkjema({step, setStep, setKontakt}: setStepPro
         påmelding.navn !== '' &&
         påmelding.fødseldato !== '' &&
         påmelding.email !== '' &&
-        påmelding.mobil !== '' &&
-        step === 2 
+        påmelding.mobil !== ''
     );
 
     const inputStyle = "w-full rounded-lg border border-cyan-200 bg-white/70 px-3 py-2 text-sm text-cyan-950 placeholder:text-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-colors"

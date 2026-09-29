@@ -17,7 +17,9 @@ export default function Påmelding() {
         <div onClick={()=> setStep(0)} className={`font-semibold bg-taupe-300 rounded-t-lg cursor-pointer px-19 ${step === 0 ? "opacity-100" : "opacity-50"} py-2`}>
           <p>Medlemskap</p>
         </div>
-        <div onClick={()=> {if (valg) setStep(1)}} className={`font-semibold bg-taupe-300 rounded-t-lg ${valg === true ? "cursor-pointer" : "cursor-not-allowed"} px-19 ${step === 1 ? "opacity-100" : "opacity-50"} py-2`}>
+        <div onClick={()=> {
+          if (valg) setStep(1)
+          }} className={`font-semibold bg-taupe-300 rounded-t-lg ${valg === true ? "cursor-pointer" : "cursor-not-allowed"} px-19 ${step === 1 ? "opacity-100" : "opacity-50"} py-2`}>
           <p>Kontaktinfo</p>
         </div>
         <div onClick={()=> {
@@ -36,7 +38,7 @@ export default function Påmelding() {
         <div>
           {step === 1 &&(
             <section>
-              <PåmeldingSkjema setStep={setStep} step={step} setKontakt={setKontakt}/>
+              <PåmeldingSkjema setStep={setStep} setKontakt={setKontakt}/>
             </section>
           )}
         </div>
