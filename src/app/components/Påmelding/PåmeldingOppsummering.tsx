@@ -2,10 +2,12 @@
 import { createClient } from "@/lib/Supabase/client"
 import { usePåmelding } from "./påmeldingStruktur"
 import sendSkjema from "@/lib/Resend/Resend"
+import { useRouter } from "next/navigation"
 
 export default function PåmeldingOversikt() {
     const { påmelding } = usePåmelding()
     const supabase = createClient()
+    const router = useRouter()
 
     const tidform = påmelding.fødseldato
     const [år, månde, dag] = tidform.split('-')
@@ -31,6 +33,8 @@ export default function PåmeldingOversikt() {
             return
         } 
         await sendSkjema(påmelding)
+
+        router.push("/pamelding/kvittering")
 
     }
 
