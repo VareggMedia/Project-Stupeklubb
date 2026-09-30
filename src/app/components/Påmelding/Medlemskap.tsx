@@ -50,7 +50,7 @@ export default function Medlemskap({setStep, setValg}:setStepProp) {
             <div className=''>
                 <p>
                   <strong>Innmelding som medlem i Bergen Stupeklubb</strong>
-                  <br/><br/>Dette skjema er for dem  trenger å melde seg inn på alternative måter etter avtale med hovedtrener eller daglig leder.
+                  <br/><br/>Dette skjema er for dem som trenger å melde seg inn på alternative måter etter avtale med hovedtrener eller daglig leder.
                   Aktive utøvere blir automatisk meldt inn som medlem.
                 </p>
                 <br/>

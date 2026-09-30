@@ -4,6 +4,7 @@ import { usePåmelding } from "./påmeldingStruktur"
 import sendSkjema from "@/lib/Resend/Resend"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import countries from 'i18n-iso-countries'
 
 export default function PåmeldingOversikt() {
     const { påmelding } = usePåmelding()
@@ -14,6 +15,7 @@ export default function PåmeldingOversikt() {
     const tidform = påmelding.fødseldato
     const [år, månde, dag] = tidform.split('-')
     const visDato = `${dag}.${månde}.${år}`
+    const vistNasjon = countries.getName(påmelding.nasjon, "nb") ?? påmelding.nasjon
 
     async function sendPåmelding(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -62,7 +64,7 @@ export default function PåmeldingOversikt() {
                     {[
                         ["Medlemstype", påmelding.medlemstype],
                         ["Navn", påmelding.navn],
-                        ["Nasjonalitet", påmelding.nasjon],
+                        ["Nasjonalitet", vistNasjon],
                         ["Kjønn", påmelding.kjønn],
                         ["Fødselsdato", visDato],
                         ["Telefon", påmelding.mobil],
