@@ -32,6 +32,7 @@ export default function PåmeldingOversikt() {
                 kjønn: påmelding.kjønn,
                 status: påmelding.medlemstype
             })
+
         if (error) {
             console.error("Noe gikk galt med Supabase: ", error)
             setSender(false)
@@ -41,11 +42,11 @@ export default function PåmeldingOversikt() {
 
         if (!resultat.success) {
             console.error("E-post feilet:", resultat.error)
-            setSender(false)
+            router.push("/pamelding/kvittering?epost=feilet")
             return
         }
 
-        router.push("/pamelding/kvittering")
+        router.push("/pamelding/kvittering?epost=true")
 
     }
 
