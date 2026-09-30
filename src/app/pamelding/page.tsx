@@ -23,8 +23,8 @@ export default function Påmelding() {
           <p>Kontaktinfo</p>
         </button>
         <button type="button" onClick={()=> {
-          if (kontakt) setStep(2)
-        }} className={`flex-1 text-center font-semibold bg-taupe-300 rounded-t-lg ${kontakt === true ? "cursor-pointer" : "cursor-not-allowed"} ${step === 2 ? "opacity-100" : "opacity-50" } py-2`}>
+          if (valg && kontakt) setStep(2)
+        }} className={`flex-1 text-center font-semibold bg-taupe-300 rounded-t-lg ${valg && kontakt === true ? "cursor-pointer" : "cursor-not-allowed"} ${step === 2 ? "opacity-100" : "opacity-50" } py-2`}>
           <p>Oppsummering</p>
         </button>
       </div>
