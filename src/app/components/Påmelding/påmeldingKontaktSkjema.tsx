@@ -22,7 +22,7 @@ const alternativer = Object.entries(landnavn).map(
         label: navn,
     })
 )
-const defaultland = alternativer.find((land) => land.value === 'NO')
+
 
 export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
     const { påmelding, setPåmelding } = usePåmelding();
@@ -103,7 +103,9 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             <Select<SelectOption, false>
                                 inputId="nasjon"
                                 instanceId="nasjon"
-                                defaultValue={defaultland}
+                                value={alternativer.find(
+                                    (option) => option.value === påmelding.nasjon
+                                ) ?? null}
                                 options={alternativer}
                                 styles={selectStyles}
                                 onChange={(valgt) => {
@@ -116,13 +118,16 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                         </div>
 
                         <div>
-                            <label className={labelStyle} htmlFor="valg">Kjønn</label>
+                            <label className={labelStyle} htmlFor="kjonn">Kjønn</label>
                             <Select<SelectOption, false>
-                                inputId="valg"
-                                instanceId="kjønn"
+                                inputId="kjonn"
+                                instanceId="kjonn"
                                 placeholder="-- Velg --"
                                 options={kjønnvalg}
                                 styles={selectStyles}
+                                value={kjønnvalg.find(
+                                    (option) => option.value === påmelding.kjønn
+                                ) ?? null}
                                 onChange={(valgt) => {
                                     setPåmelding((prev) => ({
                                         ...prev,
