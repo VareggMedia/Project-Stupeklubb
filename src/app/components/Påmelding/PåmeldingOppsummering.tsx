@@ -3,9 +3,11 @@ import { createClient } from "@/lib/Supabase/client"
 import { usePåmelding } from "./påmeldingStruktur"
 import sendSkjema from "@/lib/Resend/Resend"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 export default function PåmeldingOversikt() {
     const { påmelding } = usePåmelding()
+    const [sender, setSender] = useState(false)
     const supabase = createClient()
     const router = useRouter()
 
@@ -15,7 +17,7 @@ export default function PåmeldingOversikt() {
 
     async function sendPåmelding(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault()
-        
+        setSender(true)
         const {error} = await supabase
             .from("påmelding")
             .insert({
@@ -30,12 +32,14 @@ export default function PåmeldingOversikt() {
             })
         if (error) {
             console.error("Noe gikk galt med Supabase: ", error)
+            setSender(false)
             return
         } 
         const resultat = await sendSkjema(påmelding)
 
         if (!resultat.success) {
             console.error("E-post feilet:", resultat.error)
+            setSender(false)
             return
         }
 
@@ -94,7 +98,8 @@ export default function PåmeldingOversikt() {
                 <div className="pt-2">
                     <button
                         type="submit"
-                        className="w-full rounded-xl bg-cyan-600 px-4 py-3 text-sm font-semibold text-white hover:bg-cyan-700 active:bg-cyan-800 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 cursor-pointer"
+                        disabled={sender}
+                        className={` disabled:opacity-50 disabled:cursor-not-allowed w-full rounded-xl bg-cyan-600 px-4 py-3 text-sm font-semibold text-white hover:bg-cyan-700 active:bg-cyan-800 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 cursor-pointer `}
                     >
                         Send påmelding
                     </button>
