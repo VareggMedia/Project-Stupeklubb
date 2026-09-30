@@ -13,22 +13,22 @@ export default function Påmelding() {
       <div className="flex justify-center my-10">
         <h1 className="text-5xl">Påmelding</h1>
       </div>
-      <div className="flex justify-evenly items-center">
-        <div onClick={()=> setStep(0)} className={`font-semibold bg-taupe-300 rounded-t-lg cursor-pointer px-19 ${step === 0 ? "opacity-100" : "opacity-50"} py-2`}>
+      <div className="flex justify-evenly items-center gap-1">
+        <div onClick={()=> setStep(0)} className={`flex-1 text-center font-semibold bg-taupe-300 rounded-t-lg cursor-pointer ${step === 0 ? "opacity-100" : "opacity-50"} py-2`}>
           <p>Medlemskap</p>
         </div>
         <div onClick={()=> {
           if (valg) setStep(1)
-          }} className={`font-semibold bg-taupe-300 rounded-t-lg ${valg === true ? "cursor-pointer" : "cursor-not-allowed"} px-19 ${step === 1 ? "opacity-100" : "opacity-50"} py-2`}>
+          }} className={`flex-1 text-center font-semibold bg-taupe-300 rounded-t-lg ${valg === true ? "cursor-pointer" : "cursor-not-allowed"} ${step === 1 ? "opacity-100" : "opacity-50"} py-2`}>
           <p>Kontaktinfo</p>
         </div>
         <div onClick={()=> {
           if (kontakt) setStep(2)
-        }} className={`font-semibold bg-taupe-300 rounded-t-lg px-19 ${kontakt === true ? "cursor-pointer" : "cursor-not-allowed"} ${step === 2 ? "opacity-100" : "opacity-50" } py-2`}>
+        }} className={`flex-1 text-center font-semibold bg-taupe-300 rounded-t-lg ${kontakt === true ? "cursor-pointer" : "cursor-not-allowed"} ${step === 2 ? "opacity-100" : "opacity-50" } py-2`}>
           <p>Oppsummering</p>
         </div>
       </div>
-      <div className="w-3xl">
+      <div className="w-full max-w-3xl">
         <div>
           {step === 0 &&(
           <section>
