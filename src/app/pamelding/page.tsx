@@ -14,19 +14,19 @@ export default function Påmelding() {
         <h1 className="text-5xl">Påmelding</h1>
       </div>
       <div className="flex justify-evenly items-center gap-1">
-        <div onClick={()=> setStep(0)} className={`flex-1 text-center font-semibold bg-taupe-300 rounded-t-lg cursor-pointer ${step === 0 ? "opacity-100" : "opacity-50"} py-2`}>
+        <button type="button" onClick={()=> setStep(0)} className={`flex-1 text-center font-semibold bg-taupe-300 rounded-t-lg cursor-pointer ${step === 0 ? "opacity-100" : "opacity-50"} py-2`}>
           <p>Medlemskap</p>
-        </div>
-        <div onClick={()=> {
+        </button>
+        <button type="button" onClick={()=> {
           if (valg) setStep(1)
           }} className={`flex-1 text-center font-semibold bg-taupe-300 rounded-t-lg ${valg === true ? "cursor-pointer" : "cursor-not-allowed"} ${step === 1 ? "opacity-100" : "opacity-50"} py-2`}>
           <p>Kontaktinfo</p>
-        </div>
-        <div onClick={()=> {
+        </button>
+        <button type="button" onClick={()=> {
           if (kontakt) setStep(2)
         }} className={`flex-1 text-center font-semibold bg-taupe-300 rounded-t-lg ${kontakt === true ? "cursor-pointer" : "cursor-not-allowed"} ${step === 2 ? "opacity-100" : "opacity-50" } py-2`}>
           <p>Oppsummering</p>
-        </div>
+        </button>
       </div>
       <div className="w-full max-w-3xl">
         <div>
