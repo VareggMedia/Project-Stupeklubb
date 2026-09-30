@@ -63,10 +63,14 @@ export default function Medlemskap({setStep, setValg}:setStepProp) {
                 <form onSubmit={submit} className='flex flex-col gap-3'>
                     <label htmlFor="medlem-type" className='font-bold'>Medlemstype</label>
                     <Select<SelectOption, false> 
-                        inputId="valg"
+                        inputId="medlem-type"
+                        instanceId={"medlem-type"}
                         placeholder="-- Velg Type --"
                         options={options}
                         styles={selectStyles}
+                        value={options.find(
+                            (option) => option.value === påmelding.medlemstype
+                        ) ?? null}
                         onChange={(valgt) => {
                             setPåmelding((prev) => ({
                                 ...prev,
