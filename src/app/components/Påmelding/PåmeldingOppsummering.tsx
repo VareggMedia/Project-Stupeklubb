@@ -32,7 +32,12 @@ export default function PåmeldingOversikt() {
             console.error("Noe gikk galt med Supabase: ", error)
             return
         } 
-        await sendSkjema(påmelding)
+        const resultat = await sendSkjema(påmelding)
+
+        if (!resultat.success) {
+            console.error("E-post feilet:", resultat.error)
+            return
+        }
 
         router.push("/pamelding/kvittering")
 
