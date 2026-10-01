@@ -1,17 +1,15 @@
 'use server'
 import { Resend } from "resend";
-import { PåmeldingData } from "@/components/Påmelding/PåmeldingStruktur/påmeldingStruktur";
-import EmailInnhold from "@/components/Påmelding/EmailInnhold/EmailInnhold";
+import { PåmeldingData } from "@/src/app/components/Påmelding/påmeldingStruktur";
+import EmailInnhold from "@/src/app/components/Påmelding/EmailInnhold";
 import { createElement } from "react";
-interface mailType{
-    from: string;
-    to: string;
-    subject: string;
-    react: string;
+
+type sendResult = {
+    success: boolean;
+    error?: string
 }
 
-
-export default async function sendSkjema(data: PåmeldingData): Promise<mailType|undefined> {
+export default async function sendSkjema(data: PåmeldingData): Promise<sendResult> {
     const resend = new Resend(process.env.RESEND_API)
     const {email, navn} = data;
 
@@ -23,8 +21,22 @@ export default async function sendSkjema(data: PåmeldingData): Promise<mailType
             react: createElement(EmailInnhold, {data})
         })
 
-        if (error) {return }
+        if (error) {
+            return {
+                success: false,
+                error: error.message
+                
+            }
+        }
+
+        return {
+            success: true
+        }
     } catch (error) {
         console.error('Feil med å sende email', error)
+        return {
+            success: false,
+            error: error instanceof Error ? error.message : String(error)
+        }
     }
 }
