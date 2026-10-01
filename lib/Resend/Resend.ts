@@ -24,7 +24,7 @@ export default async function sendSkjema(data: PåmeldingData): Promise<sendResu
         if (error) {
             return {
                 success: false,
-                error: String(error)
+                error: error.message
                 
             }
         }
