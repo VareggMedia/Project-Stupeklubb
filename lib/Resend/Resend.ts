@@ -6,7 +6,7 @@ import { createElement } from "react";
 
 type sendResult = {
     success: boolean;
-    error?: unknown
+    error?: string
 }
 
 export default async function sendSkjema(data: PåmeldingData): Promise<sendResult> {
@@ -24,7 +24,7 @@ export default async function sendSkjema(data: PåmeldingData): Promise<sendResu
         if (error) {
             return {
                 success: false,
-                error
+                error: String(error)
                 
             }
         }
@@ -36,7 +36,7 @@ export default async function sendSkjema(data: PåmeldingData): Promise<sendResu
         console.error('Feil med å sende email', error)
         return {
             success: false,
-            error
+            error: String(error)
         }
     }
 }
