@@ -1,15 +1,12 @@
-"use client"
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
 
-export default function Kvittering(){
-    const searchParams = useSearchParams()
-    const epost = searchParams.get("epost")
+export default async function Kvittering({searchParams}: {searchParams: Promise<{ epost?: string}>}){
+    const {epost} = await searchParams
     return (
         <div className="text-cyan-950 text-center mb-20 mt-30 space-y-7">
             <h1>Påmelding er sendt til oss</h1>
             <p>Takk for at du har meldt deg inn på Stupeklubben.</p>
-                {epost === "false" ? (
+                {epost === "feilet" ? (
                     <p>Påmeldingen er mottatt, men e-posten med kvittering kunne ikke sendes.</p>
                 ) : (
                     <p>Du finner en kvittering av bestillingen på mail.</p>

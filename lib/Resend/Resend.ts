@@ -36,7 +36,7 @@ export default async function sendSkjema(data: PåmeldingData): Promise<sendResu
         console.error('Feil med å sende email', error)
         return {
             success: false,
-            error: String(error)
+            error: error instanceof Error ? error.message : String(error)
         }
     }
 }
