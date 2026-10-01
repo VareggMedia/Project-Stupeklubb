@@ -1,19 +1,27 @@
 'use client'
 import { createClient } from "@/lib/Supabase/client"
-import { usePåmelding } from "../PåmeldingStruktur/påmeldingStruktur"
+import { usePåmelding } from "./påmeldingStruktur"
 import sendSkjema from "@/lib/Resend/Resend"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import countries from 'i18n-iso-countries'
 
 export default function PåmeldingOversikt() {
     const { påmelding } = usePåmelding()
+    const [sender, setSender] = useState(false)
+    const [feilmelding, setFeilmelding] = useState("")
     const supabase = createClient()
+    const router = useRouter()
 
     const tidform = påmelding.fødseldato
     const [år, månde, dag] = tidform.split('-')
     const visDato = `${dag}.${månde}.${år}`
+    const vistNasjon = countries.getName(påmelding.nasjon, "nb") ?? påmelding.nasjon
 
     async function sendPåmelding(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault()
-        
+        setFeilmelding("")
+        setSender(true)
         const {error} = await supabase
             .from("påmelding")
             .insert({
@@ -26,19 +34,30 @@ export default function PåmeldingOversikt() {
                 kjønn: påmelding.kjønn,
                 status: påmelding.medlemstype
             })
+
         if (error) {
             console.error("Noe gikk galt med Supabase: ", error)
+            setFeilmelding("Noe gikk galt. Prøv igjen.")
+            setSender(false)
             return
         } 
-        await sendSkjema(påmelding)
+        const resultat = await sendSkjema(påmelding)
+
+        if (!resultat.success) {
+            console.error("E-post feilet:", resultat.error)
+            router.push("/pamelding/kvittering?epost=feilet")
+            return
+        }
+
+        router.push("/pamelding/kvittering?epost=true")
 
     }
 
     return (
-        <div className="min-h-screen bg-linear-to-b from-sky-50 to-cyan-100 flex items-center justify-center px-4 py-12">
+        <div className="flex items-center justify-center">
             <form
                 onSubmit={sendPåmelding}
-                className="w-full max-w-lg bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-cyan-100/50 border border-cyan-200/40 p-8 space-y-6"
+                className="w-full bg-white/80 backdrop-blur-sm rounded-b-2xl shadow-lg shadow-cyan-100/50 border border-cyan-200/40 p-8 space-y-6"
             >
                 <h2 className="text-2xl font-semibold text-cyan-900 text-center">
                     Oppsummering
@@ -49,11 +68,12 @@ export default function PåmeldingOversikt() {
                     {[
                         ["Medlemstype", påmelding.medlemstype],
                         ["Navn", påmelding.navn],
-                        ["Nasjonalitet", påmelding.nasjon],
+                        ["Nasjonalitet", vistNasjon],
                         ["Kjønn", påmelding.kjønn],
                         ["Fødselsdato", visDato],
                         ["Telefon", påmelding.mobil],
                         ["E-post", påmelding.email],
+                        ["Adresse", påmelding.adresse]
                     ].map(([label, value]) => (
                         <div key={label} className="flex justify-between py-3">
                             <dt className="text-sm text-cyan-700">{label}</dt>
@@ -62,14 +82,6 @@ export default function PåmeldingOversikt() {
                             </dd>
                         </div>
                     ))}
-                    <div className="flex justify-between py-3">
-                        <dt className="text-sm text-cyan-700">Adresse</dt>
-                        <dd className="text-sm font-medium text-cyan-950 text-right">
-                            <address className="not-italic">
-                                {påmelding.adresse}
-                            </address>
-                        </dd>
-                    </div>
                 </dl>
 
                 {/* Klubb-info }
@@ -90,9 +102,13 @@ export default function PåmeldingOversikt() {
 
                 {/* Send-knapp */}
                 <div className="pt-2">
+                    {feilmelding && (
+                        <p className="text-sm text-red-600 mb-2">{feilmelding}</p>
+                    )}
                     <button
                         type="submit"
-                        className="w-full rounded-xl bg-cyan-600 px-4 py-3 text-sm font-semibold text-white hover:bg-cyan-700 active:bg-cyan-800 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 cursor-pointer"
+                        disabled={sender}
+                        className={` disabled:opacity-50 disabled:cursor-not-allowed w-full rounded-xl bg-cyan-600 px-4 py-3 text-sm font-semibold text-white hover:bg-cyan-700 active:bg-cyan-800 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 cursor-pointer `}
                     >
                         Send påmelding
                     </button>
