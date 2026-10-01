@@ -9,6 +9,7 @@ import countries from 'i18n-iso-countries'
 export default function PåmeldingOversikt() {
     const { påmelding } = usePåmelding()
     const [sender, setSender] = useState(false)
+    const [feilmelding, setFeilmelding] = useState("")
     const supabase = createClient()
     const router = useRouter()
 
@@ -19,6 +20,7 @@ export default function PåmeldingOversikt() {
 
     async function sendPåmelding(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault()
+        setFeilmelding("")
         setSender(true)
         const {error} = await supabase
             .from("påmelding")
@@ -35,6 +37,7 @@ export default function PåmeldingOversikt() {
 
         if (error) {
             console.error("Noe gikk galt med Supabase: ", error)
+            setFeilmelding("Noe gikk galt. Prøv igjen.")
             setSender(false)
             return
         } 
@@ -99,6 +102,9 @@ export default function PåmeldingOversikt() {
 
                 {/* Send-knapp */}
                 <div className="pt-2">
+                    {feilmelding && (
+                        <p className="text-sm text-red-600 mb-2">{feilmelding}</p>
+                    )}
                     <button
                         type="submit"
                         disabled={sender}
