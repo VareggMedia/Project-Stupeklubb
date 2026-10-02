@@ -40,7 +40,7 @@ export default function Navbar() {
                 key={l.href}
                 href={l.href}
                 aria-current={isActive(l.href) ? "page" : undefined}
-                className={`text-[14.5px] font-medium transition-colors duration-150 hover:text-yellow ${
+                className={`text-[14.5px] font-medium transition-colors duration-150 hover:text-aqua ${
                   isActive(l.href) ? "text-aqua" : "text-foam/82"
                 }`}
               >

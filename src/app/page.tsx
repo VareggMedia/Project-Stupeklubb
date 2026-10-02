@@ -16,7 +16,10 @@ const HERO_STATS = [
     text: "Nybegynner til konkurransestuper, tilpasset ditt nivå.",
   },
   { title: "ADO Arena", text: "Lungegårdskaien 40, midt i Bergen sentrum." },
-  { title: "Trygt miljø", text: "Erfarne trenere og en klubb som stiller opp." },
+  {
+    title: "Trygt miljø",
+    text: "Erfarne trenere og en klubb som stiller opp.",
+  },
 ];
 
 export default function App() {
@@ -44,7 +47,7 @@ export default function App() {
               {HERO_STATS.map((s) => (
                 <div
                   key={s.title}
-                  className="max-w-[16ch] text-[13.5px] text-foam/65"
+                  className="max-w-[16ch] text-[13.5px] text-foam/95"
                 >
                   <strong className="mb-0.75 block font-display text-[15px] text-foam">
                     {s.title}
@@ -61,18 +64,16 @@ export default function App() {
       </section>
 
       {/* DOORS — guide new and existing members to their own page */}
-      <section className="relative z-10 -mt-24 max-[900px]:-mt-16">
+      <section className="relative z-10 -mt-44 max-[900px]:-mt-16">
         <div className="wrap grid grid-cols-2 gap-7 max-[900px]:grid-cols-1 max-[900px]:gap-4">
           <Door
             door={DOORS.new}
             text="For deg som vil prøve, eller forelder som vil finne riktig kurs til barnet sitt."
-            cta="Finn ditt kurs"
             tone="aqua"
           />
           <Door
             door={DOORS.members}
             text="Treningstider, stevner og resultater, samlet på ett sted."
-            cta="Til medlemssiden"
             tone="pool"
           />
         </div>
@@ -126,19 +127,19 @@ export default function App() {
 function Door({
   door,
   text,
-  cta,
   tone,
 }: {
   door: (typeof DOORS)[keyof typeof DOORS];
   text: string;
-  cta: string;
   tone: "aqua" | "pool";
 }) {
   const isAqua = tone === "aqua";
   return (
     <div
-      className={`flex flex-col gap-4.5 rounded-3xl p-11 shadow-[0_20px_40px_rgba(8,33,41,0.18)] max-[900px]:p-7 ${
-        isAqua ? "bg-aqua text-ink" : "bg-pool text-foam"
+      className={`group relative flex flex-col gap-4.5 rounded-3xl p-11 shadow-[0_20px_40px_rgba(8,33,41,0.18)] transition-transform duration-150 hover:-translate-y-1 max-[900px]:p-7 ${
+        isAqua
+          ? "bg-aqua text-ink hover:bg-emerald-300"
+          : "bg-pool text-foam hover:bg-emerald-700"
       }`}
     >
       <span
@@ -147,7 +148,17 @@ function Door({
         {door.eyebrow}
       </span>
       <h2 className="text-[clamp(34px,4vw,48px)] leading-none">
-        {door.label}
+        {/* Stretched link: the ::after overlay makes the whole card clickable */}
+        <Link
+          href={door.href}
+          className="inline-flex items-center gap-2 after:absolute after:inset-0 after:rounded-3xl after:content-['']"
+        >
+          {door.label}
+          <ArrowUpRight
+            size={32}
+            className="transition-transform duration-150 group-hover:translate-x-1 group-hover:-translate-y-1"
+          />
+        </Link>
       </h2>
       <p className="max-w-[40ch] text-[17px]">{text}</p>
       <div className="mt-1 grid grid-cols-2 gap-2.5 max-[480px]:grid-cols-1">
@@ -155,7 +166,7 @@ function Door({
           <Link
             key={l.href}
             href={l.href}
-            className={`rounded-xl px-4 py-3.5 text-[15px] font-medium transition-colors duration-150 ${
+            className={`relative z-10 rounded-xl px-4 py-3.5 text-[15px] font-medium transition-colors duration-150 ${
               isAqua
                 ? "bg-white/45 hover:bg-white/70"
                 : "border border-line-dark bg-white/8 hover:border-aqua"
@@ -165,17 +176,6 @@ function Door({
           </Link>
         ))}
       </div>
-      <Link
-        href={door.href}
-        className={`${buttonStyles.base} mt-2 self-start rounded-full ${
-          isAqua
-            ? "bg-ink text-foam hover:bg-pool"
-            : "bg-foam text-ink hover:bg-white"
-        }`}
-      >
-        {cta}
-        <ArrowUpRight size={17} />
-      </Link>
     </div>
   );
 }
