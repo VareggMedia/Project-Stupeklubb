@@ -24,7 +24,7 @@ export default function App() {
     <div>
       {/* HERO */}
       <section
-        className="relative overflow-hidden bg-[radial-gradient(120%_10%_at_6%_1%,rgba(73,214,198,0.55)_50%,rgba(13,107,126,0.65)_60%,rgba(8,33,41,0.33)_20%),url('/images/diver4.avif')] bg-cover bg-center pt-35 pb-36 max-[900px]:pb-28"
+        className="relative overflow-hidden bg-[radial-gradient(120%_10%_at_6%_1%,rgba(73,214,198,0.55)_50%,rgba(13,107,126,0.65)_60%,rgba(8,33,41,0.33)_20%),url('/images/hero-diver.avif')] bg-cover bg-center max-[900px]:bg-[length:auto_110%] max-[900px]:bg-[position:72%_100%] pt-35 pb-36 max-[900px]:pb-28"
         id="om-oss"
       >
         <div className="wrap grid grid-cols-[1.05fr_0.95fr] items-center gap-10 pb-17.5 max-[900px]:grid-cols-1">
