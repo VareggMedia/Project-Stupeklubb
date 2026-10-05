@@ -20,7 +20,7 @@ export default function App() {
     <div>
       {/* HERO */}
       <section
-        className="relative overflow-hidden bg-[radial-gradient(120%_10%_at_6%_1%,rgba(73,214,198,0.55)_50%,rgba(13,107,126,0.65)_60%,rgba(8,33,41,0.33)_20%),url('/images/hero-diver.avif')] bg-cover bg-center max-[900px]:bg-[length:auto_110%] max-[900px]:bg-[position:72%_100%] pt-35 pb-36 max-[900px]:pb-28"
+        className="relative overflow-hidden bg-[radial-gradient(120%_10%_at_6%_1%,rgba(73,214,198,0.55)_50%,rgba(13,107,126,0.65)_60%,rgba(8,33,41,0.33)_20%),url('/images/hero-diver.avif')] bg-cover bg-[position:center_15%] max-[900px]:bg-[length:auto_110%] max-[900px]:bg-[position:72%_100%] pt-35 pb-36 max-[900px]:pb-28"
         id="om-oss"
       >
         <div className="wrap grid grid-cols-[1.05fr_0.95fr] items-center gap-10 pb-17.5 max-[900px]:grid-cols-1">
@@ -29,7 +29,7 @@ export default function App() {
               <span className="size-1.5 rounded-full bg-aqua" />
               {t("eyebrow")}
             </span>
-            <h1 className="max-w-[12ch] text-[clamp(38px,5.4vw,60px)] leading-[1.04] text-foam">
+            <h1 className="max-w-[13ch] text-balance text-[clamp(38px,5.4vw,60px)] leading-[1.04] text-foam">
               {t("title")}
             </h1>
             <p className="mt-5.5 max-w-[42ch] text-[18px] text-foam/78">

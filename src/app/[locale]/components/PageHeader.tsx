@@ -31,7 +31,7 @@ export default function PageHeader({
           <span className="mx-2 opacity-60">/</span>
           <span aria-current="page">{crumb}</span>
         </nav>
-        <h1 className="mt-5 max-w-[16ch] text-[clamp(36px,5vw,58px)] leading-[1.03]">
+        <h1 className="mt-5 max-w-[18ch] text-balance text-[clamp(36px,5vw,58px)] leading-[1.03]">
           {title}
         </h1>
         {children && <div className="mt-8">{children}</div>}

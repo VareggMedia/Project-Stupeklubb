@@ -37,7 +37,7 @@
       "eyebrow": "Already a member?",
       "links": {
         "schedule": "Training times",
-        "events": "Competitions and calendar",
+        "events": "Events and calendar",
         "results": "Results",
         "practical": "Fees and practical info"
       }
@@ -79,7 +79,7 @@
     },
     "doorJoinText": "For anyone who wants to give it a try, or a parent looking for the right course for their child.",
     "doorMembersText": "Training times, competitions and results, all in one place.",
-    "inclusiveTitle": "At Bergen Stupeklubb, everyone is welcome",
+    "inclusiveTitle": "All are welcome at Bergen Stupeklubb",
     "inclusiveText": "Adapting training to you or your family is never a problem. Our coaches are experienced at exactly that. You are welcome here.",
     "cards": {
       "news": {
@@ -157,16 +157,28 @@
     "title": "New to the club? Getting started is easy",
     "crumb": "Join us",
     "facts": {
-      "age": { "label": "Age", "value": "From [X] years to adult" },
-      "price": { "label": "Price", "value": "From NOK [PRICE] / term" },
-      "where": { "label": "Where", "value": "ADO Arena, city centre" },
-      "skills": { "label": "Prior skills", "value": "[Do you need to be able to swim?]" }
+      "age": {
+        "label": "Age",
+        "value": "From [X] years to adult"
+      },
+      "price": {
+        "label": "Price",
+        "value": "From NOK [PRICE] / term"
+      },
+      "where": {
+        "label": "Where",
+        "value": "ADO Arena, city centre"
+      },
+      "skills": {
+        "label": "Prior skills",
+        "value": "[Do you need to be able to swim?]"
+      }
     },
     "coursesTitle": "Courses and activities by age",
     "courses": {
       "children": {
         "age": "Age [AGE]",
-        "title": "Diving school, children",
+        "title": "Diving for kids",
         "text": "[About the course] · [DAY, TIME]"
       },
       "youth": {
@@ -190,10 +202,22 @@
     "readMoreSchool": "Read more about the diving school",
     "pricesTitle": "Prices and what to bring",
     "prices": {
-      "children": { "label": "Diving school, children", "price": "NOK [PRICE]" },
-      "youth": { "label": "Youth", "price": "NOK [PRICE]" },
-      "adults": { "label": "Adults", "price": "NOK [PRICE]" },
-      "membership": { "label": "Membership fee", "price": "NOK [PRICE] / year" }
+      "children": {
+        "label": "Diving for kids",
+        "price": "NOK [PRICE]"
+      },
+      "youth": {
+        "label": "Youth",
+        "price": "NOK [PRICE]"
+      },
+      "adults": {
+        "label": "Adults",
+        "price": "NOK [PRICE]"
+      },
+      "membership": {
+        "label": "Membership fee",
+        "price": "NOK [PRICE] / year"
+      }
     },
     "bringTitle": "Bring along",
     "bring": {
@@ -204,10 +228,22 @@
     "bringNote": "You don't need club clothing to start. You can buy it later.",
     "firstTimeTitle": "First time? Here's what happens",
     "firstTime": {
-      "arrive": { "title": "Show up", "text": "[Where in ADO Arena, and how early]" },
-      "coach": { "title": "The coach welcomes you", "text": "[Who meets you, and can parents watch?]" },
-      "session": { "title": "The session", "text": "[What do you do the first time, and for how long?]" },
-      "after": { "title": "Afterwards", "text": "[How to become a regular member]" }
+      "arrive": {
+        "title": "Show up",
+        "text": "[Where in ADO Arena, and how early]"
+      },
+      "coach": {
+        "title": "Meet the coach",
+        "text": "[Who meets you, and can parents watch?]"
+      },
+      "session": {
+        "title": "The session",
+        "text": "[What do you do the first time, and for how long?]"
+      },
+      "after": {
+        "title": "Afterwards",
+        "text": "[How to become a regular member]"
+      }
     },
     "readyTitle": "Ready? Sign up",
     "readyText": "Choose a course, fill in the form, and we'll be in touch. Not sure? Ask us first.",
@@ -219,9 +255,9 @@
     "description": "Training times, competitions, results and practical info.",
     "hints": {
       "schedule": "and changes this week",
-      "events": "upcoming competitions and deadlines",
+      "events": "events and deadlines",
       "results": "latest competitions",
-      "practical": "payment, gear and volunteering"
+      "practical": "fees, gear, volunteering"
     },
     "noticeLabel": "Change:",
     "notice": "[E.g. “No training on Thursday [DATE], the pool is closed”]",
@@ -240,10 +276,10 @@
       "competition": "[Competition]"
     },
     "time": "[TIME]",
-    "eventsTitle": "Competitions and calendar",
+    "eventsTitle": "Events and calendar",
     "events": {
-      "first": "[Competition name] · [Venue] · registration deadline [DATE]",
-      "second": "[Competition name] · [Venue]",
+      "first": "[Competition] · [Venue] · sign-up deadline [DATE]",
+      "second": "[Competition] · [Venue]",
       "third": "[Social / volunteering / holiday]"
     },
     "date": "[DATE]",
@@ -255,9 +291,18 @@
     "seeResults": "See results",
     "practicalTitle": "Fees and practical info",
     "practical": {
-      "fee": { "title": "Membership fee", "text": "[Amount, due date and how to pay]" },
-      "gear": { "title": "Club gear", "text": "Club clothing from Craft: training jackets, hoodies, T-shirts and shorts." },
-      "volunteer": { "title": "Volunteering", "text": "[What is expected of parents and members?]" }
+      "fee": {
+        "title": "Membership fee",
+        "text": "[Amount, due date and how to pay]"
+      },
+      "gear": {
+        "title": "Club gear",
+        "text": "Club clothing from Craft: training jackets, hoodies, T-shirts and shorts."
+      },
+      "volunteer": {
+        "title": "Volunteering",
+        "text": "[What is expected of parents and members?]"
+      }
     },
     "goToGear": "Go to club gear"
   },

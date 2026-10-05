@@ -3,6 +3,22 @@ type WaveDividerProps = {
   color?: string; // should match the section it "belongs" to
 };
 
+// One smooth sine wave across a 1200×90 box: crest at x = 477, period 600.
+const WIDTH = 1200;
+const HEIGHT = 90;
+const MIDLINE = 36.5;
+const AMPLITUDE = 10;
+const PERIOD = 600;
+const CREST_X = 477;
+const STEP = 10;
+
+const points = Array.from({ length: WIDTH / STEP + 1 }, (_, i) => {
+  const x = i * STEP;
+  const y = MIDLINE - AMPLITUDE * Math.cos((2 * Math.PI * (x - CREST_X)) / PERIOD);
+  return `${x},${y.toFixed(2)}`;
+});
+const WAVE_PATH = `M${points.join(" L")} L${WIDTH},${HEIGHT} L0,${HEIGHT} Z`;
+
 export default function WaveDivider({
   flip = false,
   color = "#ffffff",
@@ -11,15 +27,11 @@ export default function WaveDivider({
     <div className={flip ? "-scale-y-100" : ""}>
       <svg
         className="block h-15 w-full"
-        viewBox="0 0 1200 90"
+        viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        <rect x="0" y="50" width="1200" height="90" fill={color} />
-        <path
-          d="M0,40 C150,90 350,0 600,35 C850,70 1050,10 1200,45 L1200,90 L0,90 Z"
-          fill={color}
-        />
+        <path d={WAVE_PATH} fill={color} />
       </svg>
     </div>
   );

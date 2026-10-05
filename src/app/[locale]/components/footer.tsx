@@ -70,7 +70,7 @@ export default function Footer() {
   const t = useTranslations("Footer");
   const tNav = useTranslations("Nav");
   return (
-    <section className="bg-ink pt-24" id="kontakt">
+    <section className="flex-1 bg-ink pt-24" id="kontakt">
       <div className="wrap">
         <div className="grid grid-cols-[1.2fr_1fr] gap-15 border-b border-line-dark pb-20 max-[900px]:grid-cols-1 max-[900px]:gap-11">
           <div>
