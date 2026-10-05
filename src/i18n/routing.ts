@@ -7,4 +7,6 @@ export const routing = defineRouting({
   localePrefix: "as-needed",
   // The URL decides the language; never redirect by browser Accept-Language
   localeDetection: false,
+  // No locale cookie: nothing to remember, and links to Norwegian stay prefix-free
+  localeCookie: false,
 });

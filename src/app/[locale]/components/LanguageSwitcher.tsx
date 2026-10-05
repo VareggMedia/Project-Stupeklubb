@@ -1,3 +1,9 @@
+"use client";
+
+import NextLink from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { getPathname, usePathname } from "@/src/i18n/navigation";
+
 function NorwegianFlag() {
   return (
     <svg viewBox="0 0 22 16" aria-hidden="true" className="block h-4 w-5.5">
@@ -20,38 +26,46 @@ function BritishFlag() {
   );
 }
 
-function handleLanguageChange() {
-  // TODO: Connect the language switcher when locale routing is implemented.
-}
+// Each language is named in its own language, so these are not translated.
+const LANGUAGES = [
+  { locale: "nb", name: "Norsk bokmål", Flag: NorwegianFlag },
+  { locale: "en", name: "English", Flag: BritishFlag },
+] as const;
 
 const optionStyles =
-  "inline-flex cursor-pointer appearance-none items-center justify-center border-0 bg-transparent p-0 transition-opacity duration-150 ease-out";
+  "inline-flex items-center justify-center transition-opacity duration-150 ease-out";
 
 export default function LanguageSwitcher() {
+  const t = useTranslations("LanguageSwitcher");
+  const currentLocale = useLocale();
+  // Path without the locale prefix, e.g. "/om-klubben" on both "/om-klubben" and "/en/om-klubben"
+  const pathname = usePathname();
+
   return (
     <div
       className="inline-flex min-h-7 items-center gap-2.5"
       role="group"
-      aria-label="Språk"
+      aria-label={t("label")}
     >
-      <button
-        type="button"
-        className={`${optionStyles} opacity-100`}
-        title="Norsk bokmål"
-        aria-pressed="true"
-        onClick={handleLanguageChange}
-      >
-        <NorwegianFlag />
-      </button>
-      <button
-        type="button"
-        className={`${optionStyles} opacity-20 hover:opacity-60`}
-        title="English"
-        aria-pressed="false"
-        onClick={handleLanguageChange}
-      >
-        <BritishFlag />
-      </button>
+      {LANGUAGES.map(({ locale, name, Flag }) => {
+        const isActive = locale === currentLocale;
+        return (
+          // getPathname keeps "as-needed" (no /nb prefix); next-intl's Link with a
+          // locale prop would always force the prefix and cost a redirect.
+          <NextLink
+            key={locale}
+            href={getPathname({ locale, href: pathname })}
+            hrefLang={locale}
+            lang={locale}
+            title={name}
+            aria-current={isActive ? "true" : undefined}
+            className={`${optionStyles} ${isActive ? "opacity-100" : "opacity-20 hover:opacity-60"}`}
+          >
+            <Flag />
+            <span className="sr-only">{name}</span>
+          </NextLink>
+        );
+      })}
     </div>
   );
 }
