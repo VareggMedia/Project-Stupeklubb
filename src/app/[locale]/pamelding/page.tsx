@@ -1,6 +1,6 @@
 'use client'
-import PåmeldingSkjema from "@/src/app/components/Påmelding/påmeldingKontaktSkjema";
-import PåmeldingOversikt from "@/src/app/components/Påmelding/PåmeldingOppsummering";
+import PåmeldingSkjema from "@/src/app/[locale]/components/Påmelding/påmeldingKontaktSkjema";
+import PåmeldingOversikt from "@/src/app/[locale]/components/Påmelding/PåmeldingOppsummering";
 import { useState } from "react";
 import Medlemskap from "../components/Påmelding/Medlemskap";
 

@@ -2,7 +2,7 @@
 import { createClient } from "@/lib/Supabase/client"
 import { usePåmelding } from "./påmeldingStruktur"
 import sendSkjema from "@/lib/Resend/Resend"
-import { useRouter } from "next/navigation"
+import { useRouter } from "@/src/i18n/navigation"
 import { useState } from "react"
 import countries from 'i18n-iso-countries'
 

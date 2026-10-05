@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
+import { notFound } from "next/navigation";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { routing } from "@/src/i18n/routing";
 import "./globals.css";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
@@ -21,20 +24,28 @@ export const metadata: Metadata = {
   description: "Bergen Stupeklubb",
 };
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  params,
+}: LayoutProps<"/[locale]">) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+
   return (
     <html
-      lang="nb"
+      lang={locale}
       className={`${inter.variable} ${bricolage.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-foam font-sans leading-normal text-ink">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <NextIntlClientProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

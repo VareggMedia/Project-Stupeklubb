@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/src/i18n/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { buttonStyles } from "./components/button";
 import WaveDivider from "./components/WaveDivider";

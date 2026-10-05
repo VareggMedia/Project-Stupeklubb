@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/src/i18n/navigation";
 import type { Metadata } from "next";
 import { ArrowUpRight, CircleAlert } from "lucide-react";
 import PageHeader from "../components/PageHeader";

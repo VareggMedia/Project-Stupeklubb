@@ -1,6 +1,6 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import type { ReactNode } from "react";
-import Link from "next/link";
+import { Link } from "@/src/i18n/navigation";
 import { NAV_LINKS } from "../data/club";
 export function InstagramIcon({ size = 19 }: { size?: number }) {
   return (

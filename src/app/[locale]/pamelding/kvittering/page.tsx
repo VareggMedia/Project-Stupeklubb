@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { Link } from "@/src/i18n/navigation"
 
 export default async function Kvittering({searchParams}: {searchParams: Promise<{ epost?: string}>}){
     const {epost} = await searchParams
