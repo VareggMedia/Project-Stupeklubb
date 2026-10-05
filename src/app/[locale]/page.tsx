@@ -19,8 +19,11 @@ export default function App() {
   return (
     <div>
       {/* HERO */}
+      {/* Desktop photo (16:9): the hero grows with the width so the diver stands
+          above the "For members" card, and the head stays 100px below the top
+          (10.42vw = 18.6% of the photo height). Mobile keeps the original 3:2. */}
       <section
-        className="relative overflow-hidden bg-[radial-gradient(120%_10%_at_6%_1%,rgba(73,214,198,0.55)_50%,rgba(13,107,126,0.65)_60%,rgba(8,33,41,0.33)_20%),url('/images/hero-diver.avif')] bg-cover bg-[position:center_15%] max-[900px]:bg-[length:auto_110%] max-[900px]:bg-[position:72%_100%] pt-35 pb-36 max-[900px]:pb-28"
+        className="relative overflow-hidden bg-[radial-gradient(120%_10%_at_6%_1%,rgba(73,214,198,0.55)_50%,rgba(13,107,126,0.65)_60%,rgba(8,33,41,0.33)_20%),url('/images/hero-diver-wide.avif')] bg-cover bg-[position:100%_max(100%,min(0px,calc(100px_-_10.42vw)))] min-h-[calc(33.3vw_+_300px)] max-[900px]:min-h-0 max-[900px]:bg-[radial-gradient(120%_10%_at_6%_1%,rgba(73,214,198,0.55)_50%,rgba(13,107,126,0.65)_60%,rgba(8,33,41,0.33)_20%),url('/images/hero-diver.avif')] max-[900px]:bg-[length:auto_110%] max-[900px]:bg-[position:72%_100%] pt-35 pb-36 max-[900px]:pb-28"
         id="om-oss"
       >
         <div className="wrap grid grid-cols-[1.05fr_0.95fr] items-center gap-10 pb-17.5 max-[900px]:grid-cols-1">
