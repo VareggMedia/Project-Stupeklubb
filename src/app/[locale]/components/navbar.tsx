@@ -2,6 +2,7 @@
 import { Link, usePathname } from "@/src/i18n/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "../data/club";
 export function RippleMark() {
@@ -18,6 +19,7 @@ export function RippleMark() {
   );
 }
 export default function Navbar() {
+  const t = useTranslations("Nav");
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const isActive = (href: string) => pathname.startsWith(href);
@@ -43,7 +45,7 @@ export default function Navbar() {
                   isActive(l.href) ? "text-aqua" : "text-foam/82"
                 }`}
               >
-                {l.label}
+                {t(l.key)}
               </Link>
             ))}
           </nav>
@@ -51,7 +53,7 @@ export default function Navbar() {
         </div>
         <button
           className="hidden cursor-pointer p-1 text-foam max-[860px]:block"
-          aria-label={menuOpen ? "Lukk meny" : "Åpne meny"}
+          aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
           onClick={() => setMenuOpen((v) => !v)}
         >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -72,7 +74,7 @@ export default function Navbar() {
               isActive(l.href) ? "text-aqua" : "text-foam"
             }`}
           >
-            {l.label}
+            {t(l.key)}
           </Link>
         ))}
         <Link
@@ -80,7 +82,7 @@ export default function Navbar() {
           onClick={() => setMenuOpen(false)}
           className="border-b border-line-dark px-1 py-3 text-[15px] text-foam"
         >
-          Påmelding
+          {t("registration")}
         </Link>
       </div>
     </header>

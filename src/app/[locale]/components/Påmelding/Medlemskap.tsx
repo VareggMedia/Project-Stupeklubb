@@ -1,6 +1,7 @@
 import Select, { StylesConfig } from 'react-select';
 import { usePåmelding } from "./påmeldingStruktur";
 import { useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 type setStepProp = {
     setStep: React.Dispatch<React.SetStateAction<number>>;
     setValg: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,13 +10,19 @@ type SelectOption = {
     value: string | null;
     label: string;
 }
-const options = [
-    { value: "Medlem", label: "Medlem"},
-    { value: "Passiv Medlem", label: "Passiv Medlem"}
-]
+// Stored values stay Norwegian; only the labels are translated.
+export const MEMBER_TYPES = [
+    { value: "Medlem", key: "member" },
+    { value: "Passiv Medlem", key: "passive" }
+] as const
 
 export default function Medlemskap({setStep, setValg}:setStepProp) {
+    const t = useTranslations("Registration")
     const {påmelding, setPåmelding} = usePåmelding()
+    const options = MEMBER_TYPES.map(({ value, key }) => ({
+        value,
+        label: t(`membership.types.${key}`),
+    }))
     function submit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
         setStep(1)
@@ -49,23 +56,22 @@ export default function Medlemskap({setStep, setValg}:setStepProp) {
         <div className='w-full bg-white/80 backdrop-blur-sm rounded-b-2xl shadow-lg shadow-cyan-100/50 border border-cyan-200/40 p-8'>
             <div className=''>
                 <p>
-                  <strong>Innmelding som medlem i Bergen Stupeklubb</strong>
-                  <br/><br/>Dette skjema er for dem som trenger å melde seg inn på alternative måter etter avtale med hovedtrener eller daglig leder.
-                  Aktive utøvere blir automatisk meldt inn som medlem.
+                  <strong>{t("membership.heading")}</strong>
+                  <br/><br/>{t("membership.intro")}
                 </p>
                 <br/>
-                <p>Skjemaet er også for dem som er familie som ønsker å være med på turer og arrangementer, samt støttepersonell.</p>
+                <p>{t("membership.family")}</p>
                 <br/>
-                <p>Medlemskontingent er kr 250,-</p>
+                <p>{t("membership.fee")}</p>
                 <br/>
             </div>
             <div>
                 <form onSubmit={submit} className='flex flex-col gap-3'>
-                    <label htmlFor="medlem-type" className='font-bold'>Medlemstype</label>
+                    <label htmlFor="medlem-type" className='font-bold'>{t("membership.typeLabel")}</label>
                     <Select<SelectOption, false> 
                         inputId="medlem-type"
                         instanceId={"medlem-type"}
-                        placeholder="-- Velg Type --"
+                        placeholder={t("membership.typePlaceholder")}
                         options={options}
                         styles={selectStyles}
                         value={options.find(
@@ -94,7 +100,7 @@ export default function Medlemskap({setStep, setValg}:setStepProp) {
                             cursor-pointer
                             mt-10"
                     >
-                        Neste
+                        {t("next")}
                     </button>
                 </form>
             </div>

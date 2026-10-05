@@ -4,9 +4,14 @@ import { usePåmelding } from "./påmeldingStruktur"
 import sendSkjema from "@/lib/Resend/Resend"
 import { useRouter } from "@/src/i18n/navigation"
 import { useState } from "react"
+import { useLocale, useTranslations } from "next-intl"
+import { MEMBER_TYPES } from "./Medlemskap"
+import { GENDERS } from "./påmeldingKontaktSkjema"
 import countries from 'i18n-iso-countries'
 
 export default function PåmeldingOversikt() {
+    const t = useTranslations("Registration")
+    const locale = useLocale()
     const { påmelding } = usePåmelding()
     const [sender, setSender] = useState(false)
     const [feilmelding, setFeilmelding] = useState("")
@@ -16,7 +21,10 @@ export default function PåmeldingOversikt() {
     const tidform = påmelding.fødseldato
     const [år, månde, dag] = tidform.split('-')
     const visDato = `${dag}.${månde}.${år}`
-    const vistNasjon = countries.getName(påmelding.nasjon, "nb") ?? påmelding.nasjon
+    const vistNasjon = countries.getName(påmelding.nasjon, locale) ?? påmelding.nasjon
+
+    const medlemstype = MEMBER_TYPES.find((m) => m.value === påmelding.medlemstype)
+    const kjønn = GENDERS.find((g) => g.value === påmelding.kjønn)
 
     async function sendPåmelding(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -37,7 +45,7 @@ export default function PåmeldingOversikt() {
 
         if (error) {
             console.error("Noe gikk galt med Supabase: ", error)
-            setFeilmelding("Noe gikk galt. Prøv igjen.")
+            setFeilmelding(t("summary.error"))
             setSender(false)
             return
         } 
@@ -60,20 +68,20 @@ export default function PåmeldingOversikt() {
                 className="w-full bg-white/80 backdrop-blur-sm rounded-b-2xl shadow-lg shadow-cyan-100/50 border border-cyan-200/40 p-8 space-y-6"
             >
                 <h2 className="text-2xl font-semibold text-cyan-900 text-center">
-                    Oppsummering
+                    {t("summary.title")}
                 </h2>
 
                 {/* Personlig info */}
                 <dl className="divide-y divide-cyan-100 rounded-xl bg-cyan-50/40 px-4">
                     {[
-                        ["Medlemstype", påmelding.medlemstype],
-                        ["Navn", påmelding.navn],
-                        ["Nasjonalitet", vistNasjon],
-                        ["Kjønn", påmelding.kjønn],
-                        ["Fødselsdato", visDato],
-                        ["Telefon", påmelding.mobil],
-                        ["E-post", påmelding.email],
-                        ["Adresse", påmelding.adresse]
+                        [t("membership.typeLabel"), medlemstype ? t(`membership.types.${medlemstype.key}`) : påmelding.medlemstype],
+                        [t("form.shortName"), påmelding.navn],
+                        [t("form.nationality"), vistNasjon],
+                        [t("form.gender"), kjønn ? t(`form.genders.${kjønn.key}`) : påmelding.kjønn],
+                        [t("form.birthDate"), visDato],
+                        [t("form.phone"), påmelding.mobil],
+                        [t("form.email"), påmelding.email],
+                        [t("form.address"), påmelding.adresse]
                     ].map(([label, value]) => (
                         <div key={label} className="flex justify-between py-3">
                             <dt className="text-sm text-cyan-700">{label}</dt>
@@ -110,7 +118,7 @@ export default function PåmeldingOversikt() {
                         disabled={sender}
                         className={` disabled:opacity-50 disabled:cursor-not-allowed w-full rounded-xl bg-cyan-600 px-4 py-3 text-sm font-semibold text-white hover:bg-cyan-700 active:bg-cyan-800 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 cursor-pointer `}
                     >
-                        Send påmelding
+                        {t("summary.submit")}
                     </button>
                 </div>
             </form>

@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import type { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/src/i18n/navigation";
 import { NAV_LINKS } from "../data/club";
 export function InstagramIcon({ size = 19 }: { size?: number }) {
@@ -34,11 +35,11 @@ export function FacebookIcon({ size = 19 }: { size?: number }) {
   );
 }
 const FOOTER_LINKS = [
-  { label: "Hjem", href: "/" },
+  { key: "home", href: "/" },
   ...NAV_LINKS,
-  { label: "Stupskolen", href: "/stupskolen" },
-  { label: "Påmelding", href: "/pamelding" },
-];
+  { key: "divingSchool", href: "/stupskolen" },
+  { key: "registration", href: "/pamelding" },
+] as const;
 
 const socialLinkStyles =
   "flex size-10.5 items-center justify-center rounded-full border border-line-dark text-foam transition-colors duration-150 hover:border-aqua hover:text-aqua";
@@ -66,19 +67,18 @@ function ContactItem({
 }
 
 export default function Footer() {
+  const t = useTranslations("Footer");
+  const tNav = useTranslations("Nav");
   return (
     <section className="bg-ink pt-24" id="kontakt">
       <div className="wrap">
         <div className="grid grid-cols-[1.2fr_1fr] gap-15 border-b border-line-dark pb-20 max-[900px]:grid-cols-1 max-[900px]:gap-11">
           <div>
             <h2 className="max-w-[12ch] text-[clamp(28px,3.4vw,38px)] text-foam">
-              Ta kontakt!
+              {t("title")}
             </h2>
             <p className="mt-4.5 max-w-[44ch] text-base text-foam/70">
-              For oss er det viktig at du føler deg velkommen. Har du spørsmål
-              vi ikke har svart på her, vil vi at du skal ta kontakt fort som
-              bare rakkeren. Vi digger spørsmål — vi er jo tross alt
-              bergensere.
+              {t("text")}
             </p>
             <div className="mt-7 flex gap-3.5">
               <a
@@ -97,7 +97,7 @@ export default function Footer() {
               </a>
               <a
                 href="mailto:dagligleder@bergen-stupeklubb.no"
-                aria-label="E-post"
+                aria-label={t("email")}
                 className={socialLinkStyles}
               >
                 <Mail size={19} />
@@ -105,15 +105,15 @@ export default function Footer() {
             </div>
           </div>
           <div className="flex flex-col gap-5">
-            <ContactItem icon={<Mail size={19} />} label="E-post">
+            <ContactItem icon={<Mail size={19} />} label={t("email")}>
               <a href="mailto:hovedtrener@bergen-stupeklubb.no">
                 hovedtrener@bergen-stupeklubb.no
               </a>
             </ContactItem>
-            <ContactItem icon={<Phone size={19} />} label="Telefon">
+            <ContactItem icon={<Phone size={19} />} label={t("phone")}>
               <a href="tel:+4793299995">(+47) 932 99 995</a>
             </ContactItem>
-            <ContactItem icon={<MapPin size={19} />} label="Adresse">
+            <ContactItem icon={<MapPin size={19} />} label={t("address")}>
               <span>ADO Arena, Lungegårdskaien 40, 5015 Bergen</span>
             </ContactItem>
           </div>
@@ -123,11 +123,11 @@ export default function Footer() {
           <div className="flex flex-wrap gap-5">
             {FOOTER_LINKS.map((l) => (
               <Link
-                key={l.label}
+                key={l.key}
                 href={l.href}
                 className="text-[13.5px] text-foam/55 hover:text-aqua"
               >
-                {l.label}
+                {tNav(l.key)}
               </Link>
             ))}
           </div>

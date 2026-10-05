@@ -1,12 +1,16 @@
 import { ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { buttonStyles } from "../components/button";
 import FeatureRow from "../components/FeatureRow";
 export default function Stupskolen() {
+  const t = useTranslations("DivingSchoolPage");
+  const tNews = useTranslations("NewsPage");
+  const tGear = useTranslations("GearPage");
   return (
     <section className="bg-foam" id="stupskolen">
       <div className="wrap">
         <FeatureRow
-          title="Meld deg på stupskole for høsten 2026"
+          title={t("signup.title")}
           art={
             <svg viewBox="0 0 400 260" preserveAspectRatio="none">
               <defs>
@@ -28,20 +32,16 @@ export default function Stupskolen() {
             </svg>
           }
         >
-          <p>
-            Med fokus på fysisk og mental læring utfordrer stuping sider ved deg
-            selv du ikke visste fantes. Det tester grenser på en trygg og artig
-            måte — midt i hjertet av Bergen.
-          </p>
-          <p>Vi tilbyr stuping for alle aldre og tilpasser ved behov.</p>
+          <p>{t("signup.text1")}</p>
+          <p>{t("signup.text2")}</p>
           <a href="#" className={buttonStyles.ghostLight}>
-            Les mer om stupskolen
+            {t("signup.cta")}
             <ArrowUpRight size={16} />
           </a>
         </FeatureRow>
 
         <FeatureRow
-          title="Aldri prøvd å stupe før?"
+          title={t("beginners.title")}
           reverse
           lightArt
           art={
@@ -58,51 +58,40 @@ export default function Stupskolen() {
             </svg>
           }
         >
-          <p>
-            Vi tilbyr en rekke kurs for alle aldersgrupper og erfaringsnivåer.
-            Har du aldri stått på et stupebrett før? Vi tar godt vare på deg,
-            fra første hopp.
-          </p>
+          <p>{t("beginners.text")}</p>
           <div className="mt-6.5 flex flex-wrap gap-3.5">
             <a href="#" className={buttonStyles.ghostLight}>
-              Les mer om medlemskap
+              {t("beginners.membershipCta")}
             </a>
             <a href="#pamelding" className={buttonStyles.coral}>
-              Meld deg på her
+              {t("beginners.signupCta")}
             </a>
           </div>
         </FeatureRow>
 
         <FeatureRow
           id="klubbutstyr"
-          title="Klubbutstyr"
+          title={tGear("title")}
           art={<KlubbutstyrArt />}
         >
-          <p>
-            Vi har klubbtøy fra Craft. I nettbutikken finner du treningsjakker
-            og -bukser, hettegensere, t-skjorter og shorts fra vår egen
-            kolleksjon.
-          </p>
+          <p>{t("gear.text")}</p>
           <a href="#" className={buttonStyles.ghostLight}>
-            Gå til nettbutikken
+            {t("gear.cta")}
             <ArrowUpRight size={16} />
           </a>
         </FeatureRow>
 
         <FeatureRow
           id="nyheter"
-          title="Hold deg oppdatert"
+          title={tNews("title")}
           reverse
           lightArt
           last
           art={<NyheterArt />}
         >
-          <p>
-            På nyhetssiden vår skriver vi om alt fra treningsoppdateringer og
-            konkurranseresultater til andre gode nyheter fra klubben.
-          </p>
+          <p>{tNews("text")}</p>
           <a href="#" className={buttonStyles.ghostLight}>
-            Les siste nytt
+            {tNews("cta")}
             <ArrowUpRight size={16} />
           </a>
         </FeatureRow>

@@ -1,5 +1,315 @@
 {
+  "Metadata": {
+    "siteTitle": "Bergen Stupeklubb",
+    "siteDescription": "Bergen Stupeklubb – Bergen's diving club"
+  },
+  "Common": {
+    "home": "Home",
+    "breadcrumb": "Breadcrumbs",
+    "age": "age {age}"
+  },
   "LanguageSwitcher": {
     "label": "Language"
+  },
+  "Nav": {
+    "join": "Join us",
+    "members": "For members",
+    "news": "News",
+    "about": "About the club",
+    "contact": "Contact",
+    "home": "Home",
+    "divingSchool": "Diving school",
+    "registration": "Registration",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "Doors": {
+    "join": {
+      "eyebrow": "New to the club?",
+      "links": {
+        "courses": "Courses by age",
+        "prices": "Prices and gear",
+        "firstTime": "First time?",
+        "registration": "Registration"
+      }
+    },
+    "members": {
+      "eyebrow": "Already a member?",
+      "links": {
+        "schedule": "Training times",
+        "events": "Competitions and calendar",
+        "results": "Results",
+        "practical": "Fees and practical info"
+      }
+    }
+  },
+  "Footer": {
+    "title": "Get in touch!",
+    "text": "We want you to feel welcome. If you have a question we haven't answered here, get in touch as fast as you can. We love questions — we're from Bergen, after all.",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address"
+  },
+  "Sponsors": {
+    "title": "Our sponsors"
+  },
+  "Testimonials": {
+    "isak": "I think diving is really cool, and I love being in the club.",
+    "varin": "Being part of this community is incredibly fun. For me, diving has become a weekly balm for the mind.",
+    "julie": "The club is a family — I've known these people as long as my own family.",
+    "synne": "It's a really nice community, and diving is great fun. Both the coaches and the other divers are kind."
+  },
+  "HomePage": {
+    "eyebrow": "Bergen's only diving club",
+    "title": "The most beautiful water sport starts here",
+    "lead": "Let the most beautiful water sport challenge you! Join the crew at Bergen Stupeklubb.",
+    "stats": {
+      "ages": {
+        "title": "All ages",
+        "text": "From beginner to competitive diver, adapted to your level."
+      },
+      "venue": {
+        "title": "ADO Arena",
+        "text": "Lungegårdskaien 40, in the heart of Bergen."
+      },
+      "safe": {
+        "title": "Safe environment",
+        "text": "Experienced coaches and a club that shows up."
+      }
+    },
+    "doorJoinText": "For anyone who wants to give it a try, or a parent looking for the right course for their child.",
+    "doorMembersText": "Training times, competitions and results, all in one place.",
+    "inclusiveTitle": "At Bergen Stupeklubb, everyone is welcome",
+    "inclusiveText": "Adapting training to you or your family is never a problem. Our coaches are experienced at exactly that. You are welcome here.",
+    "cards": {
+      "news": {
+        "title": "News",
+        "text": "Training updates, competition results and other good news from the club.",
+        "cta": "Read the latest"
+      },
+      "about": {
+        "title": "About the club",
+        "text": "Who we are, our coaches, and the sponsors who make it possible.",
+        "cta": "About the club"
+      },
+      "contact": {
+        "title": "Contact",
+        "text": "ADO Arena, Lungegårdskaien 40. We love questions.",
+        "cta": "Get in touch"
+      }
+    }
+  },
+  "AboutPage": {
+    "title": "About the club",
+    "description": "Bergen's only diving club, training at ADO Arena.",
+    "cards": {
+      "club": {
+        "title": "The club",
+        "text": "Bergen's only diving club, training at ADO Arena in the city centre. [Short history: when the club was founded, and how many members it has.]"
+      },
+      "coaches": {
+        "title": "The coaches",
+        "text": "Experienced coaches who adapt training to each diver, from the first jump to competition level. [Names and photos of the coaches.]"
+      },
+      "board": {
+        "title": "The board",
+        "text": "[Who sits on the board, and how to contact them.]"
+      }
+    },
+    "testimonialsTitle": "What our members say"
+  },
+  "ContactPage": {
+    "title": "Contact us",
+    "crumb": "Contact",
+    "metaTitle": "Contact",
+    "text": "Wondering about courses, membership or competitions? Send us an email or call, and we'll reply as soon as we can."
+  },
+  "GearPage": {
+    "title": "Club gear",
+    "text": "Club clothing from Craft: training jackets, hoodies, T-shirts and shorts."
+  },
+  "NewsPage": {
+    "title": "Stay up to date",
+    "text": "On our news page we write about everything from training updates and competition results to other good news from the club.",
+    "cta": "Read the latest"
+  },
+  "DivingSchoolPage": {
+    "signup": {
+      "title": "Sign up for diving school, autumn 2026",
+      "text1": "With its focus on physical and mental learning, diving challenges sides of yourself you didn't know existed. It tests limits in a safe and fun way — right in the heart of Bergen.",
+      "text2": "We offer diving for all ages and adapt when needed.",
+      "cta": "Read more about the diving school"
+    },
+    "beginners": {
+      "title": "Never tried diving before?",
+      "text": "We offer a range of courses for all age groups and experience levels. Never stood on a diving board? We'll take good care of you, from the very first jump.",
+      "membershipCta": "Read more about membership",
+      "signupCta": "Sign up here"
+    },
+    "gear": {
+      "text": "We have club clothing from Craft. In the online shop you'll find training jackets and trousers, hoodies, T-shirts and shorts from our own collection.",
+      "cta": "Go to the online shop"
+    }
+  },
+  "JoinPage": {
+    "metaTitle": "Join us",
+    "description": "Courses, prices and everything you need to start diving.",
+    "title": "New to the club? Getting started is easy",
+    "crumb": "Join us",
+    "facts": {
+      "age": { "label": "Age", "value": "From [X] years to adult" },
+      "price": { "label": "Price", "value": "From NOK [PRICE] / term" },
+      "where": { "label": "Where", "value": "ADO Arena, city centre" },
+      "skills": { "label": "Prior skills", "value": "[Do you need to be able to swim?]" }
+    },
+    "coursesTitle": "Courses and activities by age",
+    "courses": {
+      "children": {
+        "age": "Age [AGE]",
+        "title": "Diving school, children",
+        "text": "[About the course] · [DAY, TIME]"
+      },
+      "youth": {
+        "age": "Age [AGE]",
+        "title": "Youth",
+        "text": "[About the course] · [DAY, TIME]"
+      },
+      "adults": {
+        "age": "18+",
+        "title": "Adults",
+        "text": "[About the course] · [DAY, TIME]"
+      },
+      "adapted": {
+        "age": "By arrangement",
+        "title": "Adapted training",
+        "text": "Our coaches adapt training to you or your family."
+      }
+    },
+    "signUp": "Sign up",
+    "contactUs": "Get in touch",
+    "readMoreSchool": "Read more about the diving school",
+    "pricesTitle": "Prices and what to bring",
+    "prices": {
+      "children": { "label": "Diving school, children", "price": "NOK [PRICE]" },
+      "youth": { "label": "Youth", "price": "NOK [PRICE]" },
+      "adults": { "label": "Adults", "price": "NOK [PRICE]" },
+      "membership": { "label": "Membership fee", "price": "NOK [PRICE] / year" }
+    },
+    "bringTitle": "Bring along",
+    "bring": {
+      "swimwear": "[Swimwear]",
+      "towel": "[Towel]",
+      "bottle": "[Water bottle]"
+    },
+    "bringNote": "You don't need club clothing to start. You can buy it later.",
+    "firstTimeTitle": "First time? Here's what happens",
+    "firstTime": {
+      "arrive": { "title": "Show up", "text": "[Where in ADO Arena, and how early]" },
+      "coach": { "title": "The coach welcomes you", "text": "[Who meets you, and can parents watch?]" },
+      "session": { "title": "The session", "text": "[What do you do the first time, and for how long?]" },
+      "after": { "title": "Afterwards", "text": "[How to become a regular member]" }
+    },
+    "readyTitle": "Ready? Sign up",
+    "readyText": "Choose a course, fill in the form, and we'll be in touch. Not sure? Ask us first.",
+    "goToRegistration": "Go to registration",
+    "askUs": "Ask us"
+  },
+  "MembersPage": {
+    "title": "For members",
+    "description": "Training times, competitions, results and practical info.",
+    "hints": {
+      "schedule": "and changes this week",
+      "events": "upcoming competitions and deadlines",
+      "results": "latest competitions",
+      "practical": "payment, gear and volunteering"
+    },
+    "noticeLabel": "Change:",
+    "notice": "[E.g. “No training on Thursday [DATE], the pool is closed”]",
+    "scheduleTitle": "Training times",
+    "group": "Group",
+    "days": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "friSun": "Fri–Sun"
+    },
+    "groups": {
+      "a": "[Group A]",
+      "b": "[Group B]",
+      "competition": "[Competition]"
+    },
+    "time": "[TIME]",
+    "eventsTitle": "Competitions and calendar",
+    "events": {
+      "first": "[Competition name] · [Venue] · registration deadline [DATE]",
+      "second": "[Competition name] · [Venue]",
+      "third": "[Social / volunteering / holiday]"
+    },
+    "date": "[DATE]",
+    "resultsTitle": "Results",
+    "results": {
+      "latest": "[Latest competition], [DATE]",
+      "earlier": "[Competition], [DATE]"
+    },
+    "seeResults": "See results",
+    "practicalTitle": "Fees and practical info",
+    "practical": {
+      "fee": { "title": "Membership fee", "text": "[Amount, due date and how to pay]" },
+      "gear": { "title": "Club gear", "text": "Club clothing from Craft: training jackets, hoodies, T-shirts and shorts." },
+      "volunteer": { "title": "Volunteering", "text": "[What is expected of parents and members?]" }
+    },
+    "goToGear": "Go to club gear"
+  },
+  "Registration": {
+    "title": "Registration",
+    "tabs": {
+      "membership": "Membership",
+      "contact": "Contact info",
+      "summary": "Summary"
+    },
+    "next": "Next",
+    "membership": {
+      "heading": "Membership registration for Bergen Stupeklubb",
+      "intro": "This form is for those who need to join in another way, by agreement with the head coach or the general manager. Active athletes are registered as members automatically.",
+      "family": "The form is also for family members who want to take part in trips and events, and for support staff.",
+      "fee": "The membership fee is NOK 250",
+      "typeLabel": "Membership type",
+      "typePlaceholder": "-- Choose type --",
+      "types": {
+        "member": "Member",
+        "passive": "Passive member"
+      }
+    },
+    "form": {
+      "name": "Full name",
+      "shortName": "Name",
+      "nationality": "Nationality",
+      "gender": "Gender",
+      "genderPlaceholder": "-- Choose --",
+      "genders": {
+        "boy": "Boy",
+        "girl": "Girl",
+        "nonBinary": "Non-binary"
+      },
+      "birthDate": "Date of birth",
+      "email": "Email",
+      "mobile": "Mobile",
+      "phone": "Phone",
+      "address": "Address"
+    },
+    "summary": {
+      "title": "Summary",
+      "submit": "Send registration",
+      "error": "Something went wrong. Please try again."
+    }
+  },
+  "Receipt": {
+    "title": "Your registration has been sent",
+    "thanks": "Thank you for joining Bergen Stupeklubb.",
+    "emailFailed": "We received your registration, but the receipt email could not be sent.",
+    "emailSent": "You will find a receipt in your email.",
+    "gear": "Click <link>here</link> to see the club gear.",
+    "home": "Go to the home page"
   }
 }

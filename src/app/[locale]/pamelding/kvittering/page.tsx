@@ -1,20 +1,24 @@
+import { getTranslations } from "next-intl/server"
 import { Link } from "@/src/i18n/navigation"
 
 export default async function Kvittering({searchParams}: {searchParams: Promise<{ epost?: string}>}){
     const {epost} = await searchParams
+    const t = await getTranslations("Receipt")
     return (
         <div className="text-cyan-950 text-center mb-20 mt-30 space-y-7">
-            <h1>Påmelding er sendt til oss</h1>
-            <p>Takk for at du har meldt deg inn på Stupeklubben.</p>
+            <h1>{t("title")}</h1>
+            <p>{t("thanks")}</p>
                 {epost === "feilet" ? (
-                    <p>Påmeldingen er mottatt, men e-posten med kvittering kunne ikke sendes.</p>
+                    <p>{t("emailFailed")}</p>
                 ) : (
-                    <p>Du finner en kvittering av bestillingen på mail.</p>
+                    <p>{t("emailSent")}</p>
                 )}
             <p>
-                Klikk <Link className="text-blue-500 font-extrabold" href="/klubbutstyr">her</Link> for å se på klubbutstyr.
+                {t.rich("gear", {
+                    link: (chunks) => <Link className="text-blue-500 font-extrabold" href="/klubbutstyr">{chunks}</Link>,
+                })}
             </p>
-            <Link className="text-blue-600" href="/">Gå til Forsiden</Link>
+            <Link className="text-blue-600" href="/">{t("home")}</Link>
         </div>
     )
 }

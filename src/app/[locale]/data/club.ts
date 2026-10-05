@@ -1,29 +1,12 @@
+// Texts live in messages/{locale}.json; this file keeps structure only.
+
+// Testimonial quotes: "Testimonials.{key}"
 export const TESTIMONIALS = [
-  {
-    quote:
-      "Jeg synes det er kjempekult å drive med stuping, og jeg trives så godt i klubben.",
-    name: "Isak",
-    detail: "14 år",
-  },
-  {
-    quote:
-      "Det er sinnsykt gøy å være en del av dette miljøet. For meg har stuping blitt en mental balsam hver eneste uke.",
-    name: "Vårin",
-    detail: "32 år",
-  },
-  {
-    quote:
-      "Klubben er en familie — jeg har kjent disse menneskene like lenge som min egen familie.",
-    name: "Julie",
-    detail: "21 år",
-  },
-  {
-    quote:
-      "Det er et veldig fint miljø, og det er kjempegøy å stupe. Både trenerne og de andre stuperne er snille.",
-    name: "Synne",
-    detail: "12 år",
-  },
-];
+  { key: "isak", name: "Isak", age: 14 },
+  { key: "varin", name: "Vårin", age: 32 },
+  { key: "julie", name: "Julie", age: 21 },
+  { key: "synne", name: "Synne", age: 12 },
+] as const;
 
 export const SPONSORS = [
   { name: "Zur Hår & Rubb", image: "/images/sponsor_img/zurhaar.png" },
@@ -33,35 +16,35 @@ export const SPONSORS = [
 ];
 
 // The two "doors" on the front page, reused by the navbar and footer.
+// Labels: "Nav.{key}"; eyebrow and links: "Doors.{key}".
 export const DOORS = {
   new: {
+    key: "join",
     href: "/bli-med",
-    label: "Bli med",
-    eyebrow: "Ny i klubben?",
     links: [
-      { label: "Kurs etter alder", href: "/bli-med#kurs" },
-      { label: "Priser og utstyr", href: "/bli-med#priser" },
-      { label: "Første gang?", href: "/bli-med#forste-gang" },
-      { label: "Påmelding", href: "/bli-med#pamelding" },
+      { key: "courses", href: "/bli-med#kurs" },
+      { key: "prices", href: "/bli-med#priser" },
+      { key: "firstTime", href: "/bli-med#forste-gang" },
+      { key: "registration", href: "/bli-med#pamelding" },
     ],
   },
   members: {
+    key: "members",
     href: "/for-medlemmer",
-    label: "For medlemmer",
-    eyebrow: "Allerede medlem?",
     links: [
-      { label: "Treningstider", href: "/for-medlemmer#treningstider" },
-      { label: "Stevner og kalender", href: "/for-medlemmer#stevner" },
-      { label: "Resultater", href: "/for-medlemmer#resultater" },
-      { label: "Kontingent og praktisk", href: "/for-medlemmer#praktisk" },
+      { key: "schedule", href: "/for-medlemmer#treningstider" },
+      { key: "events", href: "/for-medlemmer#stevner" },
+      { key: "results", href: "/for-medlemmer#resultater" },
+      { key: "practical", href: "/for-medlemmer#praktisk" },
     ],
   },
-};
+} as const;
 
+// Labels: "Nav.{key}"
 export const NAV_LINKS = [
-  { label: DOORS.new.label, href: DOORS.new.href },
-  { label: DOORS.members.label, href: DOORS.members.href },
-  { label: "Nyheter", href: "/nyheter" },
-  { label: "Om klubben", href: "/om-klubben" },
-  { label: "Kontakt", href: "/kontakt" },
-];
+  { key: DOORS.new.key, href: DOORS.new.href },
+  { key: DOORS.members.key, href: DOORS.members.href },
+  { key: "news", href: "/nyheter" },
+  { key: "about", href: "/om-klubben" },
+  { key: "contact", href: "/kontakt" },
+] as const;

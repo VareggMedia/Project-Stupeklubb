@@ -1,58 +1,53 @@
 import type { Metadata } from "next";
+import { type Locale, useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import PageHeader from "../components/PageHeader";
 import Sponsors from "../components/Sponsors";
 import { TESTIMONIALS } from "../data/club";
 
-export const metadata: Metadata = {
-  title: "Om klubben | Bergen Stupeklubb",
-  description: "Bergens eneste stupeklubb, med trening i ADO Arena.",
-};
+export async function generateMetadata({
+  params,
+}: PageProps<"/[locale]/om-klubben">): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale as Locale, namespace: "AboutPage" });
+  return { title: t("title"), description: t("description") };
+}
 
-// TODO: Replace the [BRACKETED] placeholders with the club's real info.
-const ABOUT = [
-  {
-    title: "Klubben",
-    text: "Bergens eneste stupeklubb, med trening i ADO Arena midt i sentrum. [Kort historie: når klubben ble startet, og hvor mange medlemmer den har.]",
-  },
-  {
-    title: "Trenerne",
-    text: "Erfarne trenere som tilpasser treningen til hver enkelt, fra første hopp til konkurransenivå. [Navn og bilder av trenerne.]",
-  },
-  {
-    title: "Styret",
-    text: "[Hvem sitter i styret, og hvordan man kontakter dem.]",
-  },
-];
+// TODO: Replace the [BRACKETED] placeholders in messages/*.json with the club's real info.
+const ABOUT = ["club", "coaches", "board"] as const;
 
 export default function OmKlubben() {
+  const t = useTranslations("AboutPage");
+  const tQuotes = useTranslations("Testimonials");
+  const tCommon = useTranslations("Common");
   return (
     <>
-      <PageHeader title="Om klubben" crumb="Om klubben" tone="pool" />
+      <PageHeader title={t("title")} crumb={t("title")} tone="pool" />
 
       <div className="wrap py-20 max-[900px]:py-14">
         <div className="grid grid-cols-3 gap-6 max-[900px]:grid-cols-1">
-          {ABOUT.map((a) => (
-            <section key={a.title} className="rounded-[20px] bg-foam-dim p-9">
-              <h2 className="text-[26px]">{a.title}</h2>
-              <p className="mt-3 text-base text-muted">{a.text}</p>
+          {ABOUT.map((key) => (
+            <section key={key} className="rounded-[20px] bg-foam-dim p-9">
+              <h2 className="text-[26px]">{t(`cards.${key}.title`)}</h2>
+              <p className="mt-3 text-base text-muted">{t(`cards.${key}.text`)}</p>
             </section>
           ))}
         </div>
 
         <h2 className="mt-20 mb-7 text-[clamp(26px,3vw,34px)]">
-          Hva medlemmene sier
+          {t("testimonialsTitle")}
         </h2>
         <div className="grid grid-cols-2 gap-6 max-[900px]:grid-cols-1">
-          {TESTIMONIALS.map((t) => (
+          {TESTIMONIALS.map((q) => (
             <figure
-              key={t.name}
+              key={q.key}
               className="rounded-[20px] border border-line-light bg-white p-8"
             >
               <blockquote className="font-display text-xl leading-snug">
-                «{t.quote}»
+                «{tQuotes(q.key)}»
               </blockquote>
               <figcaption className="mt-4 text-[15px] text-muted">
-                {t.name}, {t.detail}
+                {q.name}, {tCommon("age", { age: q.age })}
               </figcaption>
             </figure>
           ))}

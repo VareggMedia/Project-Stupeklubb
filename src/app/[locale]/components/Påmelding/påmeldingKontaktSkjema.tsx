@@ -3,9 +3,12 @@ import { PåmeldingData, usePåmelding } from "./påmeldingStruktur";
 import Select, { StylesConfig } from 'react-select';
 import countries from 'i18n-iso-countries'
 import norsk from 'i18n-iso-countries/langs/nb.json'
+import english from 'i18n-iso-countries/langs/en.json'
 import React, { useEffect } from "react";
+import { useLocale, useTranslations } from "next-intl";
 
 countries.registerLocale(norsk)
+countries.registerLocale(english)
 
 type SelectOption = {
     value: string | null;
@@ -15,30 +18,35 @@ type setStepProp = {
     setStep: React.Dispatch<React.SetStateAction<number>>;
     setKontakt: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const landnavn = countries.getNames('nb', { select: 'official' })
-const alternativer = Object.entries(landnavn).map(
-    ([kode, navn]) => ({
-        value: kode,
-        label: navn,
-    })
-)
+// Stored values stay Norwegian; only the labels are translated.
+export const GENDERS: readonly { value: PåmeldingData['kjønn'], key: "boy" | "girl" | "nonBinary" }[] = [
+    { value: 'Gutt', key: 'boy' },
+    { value: 'Jente', key: 'girl' },
+    { value: 'Ikke-binær', key: 'nonBinary' }
+]
 
 
 export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
+    const t = useTranslations("Registration")
+    const locale = useLocale()
     const { påmelding, setPåmelding } = usePåmelding();
+    // Country codes are stored; names follow the page language
+    const landnavn = countries.getNames(locale, { select: 'official' })
+    const alternativer = Object.entries(landnavn).map(
+        ([kode, navn]) => ({
+            value: kode,
+            label: navn,
+        })
+    )
     function submit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
         setStep(2)
     }
 
-    const kjønnvalg: {
-        value: PåmeldingData['kjønn'];
-        label: string;
-    }[] = [
-        { value: 'Gutt', label: 'Gutt' },
-        { value: 'Jente', label: 'Jente' },
-        { value: 'Ikke-binær', label: 'Ikke-binær' }
-    ]
+    const kjønnvalg = GENDERS.map(({ value, key }) => ({
+        value,
+        label: t(`form.genders.${key}`),
+    }))
 
     const isFormValid = (
         påmelding.navn !== '' &&
@@ -83,7 +91,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                 <form onSubmit={submit} className="space-y-4">
                     <section className="space-y-4">
                         <div>
-                            <label className={labelStyle} htmlFor="navn">Fullt navn</label>
+                            <label className={labelStyle} htmlFor="navn">{t("form.name")}</label>
                             <input
                                 id="navn"
                                 type="text"
@@ -99,7 +107,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                         </div>
 
                         <div>
-                            <label className={labelStyle} htmlFor="nasjon">Nasjonalitet</label>
+                            <label className={labelStyle} htmlFor="nasjon">{t("form.nationality")}</label>
                             <Select<SelectOption, false>
                                 inputId="nasjon"
                                 instanceId="nasjon"
@@ -118,11 +126,11 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                         </div>
 
                         <div>
-                            <label className={labelStyle} htmlFor="kjonn">Kjønn</label>
+                            <label className={labelStyle} htmlFor="kjonn">{t("form.gender")}</label>
                             <Select<SelectOption, false>
                                 inputId="kjonn"
                                 instanceId="kjonn"
-                                placeholder="-- Velg --"
+                                placeholder={t("form.genderPlaceholder")}
                                 options={kjønnvalg}
                                 styles={selectStyles}
                                 value={kjønnvalg.find(
@@ -138,7 +146,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                         </div>
 
                         <div>
-                            <label className={labelStyle} htmlFor="bursdag">Fødselsdato</label>
+                            <label className={labelStyle} htmlFor="bursdag">{t("form.birthDate")}</label>
                             <input
                                 id="bursdag"
                                 type="date"
@@ -153,7 +161,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                         </div>
 
                         <div>
-                            <label className={labelStyle} htmlFor="email">E-post</label>
+                            <label className={labelStyle} htmlFor="email">{t("form.email")}</label>
                             <input
                                 id="email"
                                 type="email"
@@ -169,7 +177,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                         </div>
 
                         <div>
-                            <label className={labelStyle} htmlFor="mobil">Mobil</label>
+                            <label className={labelStyle} htmlFor="mobil">{t("form.mobile")}</label>
                             <input
                                 id="mobil"
                                 type="text"
@@ -185,7 +193,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                         </div>
 
                         <div>
-                            <label className={labelStyle} htmlFor="adresse">Adresse</label>
+                            <label className={labelStyle} htmlFor="adresse">{t("form.address")}</label>
                             <input
                                 id="adresse"
                                 type="text"
@@ -206,7 +214,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             disabled={!isFormValid}
                             className="w-full rounded-xl bg-cyan-600 px-4 py-3 text-sm font-semibold text-white hover:bg-cyan-700 active:bg-cyan-800 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 disabled:bg-cyan-300 disabled:cursor-not-allowed cursor-pointer"
                         >
-                            Neste
+                            {t("next")}
                         </button>
                     </div>
                 </form>

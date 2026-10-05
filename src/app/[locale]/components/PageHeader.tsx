@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Link } from "@/src/i18n/navigation";
 import type { ReactNode } from "react";
 
@@ -14,6 +15,7 @@ export default function PageHeader({
   tone = "pool",
   children,
 }: PageHeaderProps) {
+  const t = useTranslations("Common");
   const isAqua = tone === "aqua";
   return (
     <section
@@ -22,9 +24,9 @@ export default function PageHeader({
       }`}
     >
       <div className="wrap">
-        <nav aria-label="Brødsmuler" className="text-[14px] font-semibold">
+        <nav aria-label={t("breadcrumb")} className="text-[14px] font-semibold">
           <Link href="/" className="hover:underline">
-            Forside
+            {t("home")}
           </Link>
           <span className="mx-2 opacity-60">/</span>
           <span aria-current="page">{crumb}</span>

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import { notFound } from "next/navigation";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { hasLocale, type Locale, NextIntlClientProvider } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { routing } from "@/src/i18n/routing";
 import "./globals.css";
 import Navbar from "./components/navbar";
@@ -19,10 +20,17 @@ const bricolage = Bricolage_Grotesque({
   axes: ["opsz"],
 });
 
-export const metadata: Metadata = {
-  title: "Bergen Stupeklubb",
-  description: "Bergen Stupeklubb",
-};
+export async function generateMetadata({
+  params,
+}: LayoutProps<"/[locale]">): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale as Locale, namespace: "Metadata" });
+  return {
+    // Pages set only their own title, e.g. "Om klubben | Bergen Stupeklubb"
+    title: { default: t("siteTitle"), template: `%s | ${t("siteTitle")}` },
+    description: t("siteDescription"),
+  };
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

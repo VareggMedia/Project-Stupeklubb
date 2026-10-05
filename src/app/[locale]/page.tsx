@@ -1,6 +1,6 @@
 import { Link } from "@/src/i18n/navigation";
 import { ArrowUpRight } from "lucide-react";
-import { buttonStyles } from "./components/button";
+import { useTranslations } from "next-intl";
 import WaveDivider from "./components/WaveDivider";
 import Sponsors from "./components/Sponsors";
 import { DOORS } from "./data/club";
@@ -10,19 +10,12 @@ import { DOORS } from "./data/club";
  * Rebuilt from bergenstupeklubb.no with an original aquatic visual identity.
  */
 
-const HERO_STATS = [
-  {
-    title: "Alle aldre",
-    text: "Nybegynner til konkurransestuper, tilpasset ditt nivå.",
-  },
-  { title: "ADO Arena", text: "Lungegårdskaien 40, midt i Bergen sentrum." },
-  {
-    title: "Trygt miljø",
-    text: "Erfarne trenere og en klubb som stiller opp.",
-  },
-];
+const HERO_STATS = ["ages", "venue", "safe"] as const;
 
 export default function App() {
+  const t = useTranslations("HomePage");
+  const tDoors = useTranslations("Doors");
+  const tNav = useTranslations("Nav");
   return (
     <div>
       {/* HERO */}
@@ -34,25 +27,24 @@ export default function App() {
           <div>
             <span className="mb-5.5 inline-flex items-center gap-2 text-[13.5px] font-semibold text-aqua">
               <span className="size-1.5 rounded-full bg-aqua" />
-              Bergens eneste stupeklubb
+              {t("eyebrow")}
             </span>
             <h1 className="max-w-[12ch] text-[clamp(38px,5.4vw,60px)] leading-[1.04] text-foam">
-              Vannets vakreste sport begynner her
+              {t("title")}
             </h1>
             <p className="mt-5.5 max-w-[42ch] text-[18px] text-foam/78">
-              La vannets vakreste sport utfordre deg! Bli en del av gjengen i
-              Bergen Stupeklubb.
+              {t("lead")}
             </p>
             <div className="mt-13.5 flex gap-7.5 border-t border-line-dark pt-6.5 max-[900px]:flex-wrap max-[900px]:gap-y-5">
-              {HERO_STATS.map((s) => (
+              {HERO_STATS.map((key) => (
                 <div
-                  key={s.title}
+                  key={key}
                   className="max-w-[16ch] text-[13.5px] text-foam/95"
                 >
                   <strong className="mb-0.75 block font-display text-[15px] text-foam">
-                    {s.title}
+                    {t(`stats.${key}.title`)}
                   </strong>
-                  {s.text}
+                  {t(`stats.${key}.text`)}
                 </div>
               ))}
             </div>
@@ -67,13 +59,25 @@ export default function App() {
       <section className="relative z-10 -mt-44 max-[900px]:-mt-16">
         <div className="wrap grid grid-cols-2 gap-7 max-[900px]:grid-cols-1 max-[900px]:gap-4">
           <Door
-            door={DOORS.new}
-            text="For deg som vil prøve, eller forelder som vil finne riktig kurs til barnet sitt."
+            href={DOORS.new.href}
+            label={tNav(DOORS.new.key)}
+            eyebrow={tDoors("join.eyebrow")}
+            links={DOORS.new.links.map((l) => ({
+              href: l.href,
+              label: tDoors(`join.links.${l.key}`),
+            }))}
+            text={t("doorJoinText")}
             tone="aqua"
           />
           <Door
-            door={DOORS.members}
-            text="Treningstider, stevner og resultater, samlet på ett sted."
+            href={DOORS.members.href}
+            label={tNav(DOORS.members.key)}
+            eyebrow={tDoors("members.eyebrow")}
+            links={DOORS.members.links.map((l) => ({
+              href: l.href,
+              label: tDoors(`members.links.${l.key}`),
+            }))}
+            text={t("doorMembersText")}
             tone="pool"
           />
         </div>
@@ -83,11 +87,10 @@ export default function App() {
       <section className="bg-foam pt-22.5 pb-16 text-center">
         <div className="mx-auto max-w-160 px-7">
           <h2 className="text-[clamp(24px,3vw,30px)]">
-            I Bergen Stupeklubb er alle velkomne
+            {t("inclusiveTitle")}
           </h2>
           <p className="mt-4 text-[16.5px] text-muted">
-            Å tilpasse trening til deg eller dine er aldri noe problem. Trenerne
-            våre er erfarne i akkurat det. Velkommen skal du være.
+            {t("inclusiveText")}
           </p>
         </div>
       </section>
@@ -97,21 +100,21 @@ export default function App() {
         <div className="wrap grid grid-cols-3 gap-6 max-[900px]:grid-cols-1">
           <SharedCard
             href="/nyheter"
-            title="Nyheter"
-            text="Treningsoppdateringer, konkurranseresultater og andre gode nyheter fra klubben."
-            cta="Les siste nytt"
+            title={t("cards.news.title")}
+            text={t("cards.news.text")}
+            cta={t("cards.news.cta")}
           />
           <SharedCard
             href="/om-klubben"
-            title="Om klubben"
-            text="Hvem vi er, trenerne våre og sponsorene som gjør det mulig."
-            cta="Les om klubben"
+            title={t("cards.about.title")}
+            text={t("cards.about.text")}
+            cta={t("cards.about.cta")}
           />
           <SharedCard
             href="/kontakt"
-            title="Kontakt"
-            text="ADO Arena, Lungegårdskaien 40. Vi digger spørsmål."
-            cta="Ta kontakt"
+            title={t("cards.contact.title")}
+            text={t("cards.contact.text")}
+            cta={t("cards.contact.cta")}
           />
         </div>
       </section>
@@ -125,11 +128,17 @@ export default function App() {
 }
 
 function Door({
-  door,
+  href,
+  label,
+  eyebrow,
+  links,
   text,
   tone,
 }: {
-  door: (typeof DOORS)[keyof typeof DOORS];
+  href: string;
+  label: string;
+  eyebrow: string;
+  links: { href: string; label: string }[];
   text: string;
   tone: "aqua" | "pool";
 }) {
@@ -145,15 +154,15 @@ function Door({
       <span
         className={`text-[15px] font-semibold ${isAqua ? "" : "text-aqua"}`}
       >
-        {door.eyebrow}
+        {eyebrow}
       </span>
       <h2 className="text-[clamp(34px,4vw,48px)] leading-none">
         {/* Stretched link: the ::after overlay makes the whole card clickable */}
         <Link
-          href={door.href}
+          href={href}
           className="inline-flex items-center gap-2 after:absolute after:inset-0 after:rounded-3xl after:content-['']"
         >
-          {door.label}
+          {label}
           <ArrowUpRight
             size={32}
             className="transition-transform duration-150 group-hover:translate-x-1 group-hover:-translate-y-1"
@@ -162,7 +171,7 @@ function Door({
       </h2>
       <p className="max-w-[40ch] text-[17px]">{text}</p>
       <div className="mt-1 grid grid-cols-2 gap-2.5 max-[480px]:grid-cols-1">
-        {door.links.map((l) => (
+        {links.map((l) => (
           <Link
             key={l.href}
             href={l.href}

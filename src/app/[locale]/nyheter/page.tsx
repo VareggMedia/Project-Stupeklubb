@@ -1,24 +1,23 @@
 import { ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { buttonStyles } from "../components/button";
 import FeatureRow from "../components/FeatureRow";
 export default function Nyheter() {
+  const tNews = useTranslations("NewsPage");
   return (
     <section className="bg-foam" id="stupskolen">
       <div className="wrap">
         <FeatureRow
           id="nyheter"
-          title="Hold deg oppdatert"
+          title={tNews("title")}
           reverse
           lightArt
           last
           art={<img src="/images/divingboard.avif" alt="Bergen Stupeklubb" />}
         >
-          <p>
-            På nyhetssiden vår skriver vi om alt fra treningsoppdateringer og
-            konkurranseresultater til andre gode nyheter fra klubben.
-          </p>
+          <p>{tNews("text")}</p>
           <a href="#" className={buttonStyles.ghostLight}>
-            Les siste nytt
+            {tNews("cta")}
             <ArrowUpRight size={16} />
           </a>
         </FeatureRow>
