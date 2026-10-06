@@ -1,7 +1,7 @@
 'use server'
 import { Resend } from "resend";
-import { PåmeldingData } from "@/src/app/components/Påmelding/påmeldingStruktur";
-import EmailInnhold from "@/src/app/components/Påmelding/EmailInnhold";
+import { PåmeldingData } from "@/src/app/[locale]/components/Påmelding/påmeldingStruktur";
+import EmailInnhold from "@/src/app/[locale]/components/Påmelding/EmailInnhold";
 import { createElement } from "react";
 
 type sendResult = {
