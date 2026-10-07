@@ -1,7 +1,7 @@
 "use client";
 import { Link, usePathname } from "@/src/i18n/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "../data/club";
@@ -23,18 +23,50 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const isActive = (href: string) => pathname.startsWith(href);
+  const headerRef = useRef<HTMLElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+
+  // Open mobile menu: lock page scroll; close on Escape, outside tap, or desktop width
+  useEffect(() => {
+    if (!menuOpen) return;
+    const root = document.documentElement;
+    root.style.overflow = "hidden";
+    const close = () => setMenuOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        close();
+        burgerRef.current?.focus();
+      }
+    };
+    const onPointer = (e: PointerEvent) => {
+      if (!headerRef.current?.contains(e.target as Node)) close();
+    };
+    const desktop = window.matchMedia("(min-width: 960px)");
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointer);
+    desktop.addEventListener("change", close);
+    return () => {
+      root.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointer);
+      desktop.removeEventListener("change", close);
+    };
+  }, [menuOpen]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-ink py-3 shadow-[0_1px_0_var(--color-line-dark)]">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-7 text-white max-[860px]:px-5">
+    <header
+      ref={headerRef}
+      className="fixed inset-x-0 top-0 z-50 bg-ink py-3 shadow-[0_1px_0_var(--color-line-dark)]"
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-7 text-white">
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-display text-[30px] font-bold tracking-[0.01em] whitespace-nowrap text-foam max-[860px]:text-[clamp(16px,calc(10.5vw_-_16px),30px)]"
+          className="flex items-center gap-2.5 font-display text-[30px] font-bold tracking-[0.01em] whitespace-nowrap text-foam max-[960px]:text-[clamp(16px,calc(10.5vw_-_17.7px),30px)]"
         >
           <RippleMark />
           Bergen Stupeklubb
         </Link>
-        <div className="flex items-center gap-5.5 max-[860px]:hidden">
+        <div className="flex items-center gap-5.5 max-[960px]:hidden">
           <nav className="flex items-center gap-7.5">
             {NAV_LINKS.map((l) => (
               <Link
@@ -52,20 +84,25 @@ export default function Navbar() {
           <LanguageSwitcher />
         </div>
         {/* Mobile: one-flag language toggle and the burger on the brand's line */}
-        <div className="hidden shrink-0 items-center gap-1 max-[860px]:flex">
+        <div className="hidden shrink-0 items-center gap-1 max-[960px]:flex">
           <LanguageSwitcher compact />
           <button
+            ref={burgerRef}
             className="cursor-pointer p-1 text-foam"
             aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
             onClick={() => setMenuOpen((v) => !v)}
           >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
-      <div
+      <nav
+        id="mobile-menu"
+        aria-label={t("menu")}
         className={`wrap hidden flex-col gap-0.5 pt-2.5 pb-1 ${
-          menuOpen ? "max-[860px]:flex" : ""
+          menuOpen ? "max-[960px]:flex" : ""
         }`}
       >
         {NAV_LINKS.map((l) => (
@@ -88,7 +125,7 @@ export default function Navbar() {
         >
           {t("registration")}
         </Link>
-      </div>
+      </nav>
     </header>
   );
 }
