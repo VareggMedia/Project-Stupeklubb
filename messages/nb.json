@@ -1,0 +1,360 @@
+{
+  "Metadata": {
+    "siteTitle": "Bergen Stupeklubb",
+    "siteDescription": "Bergen Stupeklubb"
+  },
+  "Common": {
+    "home": "Forside",
+    "breadcrumb": "Brødsmuler",
+    "age": "{age} år"
+  },
+  "LanguageSwitcher": {
+    "label": "Språk"
+  },
+  "Nav": {
+    "join": "Bli med",
+    "members": "For medlemmer",
+    "news": "Nyheter",
+    "about": "Om klubben",
+    "contact": "Kontakt",
+    "home": "Hjem",
+    "divingSchool": "Stupskolen",
+    "registration": "Påmelding",
+    "openMenu": "Åpne meny",
+    "closeMenu": "Lukk meny"
+  },
+  "Doors": {
+    "join": {
+      "eyebrow": "Ny i klubben?",
+      "links": {
+        "courses": "Kurs etter alder",
+        "prices": "Priser og utstyr",
+        "firstTime": "Første gang?",
+        "registration": "Påmelding"
+      }
+    },
+    "members": {
+      "eyebrow": "Allerede medlem?",
+      "links": {
+        "schedule": "Treningstider",
+        "events": "Stevner og kalender",
+        "results": "Resultater",
+        "practical": "Kontingent og praktisk"
+      }
+    }
+  },
+  "Footer": {
+    "title": "Ta kontakt!",
+    "text": "For oss er det viktig at du føler deg velkommen. Har du spørsmål vi ikke har svart på her, vil vi at du skal ta kontakt fort som bare rakkeren. Vi digger spørsmål — vi er jo tross alt bergensere.",
+    "email": "E-post",
+    "phone": "Telefon",
+    "address": "Adresse"
+  },
+  "Sponsors": {
+    "title": "Våre sponsorer"
+  },
+  "Testimonials": {
+    "isak": "Jeg synes det er kjempekult å drive med stuping, og jeg trives så godt i klubben.",
+    "varin": "Det er sinnsykt gøy å være en del av dette miljøet. For meg har stuping blitt en mental balsam hver eneste uke.",
+    "julie": "Klubben er en familie — jeg har kjent disse menneskene like lenge som min egen familie.",
+    "synne": "Det er et veldig fint miljø, og det er kjempegøy å stupe. Både trenerne og de andre stuperne er snille."
+  },
+  "HomePage": {
+    "eyebrow": "Bergens eneste stupeklubb",
+    "title": "Vannets vakreste sport begynner her",
+    "lead": "La vannets vakreste sport utfordre deg! Bli en del av gjengen i Bergen Stupeklubb.",
+    "stats": {
+      "ages": {
+        "title": "Alle aldre",
+        "text": "Nybegynner til konkurransestuper, tilpasset ditt nivå."
+      },
+      "venue": {
+        "title": "ADO Arena",
+        "text": "Lungegårdskaien 40, midt i Bergen sentrum."
+      },
+      "safe": {
+        "title": "Trygt miljø",
+        "text": "Erfarne trenere og en klubb som stiller opp."
+      }
+    },
+    "doorJoinText": "For deg som vil prøve, eller forelder som vil finne riktig kurs til barnet sitt.",
+    "doorMembersText": "Treningstider, stevner og resultater, samlet på ett sted.",
+    "inclusiveTitle": "I Bergen Stupeklubb er alle velkomne",
+    "inclusiveText": "Å tilpasse trening til deg eller dine er aldri noe problem. Trenerne våre er erfarne i akkurat det. Velkommen skal du være.",
+    "cards": {
+      "news": {
+        "title": "Nyheter",
+        "text": "Treningsoppdateringer, konkurranseresultater og andre gode nyheter fra klubben.",
+        "cta": "Les siste nytt"
+      },
+      "about": {
+        "title": "Om klubben",
+        "text": "Hvem vi er, trenerne våre og sponsorene som gjør det mulig.",
+        "cta": "Les om klubben"
+      },
+      "contact": {
+        "title": "Kontakt",
+        "text": "ADO Arena, Lungegårdskaien 40. Vi digger spørsmål.",
+        "cta": "Ta kontakt"
+      }
+    }
+  },
+  "AboutPage": {
+    "title": "Om klubben",
+    "description": "Bergens eneste stupeklubb, med trening i ADO Arena.",
+    "cards": {
+      "club": {
+        "title": "Klubben",
+        "text": "Bergens eneste stupeklubb, med trening i ADO Arena midt i sentrum. [Kort historie: når klubben ble startet, og hvor mange medlemmer den har.]"
+      },
+      "coaches": {
+        "title": "Trenerne",
+        "text": "Erfarne trenere som tilpasser treningen til hver enkelt, fra første hopp til konkurransenivå. [Navn og bilder av trenerne.]"
+      },
+      "board": {
+        "title": "Styret",
+        "text": "[Hvem sitter i styret, og hvordan man kontakter dem.]"
+      }
+    },
+    "testimonialsTitle": "Hva medlemmene sier"
+  },
+  "ContactPage": {
+    "title": "Kontakt oss",
+    "crumb": "Kontakt",
+    "metaTitle": "Kontakt",
+    "text": "Lurer du på noe om kurs, medlemskap eller stevner? Send oss en e-post eller ring, så svarer vi så fort vi kan."
+  },
+  "GearPage": {
+    "title": "Klubbutstyr",
+    "text": "Klubbtøy fra Craft: treningsjakker, hettegensere, t-skjorter og shorts."
+  },
+  "NewsPage": {
+    "title": "Hold deg oppdatert",
+    "text": "På nyhetssiden vår skriver vi om alt fra treningsoppdateringer og konkurranseresultater til andre gode nyheter fra klubben.",
+    "cta": "Les siste nytt"
+  },
+  "DivingSchoolPage": {
+    "signup": {
+      "title": "Meld deg på stupskole for høsten 2026",
+      "text1": "Med fokus på fysisk og mental læring utfordrer stuping sider ved deg selv du ikke visste fantes. Det tester grenser på en trygg og artig måte — midt i hjertet av Bergen.",
+      "text2": "Vi tilbyr stuping for alle aldre og tilpasser ved behov.",
+      "cta": "Les mer om stupskolen"
+    },
+    "beginners": {
+      "title": "Aldri prøvd å stupe før?",
+      "text": "Vi tilbyr en rekke kurs for alle aldersgrupper og erfaringsnivåer. Har du aldri stått på et stupebrett før? Vi tar godt vare på deg, fra første hopp.",
+      "membershipCta": "Les mer om medlemskap",
+      "signupCta": "Meld deg på her"
+    },
+    "gear": {
+      "text": "Vi har klubbtøy fra Craft. I nettbutikken finner du treningsjakker og -bukser, hettegensere, t-skjorter og shorts fra vår egen kolleksjon.",
+      "cta": "Gå til nettbutikken"
+    }
+  },
+  "JoinPage": {
+    "metaTitle": "Bli med",
+    "description": "Kurs, priser og alt du trenger for å begynne å stupe.",
+    "title": "Ny i klubben? Så enkelt starter du",
+    "crumb": "Bli med",
+    "facts": {
+      "age": {
+        "label": "Alder",
+        "value": "Fra [X] år til voksen"
+      },
+      "price": {
+        "label": "Pris",
+        "value": "Fra [PRIS] kr / semester"
+      },
+      "where": {
+        "label": "Hvor",
+        "value": "ADO Arena, sentrum"
+      },
+      "skills": {
+        "label": "Forkunnskap",
+        "value": "[Må man kunne svømme?]"
+      }
+    },
+    "coursesTitle": "Kurs og tilbud etter alder",
+    "courses": {
+      "children": {
+        "age": "[ALDER] år",
+        "title": "Stupskolen barn",
+        "text": "[Kort om kurset] · [DAG, TID]"
+      },
+      "youth": {
+        "age": "[ALDER] år",
+        "title": "Ungdom",
+        "text": "[Kort om kurset] · [DAG, TID]"
+      },
+      "adults": {
+        "age": "18+",
+        "title": "Voksen",
+        "text": "[Kort om kurset] · [DAG, TID]"
+      },
+      "adapted": {
+        "age": "Etter avtale",
+        "title": "Tilpasset trening",
+        "text": "Trenerne våre tilpasser treningen til deg eller dine."
+      }
+    },
+    "signUp": "Meld på",
+    "contactUs": "Ta kontakt",
+    "readMoreSchool": "Les mer om stupskolen",
+    "pricesTitle": "Priser og hva du har med",
+    "prices": {
+      "children": {
+        "label": "Stupskolen barn",
+        "price": "[PRIS] kr"
+      },
+      "youth": {
+        "label": "Ungdom",
+        "price": "[PRIS] kr"
+      },
+      "adults": {
+        "label": "Voksen",
+        "price": "[PRIS] kr"
+      },
+      "membership": {
+        "label": "Medlemskontingent",
+        "price": "[PRIS] kr / år"
+      }
+    },
+    "bringTitle": "Ta med deg",
+    "bring": {
+      "swimwear": "[Badetøy]",
+      "towel": "[Håndkle]",
+      "bottle": "[Drikkeflaske]"
+    },
+    "bringNote": "Klubbtøy er ikke nødvendig for å begynne. Det kan du kjøpe senere.",
+    "firstTimeTitle": "Første gang? Dette skjer",
+    "firstTime": {
+      "arrive": {
+        "title": "Møt opp",
+        "text": "[Hvor i ADO Arena, og hvor tidlig]"
+      },
+      "coach": {
+        "title": "Treneren tar imot",
+        "text": "[Hvem møter dere, og kan foreldre se på?]"
+      },
+      "session": {
+        "title": "Treningen",
+        "text": "[Hva gjør man første gang, og hvor lenge?]"
+      },
+      "after": {
+        "title": "Etterpå",
+        "text": "[Hvordan man blir fast medlem]"
+      }
+    },
+    "readyTitle": "Klar? Meld deg på",
+    "readyText": "Velg kurs, fyll ut skjemaet, så hører du fra oss. Usikker? Spør oss først.",
+    "goToRegistration": "Gå til påmelding",
+    "askUs": "Spør oss"
+  },
+  "MembersPage": {
+    "title": "For medlemmer",
+    "description": "Treningstider, stevner, resultater og praktisk info.",
+    "hints": {
+      "schedule": "og endringer denne uken",
+      "events": "kommende stevner og frister",
+      "results": "siste stevner",
+      "practical": "betaling, utstyr og dugnad"
+    },
+    "noticeLabel": "Endring:",
+    "notice": "[F.eks. «Ingen trening torsdag [DATO], bassenget er stengt»]",
+    "scheduleTitle": "Treningstider",
+    "group": "Gruppe",
+    "days": {
+      "mon": "Man",
+      "tue": "Tir",
+      "wed": "Ons",
+      "thu": "Tor",
+      "friSun": "Fre–søn"
+    },
+    "groups": {
+      "a": "[Gruppe A]",
+      "b": "[Gruppe B]",
+      "competition": "[Konkurranse]"
+    },
+    "time": "[TID]",
+    "eventsTitle": "Stevner og kalender",
+    "events": {
+      "first": "[Stevnenavn] · [Sted] · påmeldingsfrist [DATO]",
+      "second": "[Stevnenavn] · [Sted]",
+      "third": "[Sosialt / dugnad / ferie]"
+    },
+    "date": "[DATO]",
+    "resultsTitle": "Resultater",
+    "results": {
+      "latest": "[Siste stevne], [DATO]",
+      "earlier": "[Stevne], [DATO]"
+    },
+    "seeResults": "Se resultater",
+    "practicalTitle": "Kontingent og praktisk info",
+    "practical": {
+      "fee": {
+        "title": "Kontingent",
+        "text": "[Beløp, forfall og hvordan man betaler]"
+      },
+      "gear": {
+        "title": "Klubbutstyr",
+        "text": "Klubbtøy fra Craft: treningsjakker, hettegensere, t-skjorter og shorts."
+      },
+      "volunteer": {
+        "title": "Dugnad og frivillig",
+        "text": "[Hva forventes av foreldre og medlemmer?]"
+      }
+    },
+    "goToGear": "Gå til klubbutstyr"
+  },
+  "Registration": {
+    "title": "Påmelding",
+    "tabs": {
+      "membership": "Medlemskap",
+      "contact": "Kontaktinfo",
+      "summary": "Oppsummering"
+    },
+    "next": "Neste",
+    "membership": {
+      "heading": "Innmelding som medlem i Bergen Stupeklubb",
+      "intro": "Dette skjema er for dem som trenger å melde seg inn på alternative måter etter avtale med hovedtrener eller daglig leder. Aktive utøvere blir automatisk meldt inn som medlem.",
+      "family": "Skjemaet er også for dem som er familie som ønsker å være med på turer og arrangementer, samt støttepersonell.",
+      "fee": "Medlemskontingent er kr 250,-",
+      "typeLabel": "Medlemstype",
+      "typePlaceholder": "-- Velg Type --",
+      "types": {
+        "member": "Medlem",
+        "passive": "Passiv Medlem"
+      }
+    },
+    "form": {
+      "name": "Fullt navn",
+      "nationality": "Nasjonalitet",
+      "gender": "Kjønn",
+      "genderPlaceholder": "-- Velg --",
+      "genders": {
+        "boy": "Gutt",
+        "girl": "Jente",
+        "nonBinary": "Ikke-binær"
+      },
+      "birthDate": "Fødselsdato",
+      "email": "E-post",
+      "mobile": "Mobil",
+      "phone": "Telefon",
+      "address": "Adresse",
+      "shortName": "Navn"
+    },
+    "summary": {
+      "title": "Oppsummering",
+      "submit": "Send påmelding",
+      "error": "Noe gikk galt. Prøv igjen."
+    }
+  },
+  "Receipt": {
+    "title": "Påmelding er sendt til oss",
+    "thanks": "Takk for at du har meldt deg inn på Stupeklubben.",
+    "emailFailed": "Påmeldingen er mottatt, men e-posten med kvittering kunne ikke sendes.",
+    "emailSent": "Du finner en kvittering av bestillingen på mail.",
+    "gear": "Klikk <link>her</link> for å se på klubbutstyr.",
+    "home": "Gå til Forsiden"
+  }
+}
