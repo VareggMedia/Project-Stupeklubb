@@ -51,7 +51,7 @@ export default function LanguageSwitcher({ compact = false }: { compact?: boolea
         lang={target.locale}
         aria-label={target.switchTo}
         title={target.switchTo}
-        className={`${optionStyles} min-h-7 opacity-90 hover:opacity-100`}
+        className={`${optionStyles} -m-2 min-h-7 box-content p-2 opacity-90 hover:opacity-100`}
       >
         <target.Flag />
       </NextLink>

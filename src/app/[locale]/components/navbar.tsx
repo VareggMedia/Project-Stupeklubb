@@ -20,8 +20,12 @@ export function RippleMark() {
 }
 export default function Navbar() {
   const t = useTranslations("Nav");
-  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  // The menu belongs to the page it was opened on, so any navigation
+  // (a link, or the browser's Back button) closes it
+  const [openedOn, setOpenedOn] = useState<string | null>(null);
+  const menuOpen = openedOn === pathname;
+  const closeMenu = () => setOpenedOn(null);
   const isActive = (href: string) => pathname.startsWith(href);
   const headerRef = useRef<HTMLElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
@@ -31,7 +35,7 @@ export default function Navbar() {
     if (!menuOpen) return;
     const root = document.documentElement;
     root.style.overflow = "hidden";
-    const close = () => setMenuOpen(false);
+    const close = () => setOpenedOn(null);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         close();
@@ -92,7 +96,7 @@ export default function Navbar() {
             aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
-            onClick={() => setMenuOpen((v) => !v)}
+            onClick={() => setOpenedOn(menuOpen ? null : pathname)}
           >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -109,7 +113,7 @@ export default function Navbar() {
           <Link
             key={l.href}
             href={l.href}
-            onClick={() => setMenuOpen(false)}
+            onClick={closeMenu}
             aria-current={isActive(l.href) ? "page" : undefined}
             className={`border-b border-line-dark px-1 py-3 text-[15px] ${
               isActive(l.href) ? "text-aqua" : "text-foam"
@@ -120,7 +124,7 @@ export default function Navbar() {
         ))}
         <Link
           href="/pamelding"
-          onClick={() => setMenuOpen(false)}
+          onClick={closeMenu}
           className="px-1 py-3 text-[15px] text-foam"
         >
           {t("registration")}
