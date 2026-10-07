@@ -120,19 +120,22 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-4 py-9">
-          <div className="flex flex-wrap gap-5">
-            {FOOTER_LINKS.map((l) => (
-              <Link
-                key={l.key}
-                href={l.href}
-                className="text-[13.5px] text-foam/55 hover:text-aqua"
-              >
-                {tNav(l.key)}
-              </Link>
+          {/* Mobile: two rows of four, each justified edge to edge; the font
+              shrinks only where a row would not fit. Desktop: one row. */}
+          <div className="flex flex-wrap gap-5 max-[720px]:w-full max-[720px]:flex-col max-[720px]:gap-3">
+            {[FOOTER_LINKS.slice(0, 4), FOOTER_LINKS.slice(4)].map((row, i) => (
+              <div key={i} className="flex gap-5 max-[720px]:justify-between max-[720px]:gap-2">
+                {row.map((l) => (
+                  <Link
+                    key={l.key}
+                    href={l.href}
+                    className="text-[13.5px] whitespace-nowrap text-foam/55 hover:text-aqua max-[720px]:text-[clamp(10.5px,calc(4.38vw_-_3.5px),13.5px)]"
+                  >
+                    {tNav(l.key)}
+                  </Link>
+                ))}
+              </div>
             ))}
-          </div>
-          <div className="text-[13px] text-foam/40">
-            Bergen Stupeklubb — ADO Arena, Lungegårdskaien 40, 5015 Bergen
           </div>
         </div>
       </div>

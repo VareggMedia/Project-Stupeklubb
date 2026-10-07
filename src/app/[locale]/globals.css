@@ -38,6 +38,15 @@
     @apply outline-2 outline-offset-3 outline-aqua;
   }
 
+  /* Hide the page scrollbar only; the page still scrolls, and inner lists
+     (e.g. the registration dropdowns) keep their own scrollbars */
+  html {
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     ::before,

@@ -17,17 +17,17 @@ export default function Påmelding() {
       </div>
       <div className="w-full max-w-3xl">
         <div className="flex items-center gap-1">
-          <button type="button" onClick={()=> setStep(0)} className={`flex-1 text-center font-semibold bg-taupe-300 rounded-t-lg cursor-pointer ${step === 0 ? "opacity-100" : "opacity-50"} py-2`}>
+          <button type="button" onClick={()=> setStep(0)} className={`min-w-0 flex-1 px-1 text-center font-semibold bg-taupe-300 rounded-t-lg max-[400px]:text-sm cursor-pointer ${step === 0 ? "opacity-100" : "opacity-50"} py-2`}>
             <p>{t("tabs.membership")}</p>
           </button>
           <button disabled={!valg} type="button" onClick={()=> {
             if (valg) setStep(1)
-            }} className={`flex-1 text-center font-semibold bg-taupe-300 rounded-t-lg ${valg ? "cursor-pointer" : "cursor-not-allowed"} ${step === 1 ? "opacity-100" : "opacity-50"} py-2`}>
+            }} className={`min-w-0 flex-1 px-1 text-center font-semibold bg-taupe-300 rounded-t-lg max-[400px]:text-sm ${valg ? "cursor-pointer" : "cursor-not-allowed"} ${step === 1 ? "opacity-100" : "opacity-50"} py-2`}>
             <p>{t("tabs.contact")}</p>
           </button>
           <button disabled={!valg || !kontakt} type="button" onClick={()=> {
             if (valg && kontakt) setStep(2)
-          }} className={`flex-1 text-center font-semibold bg-taupe-300 rounded-t-lg ${valg && kontakt ? "cursor-pointer" : "cursor-not-allowed"} ${step === 2 ? "opacity-100" : "opacity-50" } py-2`}>
+          }} className={`min-w-0 flex-1 px-1 text-center font-semibold bg-taupe-300 rounded-t-lg max-[400px]:text-sm ${valg && kontakt ? "cursor-pointer" : "cursor-not-allowed"} ${step === 2 ? "opacity-100" : "opacity-50" } py-2`}>
             <p>{t("tabs.summary")}</p>
           </button>
         </div>
