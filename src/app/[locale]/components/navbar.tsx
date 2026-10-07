@@ -88,11 +88,11 @@ export default function Navbar() {
           <LanguageSwitcher />
         </div>
         {/* Mobile: one-flag language toggle and the burger on the brand's line */}
-        <div className="hidden shrink-0 items-center gap-1 max-[960px]:flex">
+        <div className="hidden shrink-0 items-center gap-2.5 max-[960px]:flex">
           <LanguageSwitcher compact />
           <button
             ref={burgerRef}
-            className="cursor-pointer p-1 text-foam"
+            className="-mr-1.5 cursor-pointer p-1 text-foam"
             aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
