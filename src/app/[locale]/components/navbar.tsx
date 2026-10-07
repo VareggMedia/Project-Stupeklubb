@@ -121,7 +121,7 @@ export default function Navbar() {
         <Link
           href="/pamelding"
           onClick={() => setMenuOpen(false)}
-          className="border-b border-line-dark px-1 py-3 text-[15px] text-foam"
+          className="px-1 py-3 text-[15px] text-foam"
         >
           {t("registration")}
         </Link>
