@@ -26,10 +26,10 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-ink py-3 shadow-[0_1px_0_var(--color-line-dark)]">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-7 text-white">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-7 text-white max-[860px]:px-5">
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-display text-[30px] font-bold tracking-[0.01em] text-foam"
+          className="flex items-center gap-2.5 font-display text-[30px] font-bold tracking-[0.01em] whitespace-nowrap text-foam max-[860px]:text-[clamp(16px,calc(10.5vw_-_16px),30px)]"
         >
           <RippleMark />
           Bergen Stupeklubb
@@ -51,13 +51,17 @@ export default function Navbar() {
           </nav>
           <LanguageSwitcher />
         </div>
-        <button
-          className="hidden cursor-pointer p-1 text-foam max-[860px]:block"
-          aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
-          onClick={() => setMenuOpen((v) => !v)}
-        >
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile: one-flag language toggle and the burger on the brand's line */}
+        <div className="hidden shrink-0 items-center gap-1 max-[860px]:flex">
+          <LanguageSwitcher compact />
+          <button
+            className="cursor-pointer p-1 text-foam"
+            aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
       <div
         className={`wrap hidden flex-col gap-0.5 pt-2.5 pb-1 ${
