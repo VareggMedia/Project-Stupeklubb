@@ -58,7 +58,7 @@ export default function Navbar() {
       ref={headerRef}
       className="fixed inset-x-0 top-0 z-50 bg-ink py-3 shadow-[0_1px_0_var(--color-line-dark)]"
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-7 text-white">
+      <div className="wrap flex items-center justify-between gap-4 text-white">
         <Link
           href="/"
           className="flex items-center gap-2.5 font-display text-[30px] font-bold tracking-[0.01em] whitespace-nowrap text-foam max-[960px]:text-[clamp(16px,calc(10.5vw_-_17.7px),30px)]"
