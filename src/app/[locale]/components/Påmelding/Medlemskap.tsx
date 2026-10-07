@@ -87,18 +87,7 @@ export default function Medlemskap({setStep, setValg}:setStepProp) {
                     <button 
                         type="submit"
                         disabled={!isformfilled}
-                        className="
-                            w-full
-                            rounded-xl
-                            bg-cyan-600
-                            px-4 py-3
-                            text-sm font-semibold text-white
-                            hover:bg-cyan-700 active:bg-cyan-800
-                            transition-colors
-                            focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2
-                            disabled:bg-cyan-300 disabled:cursor-not-allowed
-                            cursor-pointer
-                            mt-10"
+                        className="mt-10 w-full cursor-pointer rounded-xl bg-cyan-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:outline-none active:bg-cyan-800 disabled:cursor-not-allowed disabled:bg-cyan-300"
                     >
                         {t("next")}
                     </button>
