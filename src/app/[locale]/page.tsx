@@ -173,7 +173,8 @@ function Door({
         </Link>
       </h2>
       <p className="max-w-[40ch] text-[17px]">{text}</p>
-      <div className="mt-1 grid grid-cols-2 gap-2.5 max-[480px]:grid-cols-1">
+      {/* Mobile: the whole card links to its page, so the sub-links are hidden */}
+      <div className="mt-1 grid grid-cols-2 gap-2.5 max-[900px]:hidden">
         {links.map((l) => (
           <Link
             key={l.href}
