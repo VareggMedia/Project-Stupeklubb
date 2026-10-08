@@ -20,6 +20,7 @@
     "home": "Home",
     "divingSchool": "Diving school",
     "registration": "Registration",
+    "menu": "Menu",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
@@ -66,7 +67,7 @@
     "stats": {
       "ages": {
         "title": "All ages",
-        "text": "From beginner to competitive diver, adapted to your level."
+        "text": "Beginner to competitive diver, at your level."
       },
       "venue": {
         "title": "ADO Arena",

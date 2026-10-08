@@ -28,18 +28,35 @@ function BritishFlag() {
 
 // Each language is named in its own language, so these are not translated.
 const LANGUAGES = [
-  { locale: "nb", name: "Norsk bokmål", Flag: NorwegianFlag },
-  { locale: "en", name: "English", Flag: BritishFlag },
+  { locale: "nb", name: "Norsk bokmål", switchTo: "Bytt til norsk", Flag: NorwegianFlag },
+  { locale: "en", name: "English", switchTo: "Switch to English", Flag: BritishFlag },
 ] as const;
 
 const optionStyles =
   "inline-flex items-center justify-center transition-opacity duration-150 ease-out";
 
-export default function LanguageSwitcher() {
+// compact = mobile: one flag, the language you switch to
+export default function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
   const t = useTranslations("LanguageSwitcher");
   const currentLocale = useLocale();
   // Path without the locale prefix, e.g. "/om-klubben" on both "/om-klubben" and "/en/om-klubben"
   const pathname = usePathname();
+
+  if (compact) {
+    const target = LANGUAGES.find((l) => l.locale !== currentLocale)!;
+    return (
+      <NextLink
+        href={getPathname({ locale: target.locale, href: pathname })}
+        hrefLang={target.locale}
+        lang={target.locale}
+        aria-label={target.switchTo}
+        title={target.switchTo}
+        className={`${optionStyles} -m-2 min-h-7 box-content p-2 opacity-90 hover:opacity-100`}
+      >
+        <target.Flag />
+      </NextLink>
+    );
+  }
 
   return (
     <div
