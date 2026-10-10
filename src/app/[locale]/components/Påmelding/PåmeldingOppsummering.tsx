@@ -8,6 +8,7 @@ import { useLocale, useTranslations } from "next-intl"
 import { MEMBER_TYPES } from "./Medlemskap"
 import { GENDERS } from "./påmeldingKontaktSkjema"
 import countries from 'i18n-iso-countries'
+import { kontaktInfoValidering } from "@/lib/validering/pamelding"
 
 export default function PåmeldingOversikt() {
     const t = useTranslations("Registration")
@@ -30,6 +31,8 @@ export default function PåmeldingOversikt() {
         e.preventDefault()
         setFeilmelding("")
         setSender(true)
+        const valerdering = kontaktInfoValidering.safeParse(påmelding)
+        if (!valerdering.success) return
         const {error} = await supabase
             .from("påmelding")
             .insert({
@@ -49,7 +52,7 @@ export default function PåmeldingOversikt() {
             setSender(false)
             return
         } 
-        const resultat = await sendSkjema(påmelding)
+        const resultat = await sendSkjema(valerdering.data)
 
         if (!resultat.success) {
             console.error("E-post feilet:", resultat.error)

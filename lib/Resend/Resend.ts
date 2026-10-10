@@ -1,4 +1,4 @@
-'use server'
+import "server-only"
 import { Resend } from "resend";
 import { PåmeldingData } from "@/src/app/[locale]/components/Påmelding/påmeldingStruktur";
 import EmailInnhold from "@/src/app/[locale]/components/Påmelding/EmailInnhold";
