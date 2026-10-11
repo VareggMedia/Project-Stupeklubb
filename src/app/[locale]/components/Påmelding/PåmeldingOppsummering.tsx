@@ -1,7 +1,5 @@
 'use client'
-import { createClient } from "@/lib/Supabase/client"
 import { usePåmelding } from "./påmeldingStruktur"
-import sendSkjema from "@/lib/Resend/Resend"
 import { useRouter } from "@/src/i18n/navigation"
 import { useState } from "react"
 import { useLocale, useTranslations } from "next-intl"
@@ -16,7 +14,6 @@ export default function PåmeldingOversikt() {
     const { påmelding } = usePåmelding()
     const [sender, setSender] = useState(false)
     const [feilmelding, setFeilmelding] = useState("")
-    const supabase = createClient()
     const router = useRouter()
 
     const tidform = påmelding.fødseldato
@@ -39,48 +36,34 @@ export default function PåmeldingOversikt() {
         }
         const data = valerdering.data
 
-        const response = await fetch("/api/pamelding", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-
-        if (!response.ok) {
-            setFeilmelding("Påmelding inneholder ugyldige data")
-            setSender(false)
-            return
-        }
-
-        const {error} = await supabase
-            .from("påmelding")
-            .insert({
-                navn: data.navn,
-                fødselsdato: data.fødseldato,
-                mobil: data.mobil,
-                email: data.email,
-                adresse: data.adresse,
-                nasjon: data.nasjon,
-                kjønn: data.kjønn,
-                status: data.medlemstype
+        try {
+            const response = await fetch("/api/pamelding", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
             })
 
-        if (error) {
-            console.error("Noe gikk galt med Supabase: ", error)
-            setFeilmelding(t("summary.error"))
+            if (!response.ok) {
+                setFeilmelding("Påmelding inneholder ugyldige data")
+                setSender(false)
+                return
+            }
+
+            const resultat = await response.json()
+
+            if (!resultat.epost) {
+                router.push("/pamelding/kvittering?epost=feilet")
+                return
+            }
+
+            router.push("/pamelding/kvittering?epost=true")
+        } catch (error) {
+            console.error("Feil ved innsending:", error)
+            setFeilmelding("Kunne ikke kontakte serveren")
             setSender(false)
-            return
-        } 
-        const resultat = await sendSkjema(data)
-
-        if (!resultat.success) {
-            console.error("E-post feilet:", resultat.error)
-            router.push("/pamelding/kvittering?epost=feilet")
-            return
         }
-
-        router.push("/pamelding/kvittering?epost=true")
 
     }
 
