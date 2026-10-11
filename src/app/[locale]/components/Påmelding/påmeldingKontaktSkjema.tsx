@@ -6,6 +6,7 @@ import norsk from 'i18n-iso-countries/langs/nb.json'
 import english from 'i18n-iso-countries/langs/en.json'
 import React, { useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { kontaktSchema } from "@/lib/validering/pamelding"
 
 countries.registerLocale(norsk)
 countries.registerLocale(english)
@@ -48,12 +49,9 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
         label: t(`form.genders.${key}`),
     }))
 
-    const isFormValid = (
-        påmelding.navn !== '' &&
-        påmelding.fødseldato !== '' &&
-        påmelding.email !== '' &&
-        påmelding.mobil !== ''
-    );
+    const kontaktValedering = kontaktSchema.safeParse(påmelding)
+    const fieldErrors = kontaktValedering.success ? {} : kontaktValedering.error.flatten().fieldErrors
+    const isFormValid = kontaktValedering.success
 
     const inputStyle = "w-full rounded-lg border border-cyan-200 bg-white/70 px-3 py-2 text-sm text-cyan-950 placeholder:text-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-colors"
 
@@ -95,7 +93,8 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             <input
                                 id="navn"
                                 type="text"
-                                className={inputStyle}
+                                className={`${inputStyle} ${
+                                    fieldErrors.navn ? "border-red-500 focus:ring-red-400" : ""}`}
                                 value={påmelding.navn}
                                 onChange={(e) => {
                                     setPåmelding((prev) => ({
@@ -104,6 +103,13 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                                     }))
                                 }}
                             />
+
+                            {fieldErrors.navn && (
+                                <p className="mt-1 text-sm text-red-600">
+                                    {fieldErrors.navn[0]}
+                                </p>
+                            )}
+
                         </div>
 
                         <div>
@@ -123,6 +129,11 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                                     }));
                                 }}
                             />
+                            {fieldErrors.nasjon && (
+                                <p className="mt-1 text-sm text-red-600">
+                                    {fieldErrors.nasjon[0]}
+                                </p>
+                            )}
                         </div>
 
                         <div>
@@ -143,6 +154,11 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                                     }))
                                 }}
                             />
+                            {fieldErrors.kjønn && (
+                                <p className="mt-1 text-sm text-red-600">
+                                    {fieldErrors.kjønn[0]}
+                                </p>
+                            )}
                         </div>
 
                         <div>
@@ -150,7 +166,9 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             <input
                                 id="bursdag"
                                 type="date"
-                                className={inputStyle}
+                                value={påmelding.fødseldato}
+                                className={`${inputStyle} ${
+                                    fieldErrors.fødseldato ? "border-red-500 focus:ring-red-400" : ""}`}
                                 onChange={(e) => {
                                     setPåmelding((prev) => ({
                                         ...prev,
@@ -158,6 +176,11 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                                     }))
                                 }}
                             />
+                            {fieldErrors.fødseldato && (
+                                <p className="mt-1 text-sm text-red-600">
+                                    {fieldErrors.fødseldato[0]}
+                                </p>
+                            )}
                         </div>
 
                         <div>
@@ -165,7 +188,8 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             <input
                                 id="email"
                                 type="email"
-                                className={inputStyle}
+                                className={`${inputStyle} ${
+                                    fieldErrors.email ? "border-red-500 focus:ring-red-400" : ""}`}
                                 value={påmelding.email}
                                 onChange={(e) => {
                                     setPåmelding((prev) => ({
@@ -174,6 +198,11 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                                     }))
                                 }}
                             />
+                            {fieldErrors.email && (
+                                <p className="mt-1 text-sm text-red-600">
+                                    {fieldErrors.email[0]}
+                                </p>
+                            )}
                         </div>
 
                         <div>
@@ -181,7 +210,8 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             <input
                                 id="mobil"
                                 type="text"
-                                className={inputStyle}
+                                className={`${inputStyle} ${
+                                    fieldErrors.mobil ? "border-red-500 focus:ring-red-400" : ""}`}
                                 value={påmelding.mobil}
                                 onChange={(e) => {
                                     setPåmelding((prev) => ({
@@ -190,6 +220,11 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                                     }))
                                 }}
                             />
+                            {fieldErrors.mobil && (
+                                <p className="mt-1 text-sm text-red-600">
+                                    {fieldErrors.mobil[0]}
+                                </p>
+                            )}
                         </div>
 
                         <div>
@@ -197,7 +232,9 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             <input
                                 id="adresse"
                                 type="text"
-                                className={inputStyle}
+                                value={påmelding.adresse}
+                                className={`${inputStyle} ${
+                                    fieldErrors.adresse ? "border-red-500 focus:ring-red-400" : ""}`}
                                 onChange={(e) => {
                                     setPåmelding((prev) => ({
                                         ...prev,
@@ -205,6 +242,11 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                                     }))
                                 }}
                             />
+                            {fieldErrors.adresse && (
+                                <p className="mt-1 text-sm text-red-600">
+                                    {fieldErrors.adresse[0]}
+                                </p>
+                            )}
                         </div>
                     </section>
 

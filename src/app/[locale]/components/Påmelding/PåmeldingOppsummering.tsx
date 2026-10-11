@@ -8,7 +8,7 @@ import { useLocale, useTranslations } from "next-intl"
 import { MEMBER_TYPES } from "./Medlemskap"
 import { GENDERS } from "./påmeldingKontaktSkjema"
 import countries from 'i18n-iso-countries'
-import { kontaktInfoValidering } from "@/lib/validering/pamelding"
+import { pameldingSchema } from "@/lib/validering/pamelding"
 
 export default function PåmeldingOversikt() {
     const t = useTranslations("Registration")
@@ -31,19 +31,39 @@ export default function PåmeldingOversikt() {
         e.preventDefault()
         setFeilmelding("")
         setSender(true)
-        const valerdering = kontaktInfoValidering.safeParse(påmelding)
-        if (!valerdering.success) return
+        const valerdering = pameldingSchema.safeParse(påmelding)
+        if (!valerdering.success) {
+            console.log(valerdering.error.issues)
+            setSender(false)
+            return
+        }
+        const data = valerdering.data
+
+        const response = await fetch("/api/pamelding", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+
+        if (!response.ok) {
+            setFeilmelding("Påmelding inneholder ugyldige data")
+            setSender(false)
+            return
+        }
+
         const {error} = await supabase
             .from("påmelding")
             .insert({
-                navn: påmelding.navn,
-                fødselsdato: påmelding.fødseldato,
-                mobil: påmelding.mobil,
-                email: påmelding.email,
-                adresse: påmelding.adresse,
-                nasjon: påmelding.nasjon,
-                kjønn: påmelding.kjønn,
-                status: påmelding.medlemstype
+                navn: data.navn,
+                fødselsdato: data.fødseldato,
+                mobil: data.mobil,
+                email: data.email,
+                adresse: data.adresse,
+                nasjon: data.nasjon,
+                kjønn: data.kjønn,
+                status: data.medlemstype
             })
 
         if (error) {
@@ -52,7 +72,7 @@ export default function PåmeldingOversikt() {
             setSender(false)
             return
         } 
-        const resultat = await sendSkjema(valerdering.data)
+        const resultat = await sendSkjema(data)
 
         if (!resultat.success) {
             console.error("E-post feilet:", resultat.error)
