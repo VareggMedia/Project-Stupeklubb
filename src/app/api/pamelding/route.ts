@@ -5,6 +5,7 @@ import { pameldingSchema } from "@/lib/validering/pamelding";
 import { createClient } from "@/lib/Supabase/server";
 import sendSkjema from "@/lib/Resend/Resend";
 
+// Errors are returned as codes; the client shows the text in the page language.
 export async function POST(request:Request) {
     try {
         const cookieStore = await cookies()
@@ -53,7 +54,7 @@ export async function POST(request:Request) {
             console.error("Rate limit-feil", rateLimitError)
 
             return Response.json(
-                { error: "Kunne ikke kontrollere rate limit" },
+                { error: "server_error" },
                 {status: 500}
             )
         }
@@ -63,7 +64,7 @@ export async function POST(request:Request) {
         if (!rateLimit.allowed) {
             return Response.json(
                 {
-                    error: "For mange påmeldingsforsøk",
+                    error: "rate_limited",
                     reason: rateLimit.reason
                 },
                 {status: 429}
@@ -76,7 +77,7 @@ export async function POST(request:Request) {
 
         if (!validering.success) {
             return Response.json(
-                { error: "Ugyldig påmelding" },
+                { error: "invalid" },
                 { status: 400 }
             )
         }
@@ -101,7 +102,7 @@ export async function POST(request:Request) {
             console.error("Supabase-feil", error)
 
             return Response.json(
-                {error: "Kunne ikke lagre påmelding"},
+                { error: "save_failed" },
                 {status: 500}
             )
         }
@@ -123,7 +124,7 @@ export async function POST(request:Request) {
         console.error("Uventet feil ved påmelding:", error)
 
         return Response.json(
-            { error: "En uventet feil oppstod" },
+            { error: "server_error" },
             { status: 500 }
         )
     }

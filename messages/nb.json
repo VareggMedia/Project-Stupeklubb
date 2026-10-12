@@ -348,6 +348,21 @@
       "title": "Oppsummering",
       "submit": "Send påmelding",
       "error": "Noe gikk galt. Prøv igjen."
+    },
+    "errors": {
+      "invalid": "Påmeldingen inneholder ugyldige data. Sjekk feltene og prøv igjen.",
+      "rateLimited": "For mange påmeldingsforsøk. Vent litt og prøv igjen.",
+      "server": "Påmeldingen kunne ikke lagres. Prøv igjen senere.",
+      "network": "Kunne ikke kontakte serveren. Sjekk nettverket og prøv igjen.",
+      "fields": {
+        "name": "Skriv inn fullt navn (2–100 tegn).",
+        "nationality": "Velg nasjonalitet.",
+        "gender": "Velg kjønn.",
+        "birthDate": "Skriv inn en gyldig fødselsdato som ikke er i fremtiden.",
+        "email": "Skriv inn en gyldig e-postadresse.",
+        "mobile": "Skriv inn et gyldig mobilnummer (8–15 tegn, bare tall, mellomrom og +).",
+        "address": "Skriv inn adressen din."
+      }
     }
   },
   "Receipt": {

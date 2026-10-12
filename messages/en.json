@@ -348,6 +348,21 @@
       "title": "Summary",
       "submit": "Send registration",
       "error": "Something went wrong. Please try again."
+    },
+    "errors": {
+      "invalid": "The registration contains invalid data. Check the fields and try again.",
+      "rateLimited": "Too many registration attempts. Please wait a moment and try again.",
+      "server": "The registration could not be saved. Please try again later.",
+      "network": "Could not reach the server. Check your connection and try again.",
+      "fields": {
+        "name": "Enter your full name (2–100 characters).",
+        "nationality": "Choose a nationality.",
+        "gender": "Choose a gender.",
+        "birthDate": "Enter a valid date of birth that is not in the future.",
+        "email": "Enter a valid email address.",
+        "mobile": "Enter a valid mobile number (8–15 characters, digits, spaces and + only).",
+        "address": "Enter your address."
+      }
     }
   },
   "Receipt": {

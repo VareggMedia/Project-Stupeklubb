@@ -31,6 +31,7 @@ export default function PåmeldingOversikt() {
         const valerdering = pameldingSchema.safeParse(påmelding)
         if (!valerdering.success) {
             console.log(valerdering.error.issues)
+            setFeilmelding(t("errors.invalid"))
             setSender(false)
             return
         }
@@ -46,7 +47,10 @@ export default function PåmeldingOversikt() {
             })
 
             if (!response.ok) {
-                setFeilmelding("Påmelding inneholder ugyldige data")
+                // The API sends an error code; the text follows the page language.
+                if (response.status === 429) setFeilmelding(t("errors.rateLimited"))
+                else if (response.status === 400) setFeilmelding(t("errors.invalid"))
+                else setFeilmelding(t("errors.server"))
                 setSender(false)
                 return
             }
@@ -61,7 +65,7 @@ export default function PåmeldingOversikt() {
             router.push("/pamelding/kvittering?epost=true")
         } catch (error) {
             console.error("Feil ved innsending:", error)
-            setFeilmelding("Kunne ikke kontakte serveren")
+            setFeilmelding(t("errors.network"))
             setSender(false)
         }
 

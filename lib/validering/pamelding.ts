@@ -2,11 +2,12 @@ import * as z from "zod"
 import countries from "i18n-iso-countries"
 
 export const pameldingSchema = z.object({
-    medlemstype: z.enum(["medlem", "passive"]),
+    // Must match MEMBER_TYPES values in Medlemskap.tsx (stored values stay Norwegian).
+    medlemstype: z.enum(["Medlem", "Passiv Medlem"]),
     navn: z.string().trim().min(2).max(100),
     kjønn: z.enum(['Gutt', 'Jente', 'Ikke-binær']).nullable(),
     fødseldato: z.iso.date().refine((dato)=> {
-        const iDag = new Date().toISOString().slice(0.10)
+        const iDag = new Date().toISOString().slice(0, 10)
         return dato <= iDag
     },{
         message: "Fødselsdato kan ikke være i framtiden"

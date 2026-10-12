@@ -52,6 +52,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
     const kontaktValedering = kontaktSchema.safeParse(påmelding)
     const fieldErrors = kontaktValedering.success ? {} : kontaktValedering.error.flatten().fieldErrors
     const isFormValid = kontaktValedering.success
+    // Field errors show one translated message per field instead of the raw zod text.
 
     const inputStyle = "w-full rounded-lg border border-cyan-200 bg-white/70 px-3 py-2 text-sm text-cyan-950 placeholder:text-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-colors"
 
@@ -106,7 +107,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
 
                             {fieldErrors.navn && (
                                 <p className="mt-1 text-sm text-red-600">
-                                    {fieldErrors.navn[0]}
+                                    {t("errors.fields.name")}
                                 </p>
                             )}
 
@@ -131,7 +132,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             />
                             {fieldErrors.nasjon && (
                                 <p className="mt-1 text-sm text-red-600">
-                                    {fieldErrors.nasjon[0]}
+                                    {t("errors.fields.nationality")}
                                 </p>
                             )}
                         </div>
@@ -156,7 +157,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             />
                             {fieldErrors.kjønn && (
                                 <p className="mt-1 text-sm text-red-600">
-                                    {fieldErrors.kjønn[0]}
+                                    {t("errors.fields.gender")}
                                 </p>
                             )}
                         </div>
@@ -178,7 +179,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             />
                             {fieldErrors.fødseldato && (
                                 <p className="mt-1 text-sm text-red-600">
-                                    {fieldErrors.fødseldato[0]}
+                                    {t("errors.fields.birthDate")}
                                 </p>
                             )}
                         </div>
@@ -200,7 +201,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             />
                             {fieldErrors.email && (
                                 <p className="mt-1 text-sm text-red-600">
-                                    {fieldErrors.email[0]}
+                                    {t("errors.fields.email")}
                                 </p>
                             )}
                         </div>
@@ -222,7 +223,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             />
                             {fieldErrors.mobil && (
                                 <p className="mt-1 text-sm text-red-600">
-                                    {fieldErrors.mobil[0]}
+                                    {t("errors.fields.mobile")}
                                 </p>
                             )}
                         </div>
@@ -244,7 +245,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             />
                             {fieldErrors.adresse && (
                                 <p className="mt-1 text-sm text-red-600">
-                                    {fieldErrors.adresse[0]}
+                                    {t("errors.fields.address")}
                                 </p>
                             )}
                         </div>
