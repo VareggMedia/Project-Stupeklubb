@@ -55,8 +55,9 @@ export default function NyhetKarusell({ kort, kloner, labels }: Props) {
     const measure = () => {
       const first = track.children[antall] as HTMLElement | undefined; // first card of the main group
       const second = track.children[antall + 1] as HTMLElement | undefined;
-      const card = first?.offsetWidth ?? 0;
-      const step = second && first ? second.offsetLeft - first.offsetLeft : card;
+      // Sub-pixel rects, so percentage card widths do not drift off centre
+      const card = first?.getBoundingClientRect().width ?? 0;
+      const step = second && first ? second.getBoundingClientRect().left - first.getBoundingClientRect().left : card;
       return { card, step, group: step * antall };
     };
 
@@ -186,8 +187,8 @@ export default function NyhetKarusell({ kort, kloner, labels }: Props) {
         <div
           ref={trackRef}
           // Vertical padding leaves room for the shadow and the hover lift; on mobile the
-          // 40 px gap keeps the neighbours outside the widened viewport
-          className="flex gap-[clamp(16px,1.8vw,24px)] pt-6 pb-12 will-change-transform max-[800px]:gap-10"
+          // 72 px gap keeps the neighbours and their 30 px shadows outside the viewport
+          className="flex gap-[clamp(16px,1.8vw,24px)] pt-6 pb-12 will-change-transform max-[800px]:gap-18"
         >
           {/* Clones before and after the main group make the loop seamless */}
           {[kloner, kort, kloner].flatMap((gruppeKort, gruppe) =>
