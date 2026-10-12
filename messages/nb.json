@@ -372,5 +372,17 @@
     "emailSent": "Du finner en kvittering av bestillingen på mail.",
     "gear": "Klikk <link>her</link> for å se på klubbutstyr.",
     "home": "Gå til Forsiden"
+  },
+  "NewsList": {
+    "title": "Nyheter",
+    "latest": "Siste nytt",
+    "readMore": "Les saken",
+    "more": "Flere nyheter",
+    "carousel": "Flere nyheter",
+    "previous": "Forrige nyhet",
+    "next": "Neste nyhet",
+    "empty": "Ingen nyheter ennå – kom tilbake snart.",
+    "back": "Alle nyheter",
+    "gallery": "Bilder"
   }
 }
