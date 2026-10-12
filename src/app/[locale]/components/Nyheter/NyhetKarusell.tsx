@@ -64,7 +64,7 @@ export default function NyhetKarusell({ kort, kloner, labels }: Props) {
       const { card, group } = measure();
       if (!group) return;
       offset = ((offset % group) + group) % group;
-      const centre = mobile.matches ? (viewport.clientWidth - card) / 2 : 0;
+      const centre = mobile.matches ? (track.clientWidth - card) / 2 : 0;
       track.style.transform = `translate3d(${-(group + offset) + centre}px, 0, 0)`;
     };
 
@@ -180,18 +180,21 @@ export default function NyhetKarusell({ kort, kloner, labels }: Props) {
     >
       <div
         ref={viewportRef}
-        className="touch-pan-y overflow-hidden min-[801px]:[mask-image:linear-gradient(to_right,transparent,black_50px,black_calc(100%-50px),transparent)]"
+        // Mobile bleeds into the 28 px .wrap gutters so the card shadow is not clipped
+        className="touch-pan-y overflow-hidden max-[800px]:-mx-7 max-[800px]:px-7 min-[801px]:[mask-image:linear-gradient(to_right,transparent,black_50px,black_calc(100%-50px),transparent)]"
       >
         <div
           ref={trackRef}
-          className="flex gap-[clamp(16px,1.8vw,24px)] py-4 will-change-transform max-[800px]:gap-[18px] max-[480px]:gap-[14px]"
+          // Vertical padding leaves room for the shadow and the hover lift; on mobile the
+          // 40 px gap keeps the neighbours outside the widened viewport
+          className="flex gap-[clamp(16px,1.8vw,24px)] pt-6 pb-12 will-change-transform max-[800px]:gap-10"
         >
           {/* Clones before and after the main group make the loop seamless */}
           {[kloner, kort, kloner].flatMap((gruppeKort, gruppe) =>
             gruppeKort.map((node, i) => (
               <div
                 key={`${gruppe}-${i}`}
-                className="w-[clamp(374px,38vw,422px)] shrink-0 transition-transform duration-200 max-[1080px]:w-[clamp(365px,54vw,413px)] max-[800px]:w-[calc(100%-18px)] max-[480px]:w-[calc(100%-14px)] min-[801px]:hover:-translate-y-[7px] min-[801px]:hover:scale-[1.01]"
+                className="w-[clamp(374px,38vw,422px)] shrink-0 transition-transform duration-200 max-[1080px]:w-[clamp(365px,54vw,413px)] max-[800px]:w-[calc(100%-18px)] min-[801px]:hover:-translate-y-[7px] min-[801px]:hover:scale-[1.01]"
                 inert={gruppe !== 1 || undefined}
               >
                 {node}

@@ -25,6 +25,8 @@ export default async function Nyheter({ params }: PageProps<"/[locale]/nyheter">
   // Articles are Norwegian only for now (Kristoffer, #42); /en shows the same list
   const nyheter = await client.fetch(NYHETER_QUERY, {}, { next: { revalidate: REVALIDATE_SECONDS } });
   const [siste, ...resten] = nyheter;
+  // The carousel reads left to right in date order, oldest first, as in DUFBH
+  const kronologisk = [...resten].reverse();
 
   return (
     <>
@@ -78,8 +80,8 @@ export default async function Nyheter({ params }: PageProps<"/[locale]/nyheter">
               </div>
             ) : (
               <NyhetKarusell
-                kort={resten.map((n) => <NyhetKort key={n._id} nyhet={n} locale={locale} />)}
-                kloner={resten.map((n) => <NyhetKort key={n._id} nyhet={n} locale={locale} skjult />)}
+                kort={kronologisk.map((n) => <NyhetKort key={n._id} nyhet={n} locale={locale} />)}
+                kloner={kronologisk.map((n) => <NyhetKort key={n._id} nyhet={n} locale={locale} skjult />)}
                 labels={{ region: t("carousel"), previous: t("previous"), next: t("next") }}
               />
             )}
