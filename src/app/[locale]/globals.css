@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #082129;
+  --color-pool: #0d3f4d;
+  --color-pool-light: #12586a;
+  --color-aqua: #49d6c6;
+  --color-aqua-light: #6fe2d4;
+  --color-aqua-deep: #23a596;
+  --color-foam: #f2f8f7;
+  --color-foam-dim: #e5eeec;
+  --color-coral: #ff6f4d;
+  --color-yellow: #ffea00;
+  --color-muted: #3a5560;
+  --color-mist: #7d9aa1;
+  --color-line-dark: rgba(255, 255, 255, 0.16);
+  --color-line-light: rgba(8, 33, 41, 0.12);
+
+  --font-sans: var(--font-inter), sans-serif;
+  --font-display: var(--font-bricolage), sans-serif;
+}
+
+/* Shared page container */
+@utility wrap {
+  margin-inline: auto;
+  max-width: 1120px;
+  padding-inline: 28px;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-bold tracking-[-0.01em];
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-3 outline-aqua;
+  }
+
+  /* Hide the page scrollbar only; the page still scrolls, and inner lists
+     (e.g. the registration dropdowns) keep their own scrollbars */
+  html {
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+.pool-background {
+  background-color: #0b7285;
+
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+
+  background-size: 32px 32px;
+}
