@@ -29,11 +29,11 @@ Her ligger all TypeScript/JavaScript som vi bruker for enkle klasser (class) ell
 - **Supabase/client** - er det som kan vises på client siden for frontend-delen uten at den viser sensetiv info/logik
 - **Supabase/server** - er det som ikke skal vise på client siden for det inneholder backend-delen
 
-## .ENV.LOCAL
+## Miljøvariabler
 
-Her skal all dine API nøkkler ligge og skal **ALDRI** deles. Lag alltid dine egene nøkkler fra Resend og Supabase.
-Dette er nøkkle som må fylles ut for at Resend og Supabase skal funke:
+1. Kopier `.env.example` til `.env.local`.
+2. Fyll inn nødvendige API-nøkler.
+3. Kjør `npm install`.
+4. Start prosjektet med `npm run dev`.
 
-- RESEND_API
-- NEXT_PUBLIC_SUPABASE_URL
-- NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+Ikke last opp `.env.local` til GitHub.

@@ -1,13 +1,12 @@
 'use client'
-import { createClient } from "@/lib/Supabase/client"
 import { usePåmelding } from "./påmeldingStruktur"
-import sendSkjema from "@/lib/Resend/Resend"
 import { useRouter } from "@/src/i18n/navigation"
 import { useState } from "react"
 import { useLocale, useTranslations } from "next-intl"
 import { MEMBER_TYPES } from "./Medlemskap"
 import { GENDERS } from "./påmeldingKontaktSkjema"
 import countries from 'i18n-iso-countries'
+import { pameldingSchema } from "@/lib/validering/pamelding"
 
 export default function PåmeldingOversikt() {
     const t = useTranslations("Registration")
@@ -15,7 +14,6 @@ export default function PåmeldingOversikt() {
     const { påmelding } = usePåmelding()
     const [sender, setSender] = useState(false)
     const [feilmelding, setFeilmelding] = useState("")
-    const supabase = createClient()
     const router = useRouter()
 
     const tidform = påmelding.fødseldato
@@ -30,34 +28,46 @@ export default function PåmeldingOversikt() {
         e.preventDefault()
         setFeilmelding("")
         setSender(true)
-        const {error} = await supabase
-            .from("påmelding")
-            .insert({
-                navn: påmelding.navn,
-                fødselsdato: påmelding.fødseldato,
-                mobil: påmelding.mobil,
-                email: påmelding.email,
-                adresse: påmelding.adresse,
-                nasjon: påmelding.nasjon,
-                kjønn: påmelding.kjønn,
-                status: påmelding.medlemstype
-            })
-
-        if (error) {
-            console.error("Noe gikk galt med Supabase: ", error)
-            setFeilmelding(t("summary.error"))
+        const valerdering = pameldingSchema.safeParse(påmelding)
+        if (!valerdering.success) {
+            console.log(valerdering.error.issues)
+            setFeilmelding(t("errors.invalid"))
             setSender(false)
             return
-        } 
-        const resultat = await sendSkjema(påmelding)
-
-        if (!resultat.success) {
-            console.error("E-post feilet:", resultat.error)
-            router.push("/pamelding/kvittering?epost=feilet")
-            return
         }
+        const data = valerdering.data
 
-        router.push("/pamelding/kvittering?epost=true")
+        try {
+            const response = await fetch("/api/pamelding", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+
+            if (!response.ok) {
+                // The API sends an error code; the text follows the page language.
+                if (response.status === 429) setFeilmelding(t("errors.rateLimited"))
+                else if (response.status === 400) setFeilmelding(t("errors.invalid"))
+                else setFeilmelding(t("errors.server"))
+                setSender(false)
+                return
+            }
+
+            const resultat = await response.json()
+
+            if (!resultat.epost) {
+                router.push("/pamelding/kvittering?epost=feilet")
+                return
+            }
+
+            router.push("/pamelding/kvittering?epost=true")
+        } catch (error) {
+            console.error("Feil ved innsending:", error)
+            setFeilmelding(t("errors.network"))
+            setSender(false)
+        }
 
     }
 

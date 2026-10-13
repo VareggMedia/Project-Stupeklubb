@@ -348,6 +348,21 @@
       "title": "Oppsummering",
       "submit": "Send påmelding",
       "error": "Noe gikk galt. Prøv igjen."
+    },
+    "errors": {
+      "invalid": "Påmeldingen inneholder ugyldige data. Sjekk feltene og prøv igjen.",
+      "rateLimited": "For mange påmeldingsforsøk. Vent litt og prøv igjen.",
+      "server": "Påmeldingen kunne ikke lagres. Prøv igjen senere.",
+      "network": "Kunne ikke kontakte serveren. Sjekk nettverket og prøv igjen.",
+      "fields": {
+        "name": "Skriv inn fullt navn (2–100 tegn).",
+        "nationality": "Velg nasjonalitet.",
+        "gender": "Velg kjønn.",
+        "birthDate": "Skriv inn en gyldig fødselsdato som ikke er i fremtiden.",
+        "email": "Skriv inn en gyldig e-postadresse.",
+        "mobile": "Skriv inn et gyldig mobilnummer (8–15 tegn, bare tall, mellomrom og +).",
+        "address": "Skriv inn adressen din."
+      }
     }
   },
   "Receipt": {
@@ -357,5 +372,17 @@
     "emailSent": "Du finner en kvittering av bestillingen på mail.",
     "gear": "Klikk <link>her</link> for å se på klubbutstyr.",
     "home": "Gå til Forsiden"
+  },
+  "NewsList": {
+    "title": "Nyheter",
+    "latest": "Siste nytt",
+    "readMore": "Les saken",
+    "more": "Flere nyheter",
+    "carousel": "Flere nyheter",
+    "previous": "Forrige nyhet",
+    "next": "Neste nyhet",
+    "empty": "Ingen nyheter ennå – kom tilbake snart.",
+    "back": "Alle nyheter",
+    "gallery": "Bilder"
   }
 }
