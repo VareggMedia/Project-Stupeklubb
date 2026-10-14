@@ -50,7 +50,9 @@ export async function POST(request:Request) {
             }
         )
 
-        if (rateLimitError) {
+        const rateLimit = rateLimitData?.[0]
+
+        if (rateLimitError || rateLimit === undefined) {
             console.error("Rate limit-feil", rateLimitError)
 
             return Response.json(
@@ -59,7 +61,6 @@ export async function POST(request:Request) {
             )
         }
 
-        const rateLimit = rateLimitData?.[0]
 
         if (!rateLimit.allowed) {
             return Response.json(
