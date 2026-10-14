@@ -372,5 +372,17 @@
     "emailSent": "You will find a receipt in your email.",
     "gear": "Click <link>here</link> to see the club gear.",
     "home": "Go to the home page"
+  },
+  "NewsList": {
+    "title": "News",
+    "latest": "Latest news",
+    "readMore": "Read the story",
+    "more": "More news",
+    "carousel": "More news",
+    "previous": "Previous story",
+    "next": "Next story",
+    "empty": "No news yet – check back soon.",
+    "back": "All news",
+    "gallery": "Photos"
   }
 }
