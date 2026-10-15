@@ -12,7 +12,10 @@ export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/bli-med">): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale: locale as Locale, namespace: "JoinPage" });
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: "JoinPage",
+  });
   return { title: t("metaTitle"), description: t("description") };
 }
 
@@ -41,16 +44,16 @@ export default function BliMed() {
   const tCommon = useTranslations("Common");
   return (
     <>
-      <PageHeader
-        title={t("title")}
-        crumb={t("crumb")}
-        tone="aqua"
-      >
-        <dl className="grid grid-cols-4 gap-4 max-[900px]:grid-cols-2 max-[480px]:grid-cols-1">
+      <PageHeader title={t("title")} crumb={t("crumb")} tone="aqua">
+        <dl className=" grid grid-cols-4 gap-4 max-[900px]:grid-cols-2 max-[480px]:grid-cols-1">
           {QUICK_FACTS.map((key) => (
-            <div key={key} className="rounded-2xl bg-white/50 px-5 py-4.5">
-              <dt className="text-[13px] font-semibold">{t(`facts.${key}.label`)}</dt>
-              <dd className="mt-1 text-[19px] font-semibold">{t(`facts.${key}.value`)}</dd>
+            <div key={key} className=" rounded-2xl  bg-foam px-5 py-4.5">
+              <dt className=" text-[13px] font-semibold">
+                {t(`facts.${key}.label`)}
+              </dt>
+              <dd className="mt-1 text-[19px] font-semibold">
+                {t(`facts.${key}.value`)}
+              </dd>
             </div>
           ))}
         </dl>
@@ -68,7 +71,9 @@ export default function BliMed() {
                   {t(`courses.${c.key}.age`)}
                 </span>
                 <h3 className="text-[23px]">{t(`courses.${c.key}.title`)}</h3>
-                <p className="text-[15px] text-muted">{t(`courses.${c.key}.text`)}</p>
+                <p className="text-[15px] text-muted">
+                  {t(`courses.${c.key}.text`)}
+                </p>
                 <Link
                   href={c.href}
                   className="mt-auto inline-flex items-center gap-1.5 pt-2 text-[15px] font-semibold text-pool hover:underline"
@@ -102,7 +107,9 @@ export default function BliMed() {
               ))}
             </dl>
             <div className="rounded-[18px] bg-foam-dim px-8 py-7">
-              <h3 className="font-sans text-lg font-semibold">{t("bringTitle")}</h3>
+              <h3 className="font-sans text-lg font-semibold">
+                {t("bringTitle")}
+              </h3>
               <ul className="mt-3 flex flex-col gap-2">
                 {BRING.map((key) => (
                   <li key={key} className="flex items-center gap-2.5">
@@ -111,9 +118,7 @@ export default function BliMed() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-4 text-[15px] text-muted">
-                {t("bringNote")}
-              </p>
+              <p className="mt-4 text-[15px] text-muted">{t("bringNote")}</p>
             </div>
           </div>
         </Step>
@@ -126,7 +131,9 @@ export default function BliMed() {
                 className="flex flex-col gap-2.5 border-t-3 border-aqua pt-5"
               >
                 <h3 className="text-[21px]">{t(`firstTime.${key}.title`)}</h3>
-                <p className="text-[15px] text-muted">{t(`firstTime.${key}.text`)}</p>
+                <p className="text-[15px] text-muted">
+                  {t(`firstTime.${key}.text`)}
+                </p>
               </li>
             ))}
           </ol>

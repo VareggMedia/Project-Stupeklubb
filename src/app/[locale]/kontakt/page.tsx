@@ -7,7 +7,10 @@ export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/kontakt">): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale: locale as Locale, namespace: "ContactPage" });
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: "ContactPage",
+  });
   return { title: t("metaTitle") };
 }
 
@@ -15,10 +18,8 @@ export async function generateMetadata({
 export default function Kontakt() {
   const t = useTranslations("ContactPage");
   return (
-    <PageHeader title={t("title")} crumb={t("crumb")} tone="pool">
-      <p className="max-w-[50ch] text-[17px] text-foam/80">
-        {t("text")}
-      </p>
+    <PageHeader title={t("title")} crumb={t("crumb")} tone="aqua">
+      <p className="max-w-[50ch] text-[17px] text-pool">{t("text")}</p>
     </PageHeader>
   );
 }

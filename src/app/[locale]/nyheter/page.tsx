@@ -13,24 +13,38 @@ import { formatDato, utdrag } from "../components/Nyheter/format";
 
 export const revalidate = 60; // seconds – keep in sync with REVALIDATE_SECONDS
 
-export async function generateMetadata({ params }: PageProps<"/[locale]/nyheter">): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps<"/[locale]/nyheter">): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale: locale as Locale, namespace: "NewsList" });
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: "NewsList",
+  });
   return { title: t("title") };
 }
 
-export default async function Nyheter({ params }: PageProps<"/[locale]/nyheter">) {
+export default async function Nyheter({
+  params,
+}: PageProps<"/[locale]/nyheter">) {
   const { locale } = await params;
-  const t = await getTranslations({ locale: locale as Locale, namespace: "NewsList" });
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: "NewsList",
+  });
   // Articles are Norwegian only for now (Kristoffer, #42); /en shows the same list
-  const nyheter = await client.fetch(NYHETER_QUERY, {}, { next: { revalidate: REVALIDATE_SECONDS } });
+  const nyheter = await client.fetch(
+    NYHETER_QUERY,
+    {},
+    { next: { revalidate: REVALIDATE_SECONDS } },
+  );
   const [siste, ...resten] = nyheter;
   // The carousel reads left to right in date order, oldest first, as in DUFBH
   const kronologisk = [...resten].reverse();
 
   return (
     <>
-      <PageHeader title={t("title")} crumb={t("title")} tone="pool" />
+      <PageHeader title={t("title")} crumb={t("title")} tone="aqua" />
 
       <div className="wrap py-16 max-[900px]:py-12">
         {!siste && <p className="text-[17px] text-muted">{t("empty")}</p>}
@@ -50,16 +64,26 @@ export default async function Nyheter({ params }: PageProps<"/[locale]/nyheter">
                 priority
               />
               <div className="flex flex-col gap-4">
-                <span className="text-[14px] font-semibold text-pool">{t("latest")}</span>
-                <time dateTime={siste.dato ?? undefined} className="text-[14px] font-semibold text-muted">
+                <span className="text-[14px] font-semibold text-pool">
+                  {t("latest")}
+                </span>
+                <time
+                  dateTime={siste.dato ?? undefined}
+                  className="text-[14px] font-semibold text-muted"
+                >
                   {formatDato(siste.dato, locale)}
                 </time>
                 <h3 className="text-[clamp(28px,3.4vw,40px)] leading-[1.08]">
-                  <Link href={`/nyheter/${siste.slug}`} className="after:absolute after:inset-0 group-hover:underline">
+                  <Link
+                    href={`/nyheter/${siste.slug}`}
+                    className="after:absolute after:inset-0 group-hover:underline"
+                  >
                     {siste.tittel}
                   </Link>
                 </h3>
-                <p className="text-[17px] text-muted">{utdrag(siste.ingress, siste.utdrag, 240)}</p>
+                <p className="text-[17px] text-muted">
+                  {utdrag(siste.ingress, siste.utdrag, 240)}
+                </p>
                 <span className="inline-flex items-center gap-1.5 text-[15px] font-semibold text-pool">
                   {t("readMore")}
                   <ArrowUpRight size={16} />
@@ -70,7 +94,10 @@ export default async function Nyheter({ params }: PageProps<"/[locale]/nyheter">
         )}
 
         {resten.length > 0 && (
-          <section aria-labelledby="flere-nyheter" className="mt-20 max-[900px]:mt-14">
+          <section
+            aria-labelledby="flere-nyheter"
+            className="mt-20 max-[900px]:mt-14"
+          >
             <h2 id="flere-nyheter" className="mb-6 text-[clamp(24px,3vw,32px)]">
               {t("more")}
             </h2>
@@ -80,9 +107,17 @@ export default async function Nyheter({ params }: PageProps<"/[locale]/nyheter">
               </div>
             ) : (
               <NyhetKarusell
-                kort={kronologisk.map((n) => <NyhetKort key={n._id} nyhet={n} locale={locale} />)}
-                kloner={kronologisk.map((n) => <NyhetKort key={n._id} nyhet={n} locale={locale} skjult />)}
-                labels={{ region: t("carousel"), previous: t("previous"), next: t("next") }}
+                kort={kronologisk.map((n) => (
+                  <NyhetKort key={n._id} nyhet={n} locale={locale} />
+                ))}
+                kloner={kronologisk.map((n) => (
+                  <NyhetKort key={n._id} nyhet={n} locale={locale} skjult />
+                ))}
+                labels={{
+                  region: t("carousel"),
+                  previous: t("previous"),
+                  next: t("next"),
+                }}
               />
             )}
           </section>
