@@ -1,4 +1,4 @@
-// GLSL ported verbatim from the caustics prototype (ISSUE-TBD/caustics-proto).
+// GLSL ported verbatim from the caustics prototype (DEVFLOW/stupeklubben-hero-water/caustics-proto).
 // Wave model, area-ratio caustic map, and perspective view through the water.
 
 export const WAVES = `
@@ -63,7 +63,8 @@ precision highp float;
 in vec2 uv; out vec4 o;
 uniform vec2 uRes; uniform mat3 uCam; uniform float uCamH, uFov;
 uniform vec3 uSun; uniform float uDepth;
-uniform sampler2D uCaus, uShadow;
+uniform sampler2D uCaus, uShadow, uDiver;
+uniform vec2 uCastOff; uniform float uCastOn, uCastBlur, uCastWobble, uSunDiffuse;
 uniform float uCausStr, uBlur, uContrast, uSparkle, uSky, uAbsorb, uFloor, uAmbient, uCausNorm, uShowMap;
 uniform float uShadowStr, uLightStr, uLightAngle, uLightSoft, uVignette, uDarken;
 uniform float uMix2, uVariation, uVarScale, uTileStr, uTileSize, uGrout, uTileVar, uTileFog, uTileBlur, uTileAngle, uBreakup, uBreakScale, uScatter, uGreen, uSat;
@@ -107,7 +108,11 @@ void main() {
   vec3 sigma = vec3(0.42, 0.075, 0.055) * uAbsorb;   // per metre – red goes first
   float lsun = uDepth / max(uSun.y, 0.2);
   vec3 Tsun = exp(-sigma * lsun), Tview = exp(-sigma * lw);
-  float sh = mix(1.0, texture(uShadow, vec2(uv.x, 1.0 - uv.y)).r, uShadowStr);
+  // cast shadow: the diver + board silhouette shifted away from the sun, blurred, wobbling with the waves
+  vec2 cuv = uv - uCastOff + n.xz * uCastWobble;
+  float ca0 = (cuv.x < 0.0 || cuv.x > 1.0 || cuv.y < 0.0 || cuv.y > 1.0) ? 0.0
+            : textureLod(uDiver, vec2(cuv.x, 1.0 - cuv.y), uCastBlur).a;
+  float sh = 1.0 - ca0 * uCastOn;
 
   float ang = radians(uLightAngle); vec2 ld = vec2(cos(ang), sin(ang));
   float grad = clamp(0.5 + dot(uv - 0.5, -ld) / uLightSoft, 0.0, 1.0);
@@ -129,7 +134,8 @@ void main() {
   tone = mix(1.0, tone, tileVis * (1.0 - smoothstep(0.2, 0.8, aa)));
   tileC = vec3(0.80, 0.95, 0.97) * tone;
   vec3 floorC = mix(vec3(0.80, 0.95, 0.97), mix(tileC, groutC, groutLine * tileVis), uTileStr * tileVis) * uFloor;
-  vec3 floorLit = floorC * (uAmbient + uCausStr * caus * lightMod * sh) * Tsun;
+  // sky light reaches the shadow, direct sun (diffuse + caustics) does not
+  vec3 floorLit = floorC * (uAmbient + uSunDiffuse * sh + uCausStr * caus * lightMod * sh) * Tsun;
   vec3 scatter = mix(vec3(0.010, 0.17, 0.27), vec3(0.035, 0.26, 0.22), 0.5 + 0.5 * uGreen) * uScatter;
   vec3 col = floorLit * Tview + scatter * (1.0 - Tview);
 

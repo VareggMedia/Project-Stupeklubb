@@ -9,21 +9,16 @@ import { WAVES, causFS, causVS, viewFS, viewVS } from "./shaders";
  * The static hero photo stays underneath as the fallback (mobile, reduced motion, no WebGL, before the first frame).
  */
 
-// Tuned against the hero photo (caustics prototype, 2026-10-15).
+// Synced from the prototype's defaults.json (DEVFLOW/stupeklubben-hero-water/caustics-proto).
 const P = {
-  camHeight: 5.0, fov: 55, pitch: 38, roll: 9, yaw: 0,
-  depth: 3.5, tile: 2.4,
-  amp: 0.008, speed: 0.3,
-  bigMix: 1.0, midMix: 0.8, smallMix: 0.55,
-  bigGain: 0.5, midGain: 0.45, smallGain: 0.4,
-  bigRate: 0.02, midRate: 0.045, smallRate: 0.1,
-  sunElev: 62, sunAz: 200,
-  caustic: 0.83, blur: 1.4, contrast: 0.63, sparkle: 0.2, sky: 0.25,
-  mix2: 0.5, variation: 0.65, varScale: 0.45, breakup: 0.65, breakScale: 2.8,
-  tileStr: 0.22, tileSize: 0.38, grout: 0.015, tileVar: 0.155, tileAngle: -42, tileFog: 0.3, tileBlur: 0.6,
-  absorb: 1.25, floor: 0.93, ambient: 0.92, scatter: 1.36, green: 0.56, sat: 0.66,
-  shadow: 0.75, lightStr: 0.55, lightAngle: 200, lightSoft: 0.9, vignette: 0.4, darken: 0.12,
-  resScale: 0.75,
+  camHeight: 5, fov: 55, pitch: 38, roll: 9, yaw: 0, depth: 3.5, tile: 2.4, amp: 0.008, speed: 0.3,
+  bigMix: 1, midMix: 0.8, smallMix: 0.55, bigGain: 0.5, midGain: 0.45, smallGain: 0.4, bigRate: 0.02,
+  midRate: 0.045, smallRate: 0.1, sunElev: 62, sunAz: 135, caustic: 0.83, blur: 1.4, contrast: 0.63,
+  sparkle: 0.2, sky: 0.25, mix2: 0.5, variation: 0.65, varScale: 0.45, tileStr: 0.22, tileSize: 0.38,
+  grout: 0.015, tileVar: 0.155, tileAngle: -42, tileFog: 0.3, tileBlur: 0.6, breakup: 0.65, breakScale: 2.8,
+  absorb: 1.25, floor: 0.93, ambient: 0.35, sunDiffuse: 0.57, scatter: 1.36, green: 0.56, sat: 0.66,
+  castOn: 0.45, castX: 0.235, castY: -0.365, castBlur: 6.4, castWobble: 0.06, lightStr: 0.63,
+  lightAngle: 200, lightSoft: 0.38, vignette: 0.29, darken: 0.02, resScale: 0.75,
 };
 
 // Same geometry as the section's CSS background (hero-diver-wide.avif, cover, position 100% / max(100%, min(0, 100px - 10.42vw))).
@@ -33,12 +28,13 @@ const IMG_H = 2151;
 const VIEW_UNIFORMS: Record<string, keyof typeof P> = {
   uCausStr: "caustic", uBlur: "blur", uContrast: "contrast", uSparkle: "sparkle", uSky: "sky",
   uAbsorb: "absorb", uFloor: "floor", uAmbient: "ambient",
-  uShadowStr: "shadow", uLightStr: "lightStr", uLightAngle: "lightAngle", uLightSoft: "lightSoft",
+  uLightStr: "lightStr", uLightAngle: "lightAngle", uLightSoft: "lightSoft",
   uVignette: "vignette", uDarken: "darken",
   uMix2: "mix2", uVariation: "variation", uVarScale: "varScale",
   uTileStr: "tileStr", uTileSize: "tileSize", uGrout: "grout", uTileVar: "tileVar",
   uTileFog: "tileFog", uTileBlur: "tileBlur", uTileAngle: "tileAngle", uBreakup: "breakup", uBreakScale: "breakScale",
   uScatter: "scatter", uGreen: "green", uSat: "sat",
+  uSunDiffuse: "sunDiffuse", uCastOn: "castOn", uCastBlur: "castBlur", uCastWobble: "castWobble",
 };
 
 // Bounded random walk: 2nd-order Ornstein–Uhlenbeck, unit variance; drives wave-group amplitude only.
@@ -188,19 +184,20 @@ export default function HeroWater() {
     const causScaleOut = floatRT ? 1.0 : 0.125;
     const causNorm = floatRT ? 1.0 : 8.0;
 
-    // shadow mask in photo space
-    const shadowTex = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, shadowTex);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([255, 255, 255, 255]));
-    const shImg = new Image();
-    shImg.onload = () => {
-      gl.bindTexture(gl.TEXTURE_2D, shadowTex);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, shImg);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    // diver + board silhouette for the cast shadow (same image as the overlay), mipmapped for blur
+    const diverTex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, diverTex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 0]));
+    const dvImg = new Image();
+    dvImg.onload = () => {
+      gl.bindTexture(gl.TEXTURE_2D, diverTex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, dvImg);
+      gl.generateMipmap(gl.TEXTURE_2D);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
     };
-    shImg.src = "/images/hero-water/shadow.png";
+    dvImg.src = "/images/hero-water/diver-wide.avif";
 
     // place the box exactly where the CSS background image sits
     const layout = () => {
@@ -286,8 +283,9 @@ export default function HeroWater() {
       gl.bindTexture(gl.TEXTURE_2D, causTex);
       gl.uniform1i(U.uCaus, 0);
       gl.activeTexture(gl.TEXTURE1);
-      gl.bindTexture(gl.TEXTURE_2D, shadowTex);
-      gl.uniform1i(U.uShadow, 1);
+      gl.bindTexture(gl.TEXTURE_2D, diverTex);
+      gl.uniform1i(U.uDiver, 1);
+      gl.uniform2f(U.uCastOff, P.castX, P.castY);
       gl.bindVertexArray(quadVAO);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
       gl.activeTexture(gl.TEXTURE0);
