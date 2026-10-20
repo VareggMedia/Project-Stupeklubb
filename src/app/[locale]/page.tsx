@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import WaveDivider from "./components/WaveDivider";
 import Sponsors from "./components/Sponsors";
+import HeroWater from "./components/HeroWater/HeroWater";
 import { DOORS } from "./data/club";
 
 /**
@@ -26,7 +27,8 @@ export default function App() {
         className="relative overflow-hidden bg-[linear-gradient(rgba(8,33,41,0.33),rgba(8,33,41,0.33)),url('/images/hero-diver-wide.avif')] bg-cover bg-[position:100%_max(100%,min(0px,calc(100px_-_10.42vw)))] min-h-[calc(33.3vw_+_300px)] max-[900px]:min-h-0 max-[900px]:bg-[linear-gradient(rgba(8,33,41,0.33),rgba(8,33,41,0.33)),url('/images/hero-diver.avif')] max-[900px]:bg-[length:auto_max(110%,clamp(840px,calc(1300px_-_80vw),960px))] max-[900px]:bg-[position:72%_max(100%,clamp(-85px,calc(13.36vw_-_142px),-65px))] pt-35 pb-36 max-[900px]:pb-28"
         id="om-oss"
       >
-        <div className="wrap grid grid-cols-[1.05fr_0.95fr] items-center gap-10 pb-17.5 max-[900px]:grid-cols-1">
+        <HeroWater />
+        <div className="wrap relative z-[2] grid grid-cols-[1.05fr_0.95fr] items-center gap-10 pb-17.5 max-[900px]:grid-cols-1">
           <div>
             <span className="mb-5.5 inline-flex items-center gap-2 text-[13.5px] font-semibold text-aqua">
               <span className="size-1.5 rounded-full bg-aqua" />
@@ -53,7 +55,7 @@ export default function App() {
             </div>
           </div>
         </div>
-        <div className="absolute inset-x-0 bottom-0">
+        <div className="absolute inset-x-0 bottom-0 z-[2]">
           <WaveDivider color="var(--color-foam)" />
         </div>
       </section>
