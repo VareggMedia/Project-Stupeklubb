@@ -4,7 +4,7 @@ import Select, { StylesConfig } from 'react-select';
 import countries from 'i18n-iso-countries'
 import norsk from 'i18n-iso-countries/langs/nb.json'
 import english from 'i18n-iso-countries/langs/en.json'
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { kontaktSchema } from "@/lib/validering/pamelding"
 
@@ -31,6 +31,15 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
     const t = useTranslations("Registration")
     const locale = useLocale()
     const { påmelding, setPåmelding } = usePåmelding();
+    const [berørteFelt, setBerørteFelt] = useState<Partial<Record<keyof PåmeldingData, boolean>>>({})
+
+    function markerBerørte(felt: keyof PåmeldingData) {
+        setBerørteFelt((prev)=>({
+            ...prev,
+            [felt]: true
+        }))
+    }
+
     // Country codes are stored; names follow the page language
     const landnavn = countries.getNames(locale, { select: 'official' })
     const alternativer = Object.entries(landnavn).map(
@@ -41,6 +50,9 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
     )
     function submit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
+
+        if (!kontaktSchema.safeParse(påmelding).success) return
+
         setStep(2)
     }
 
@@ -50,7 +62,17 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
     }))
 
     const kontaktValedering = kontaktSchema.safeParse(påmelding)
-    const fieldErrors = kontaktValedering.success ? {} : kontaktValedering.error.flatten().fieldErrors
+    const allError = kontaktValedering.success ? {} : kontaktValedering.error.flatten().fieldErrors
+    const fieldErrors = {
+        navn: berørteFelt.navn && påmelding.navn.trim() ? allError.navn : undefined,
+        nasjon: berørteFelt.nasjon && påmelding.nasjon ? allError.nasjon : undefined,
+        kjønn: berørteFelt.kjønn && påmelding.kjønn ? allError.kjønn : undefined,
+        fødseldato: berørteFelt.fødseldato && påmelding.fødseldato ? allError.fødseldato : undefined,
+        email: berørteFelt.email && påmelding.email.trim() ? allError.email : undefined,
+        mobil: berørteFelt.mobil && påmelding.mobil.trim() ? allError.mobil : undefined,
+        adresse: berørteFelt.adresse && påmelding.adresse.trim() ? allError.adresse : undefined,
+
+    }
     const isFormValid = kontaktValedering.success
     // Field errors show one translated message per field instead of the raw zod text.
 
@@ -93,6 +115,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             <label className={labelStyle} htmlFor="navn">{t("form.name")}</label>
                             <input
                                 id="navn"
+                                onBlur={()=> markerBerørte("navn")}
                                 type="text"
                                 className={`${inputStyle} ${
                                     fieldErrors.navn ? "border-red-500 focus:ring-red-400" : ""}`}
@@ -117,6 +140,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             <label className={labelStyle} htmlFor="nasjon">{t("form.nationality")}</label>
                             <Select<SelectOption, false>
                                 inputId="nasjon"
+                                onBlur={()=> markerBerørte("nasjon")}
                                 instanceId="nasjon"
                                 value={alternativer.find(
                                     (option) => option.value === påmelding.nasjon
@@ -141,6 +165,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             <label className={labelStyle} htmlFor="kjonn">{t("form.gender")}</label>
                             <Select<SelectOption, false>
                                 inputId="kjonn"
+                                onBlur={()=> markerBerørte("kjønn")}
                                 instanceId="kjonn"
                                 placeholder={t("form.genderPlaceholder")}
                                 options={kjønnvalg}
@@ -166,6 +191,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             <label className={labelStyle} htmlFor="bursdag">{t("form.birthDate")}</label>
                             <input
                                 id="bursdag"
+                                onBlur={()=> markerBerørte("fødseldato")}
                                 type="date"
                                 value={påmelding.fødseldato}
                                 className={`${inputStyle} ${
@@ -188,6 +214,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             <label className={labelStyle} htmlFor="email">{t("form.email")}</label>
                             <input
                                 id="email"
+                                onBlur={()=> markerBerørte("email")}
                                 type="email"
                                 className={`${inputStyle} ${
                                     fieldErrors.email ? "border-red-500 focus:ring-red-400" : ""}`}
@@ -210,6 +237,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             <label className={labelStyle} htmlFor="mobil">{t("form.mobile")}</label>
                             <input
                                 id="mobil"
+                                onBlur={()=> markerBerørte("mobil")}
                                 type="text"
                                 className={`${inputStyle} ${
                                     fieldErrors.mobil ? "border-red-500 focus:ring-red-400" : ""}`}
@@ -232,6 +260,7 @@ export default function PåmeldingSkjema({setStep, setKontakt}: setStepProp) {
                             <label className={labelStyle} htmlFor="adresse">{t("form.address")}</label>
                             <input
                                 id="adresse"
+                                onBlur={()=> markerBerørte("adresse")}
                                 type="text"
                                 value={påmelding.adresse}
                                 className={`${inputStyle} ${
