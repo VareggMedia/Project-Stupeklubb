@@ -20,11 +20,15 @@ export default function App() {
   return (
     <div>
       {/* HERO */}
+      {/* The poster is the LCP image but a CSS background, so the browser finds it late; preload the one this width uses.
+          React hoists these links into <head>. */}
+      <link rel="preload" as="image" href="/images/hero-water/poster-wide.avif" media="(min-width: 901px)" fetchPriority="high" />
+      <link rel="preload" as="image" href="/images/hero-water/poster-mobile.avif" media="(max-width: 900px)" fetchPriority="high" />
       {/* Desktop photo (16:9): the hero grows with the width so the diver stands
           above the "For members" card, and the head stays 100px below the top
           (10.42vw = 18.6% of the photo height). Mobile keeps the original 3:2. */}
       <section
-        className="relative overflow-hidden bg-[linear-gradient(rgba(8,33,41,0.33),rgba(8,33,41,0.33)),url('/images/hero-water/poster-wide.avif')] bg-cover bg-[position:100%_max(100%,min(0px,calc(100px_-_10.42vw)))] min-h-[calc(33.3vw_+_300px)] max-[900px]:min-h-0 max-[900px]:bg-[linear-gradient(rgba(8,33,41,0.33),rgba(8,33,41,0.33)),url('/images/hero-water/poster-mobile.avif')] max-[900px]:bg-[length:auto_max(110%,clamp(840px,calc(1300px_-_80vw),960px))] max-[900px]:bg-[position:72%_max(100%,clamp(-85px,calc(13.36vw_-_142px),-65px))] pt-35 pb-36 max-[900px]:pb-28"
+        className="relative overflow-hidden bg-[url('/images/hero-water/poster-wide.avif')] bg-cover bg-[position:100%_max(100%,min(0px,calc(100px_-_10.42vw)))] min-h-[calc(33.3vw_+_300px)] max-[900px]:min-h-0 max-[900px]:bg-[url('/images/hero-water/poster-mobile.avif')] max-[900px]:bg-[length:auto_max(110%,clamp(840px,calc(1300px_-_80vw),960px))] max-[900px]:bg-[position:72%_max(100%,clamp(-85px,calc(13.36vw_-_142px),-65px))] pt-35 pb-36 max-[900px]:pb-28"
         id="om-oss"
       >
         <HeroWater />

@@ -8,7 +8,6 @@ type Msg =
 
 const ctx = globalThis as unknown as {
   onmessage: ((e: MessageEvent<Msg>) => void) | null;
-  postMessage(m: unknown): void;
   requestAnimationFrame?: (cb: (now: number) => void) => number;
 };
 const raf = (cb: (now: number) => void) =>
@@ -18,7 +17,6 @@ let r: Renderer | null = null;
 let size: Size | null = null;
 let visible = true;
 let last = 0;
-let readySent = false;
 
 const tick = (now: number) => {
   raf(tick);
@@ -29,10 +27,6 @@ const tick = (now: number) => {
   const dt = last ? Math.min(0.05, Math.max(0, (now - last) / 1000)) : 0; // the first frame is frame 0, as the poster
   last = now;
   r.frame(dt);
-  if (!readySent) {
-    readySent = true;
-    ctx.postMessage("ready");
-  }
 };
 
 ctx.onmessage = async ({ data: m }) => {
