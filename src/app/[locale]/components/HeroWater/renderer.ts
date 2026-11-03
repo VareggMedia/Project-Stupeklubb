@@ -7,7 +7,7 @@ const P = {
   camHeight: 5, fov: 55, pitch: 38, roll: 9, yaw: 0, depth: 3.5, tile: 2.4, amp: 0.008, speed: 0.3,
   bigMix: 1, midMix: 0.8, smallMix: 0.55, bigGain: 0.5, midGain: 0.45, smallGain: 0.4, bigRate: 0.02,
   midRate: 0.045, smallRate: 0.1, sunElev: 62, sunAz: 135, caustic: 0.83, blur: 1.4, contrast: 0.63,
-  sparkle: 0.2, sky: 0.25, mix2: 0.5, variation: 0.65, varScale: 0.45, tileStr: 0.22, tileSize: 0.38,
+  sparkle: 0.2, glintElev: 8.5, glintAz: 13.5, sky: 0.25, mix2: 0.5, variation: 0.65, varScale: 0.45, tileStr: 0.22, tileSize: 0.38,
   grout: 0.015, tileVar: 0.155, tileAngle: -42, tileFog: 0.3, tileBlur: 0.6, breakup: 0.65, breakScale: 2.8,
   absorb: 1.25, floor: 0.93, ambient: 0.35, sunDiffuse: 0.57, scatter: 1.36, green: 0.56, sat: 0.66,
   castOn: 0.45, castX: 0.235, castY: -0.365, castBlur: 6.4, castWobble: 0.06, lightStr: 0.63,
@@ -69,12 +69,14 @@ function camMatrix(): Mat3 {
   const base: Mat3 = [1, 0, 0, 0, 0, 1, 0, 1, 0]; // camX=+X, camY=+Z (screen up), camZ=+Y -> view axis looks down
   return mul(Ry(P.yaw * d), mul(base, mul(Rx(P.pitch * d), Rz(P.roll * d))));
 }
-function sunDir(): [number, number, number] {
+function dirOf(elev: number, az: number): [number, number, number] {
   const d = Math.PI / 180;
-  const e = P.sunElev * d;
-  const a = P.sunAz * d;
+  const e = elev * d;
+  const a = az * d;
   return [Math.cos(e) * Math.cos(a), Math.sin(e), Math.cos(e) * Math.sin(a)];
 }
+const sunDir = () => dirOf(P.sunElev, P.sunAz);
+const glintDir = () => dirOf(P.sunElev + P.glintElev, P.sunAz + P.glintAz);
 
 export type Crop = [number, number, number, number];
 export type Size = { w: number; h: number; dpr: number; crop: Crop; low: boolean }; // low – phone/tablet GPU
@@ -258,6 +260,7 @@ export function createRenderer(canvas: HTMLCanvasElement | OffscreenCanvas, dive
       gl.uniform1f(U.uCamH, P.camHeight);
       gl.uniform1f(U.uFov, P.fov);
       gl.uniform3f(U.uSun, ...sun);
+      gl.uniform3f(U.uGlint, ...glintDir());
       gl.uniform1f(U.uDepth, P.depth);
       for (const u in VIEW_UNIFORMS) gl.uniform1f(U[u], P[VIEW_UNIFORMS[u]]);
       gl.uniform1f(U.uCausNorm, causNorm);

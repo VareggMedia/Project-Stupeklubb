@@ -66,6 +66,7 @@ uniform vec2 uRes; uniform mat3 uCam; uniform float uCamH, uFov;
 uniform vec3 uSun; uniform float uDepth;
 uniform sampler2D uCaus, uShadow, uDiver;
 uniform vec2 uCastOff; uniform float uCastOn, uCastBlur, uCastWobble, uSunDiffuse;
+uniform vec3 uGlint; // sun direction for the glints only, offset so they miss the hero text
 uniform float uCausStr, uBlur, uContrast, uSparkle, uSky, uAbsorb, uFloor, uAmbient, uCausNorm, uShowMap;
 uniform float uShadowStr, uLightStr, uLightAngle, uLightSoft, uVignette, uDarken;
 uniform float uMix2, uVariation, uVarScale, uTileStr, uTileSize, uGrout, uTileVar, uTileFog, uTileBlur, uTileAngle, uBreakup, uBreakScale, uScatter, uGreen, uSat;
@@ -144,7 +145,7 @@ void main() {
   float F = 0.02 + 0.98 * pow(1.0 - cosi, 5.0);
   col = mix(col, vec3(0.55, 0.78, 0.9), clamp(F * uSky * 3.0, 0.0, 1.0));
   vec3 rr = reflect(dir, n);
-  col += vec3(1.0, 0.98, 0.92) * pow(max(dot(rr, uSun), 0.0), 900.0) * uSparkle * 6.0 * sh;
+  col += vec3(1.0, 0.98, 0.92) * pow(max(dot(rr, uGlint), 0.0), 900.0) * uSparkle * 6.0 * sh;
 
   float lum = dot(col, vec3(0.2126, 0.7152, 0.0722));
   col = max(mix(vec3(lum), col, uSat), 0.0);
