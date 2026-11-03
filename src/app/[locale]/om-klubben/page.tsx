@@ -9,7 +9,10 @@ export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/om-klubben">): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale: locale as Locale, namespace: "AboutPage" });
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: "AboutPage",
+  });
   return { title: t("title"), description: t("description") };
 }
 
@@ -22,14 +25,16 @@ export default function OmKlubben() {
   const tCommon = useTranslations("Common");
   return (
     <>
-      <PageHeader title={t("title")} crumb={t("title")} tone="pool" />
+      <PageHeader title={t("title")} crumb={t("title")} tone="aqua" />
 
       <div className="wrap py-20 max-[900px]:py-14">
         <div className="grid grid-cols-3 gap-6 max-[900px]:grid-cols-1">
           {ABOUT.map((key) => (
             <section key={key} className="rounded-[20px] bg-foam-dim p-9">
               <h2 className="text-[26px]">{t(`cards.${key}.title`)}</h2>
-              <p className="mt-3 text-base text-muted">{t(`cards.${key}.text`)}</p>
+              <p className="mt-3 text-base text-muted">
+                {t(`cards.${key}.text`)}
+              </p>
             </section>
           ))}
         </div>

@@ -10,7 +10,10 @@ export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/for-medlemmer">): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale: locale as Locale, namespace: "MembersPage" });
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: "MembersPage",
+  });
   return { title: t("title"), description: t("description") };
 }
 
@@ -47,7 +50,7 @@ export default function ForMedlemmer() {
   const tDoors = useTranslations("Doors.members.links");
   return (
     <>
-      <PageHeader title={t("title")} crumb={t("title")} tone="pool">
+      <PageHeader title={t("title")} crumb={t("title")} tone="aqua">
         <div className="grid grid-cols-4 gap-4 max-[900px]:grid-cols-2 max-[480px]:grid-cols-1">
           {DOORS.members.links.map((l) => (
             <Link
@@ -96,7 +99,9 @@ export default function ForMedlemmer() {
               <tbody>
                 {SCHEDULE.map((row) => (
                   <tr key={row.group} className="border-t border-line-light">
-                    <th className="px-5 py-4 font-semibold">{t(`groups.${row.group}`)}</th>
+                    <th className="px-5 py-4 font-semibold">
+                      {t(`groups.${row.group}`)}
+                    </th>
                     {row.times.map((hasTraining, i) => (
                       <td key={i} className="px-5 py-4">
                         {hasTraining ? t("time") : "–"}
@@ -121,7 +126,9 @@ export default function ForMedlemmer() {
                   key={key}
                   className="flex gap-4.5 border-b border-line-light py-3.5 text-[15px] last:border-b-0"
                 >
-                  <span className="w-16 shrink-0 font-semibold">{t("date")}</span>
+                  <span className="w-16 shrink-0 font-semibold">
+                    {t("date")}
+                  </span>
                   {t(`events.${key}`)}
                 </li>
               ))}
@@ -165,7 +172,9 @@ export default function ForMedlemmer() {
                 <h3 className="font-sans text-[19px] font-semibold">
                   {t(`practical.${p.key}.title`)}
                 </h3>
-                <p className="text-[15px] text-muted">{t(`practical.${p.key}.text`)}</p>
+                <p className="text-[15px] text-muted">
+                  {t(`practical.${p.key}.text`)}
+                </p>
                 {"href" in p && (
                   <Link
                     href={p.href}
