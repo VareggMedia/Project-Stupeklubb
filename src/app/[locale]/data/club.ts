@@ -9,10 +9,37 @@ export const TESTIMONIALS = [
 ] as const;
 
 export const SPONSORS = [
-  { name: "Zur Hår & Rubb", image: "/images/sponsor_img/zurhaar.png" },
-  { name: "Beerenberg", image: "/images/sponsor_img/beerenberg.png" },
-  { name: "OBOS", image: "/images/sponsor_img/obos.png" },
-  { name: "Rehab.shop", image: "/images/sponsor_img/rehab_shop.png" },
+  {
+    name: "Zur Hår & Rubb",
+
+    image: "/images/sponsor_img/zurhaar.png",
+
+    url: "https://zreiendom.no/",
+  },
+
+  {
+    name: "Beerenberg",
+
+    image: "/images/sponsor_img/beerenberg.png",
+
+    url: "https://beerenberg.com/en/",
+  },
+
+  {
+    name: "OBOS",
+
+    image: "/images/sponsor_img/obos.png",
+
+    url: "https://www.obos.no/",
+  },
+
+  {
+    name: "Rehab.shop",
+
+    image: "/images/sponsor_img/rehab_shop.png",
+
+    url: "https://www.mvmnt.no/collections/vendors?q=rehab.shop&srsltid=AYCX9vIiSvhL-f3Rxc8KDrnuRt5sFJLlErYw4TGNPUHMFwKvTj9VT9iy",
+  },
 ];
 
 // The two "doors" on the front page, reused by the navbar and footer.

@@ -14,12 +14,14 @@ export function RippleMark() {
     >
       <path
         fillRule="evenodd"
-        d="M1 22a21 21 0 1 0 42 0a21 21 0 1 0-42 0Z
-           M19.5 6.6h12v2h-12Z
-           M7.5 13.8h8v2h-8Z
-           M23.5 21h8v2h-8Z
-           M7.5 28.2h8v2h-8Z
-           M19.5 35.4h12v2h-12Z"
+        d={[
+          "M1 22a21 21 0 1 0 42 0a21 21 0 1 0-42 0Z",
+          "M19.5 6.6h12v2h-12Z",
+          "M7.5 13.8h8v2h-8Z",
+          "M23.5 21h8v2h-8Z",
+          "M7.5 28.2h8v2h-8Z",
+          "M19.5 35.4h12v2h-12Z",
+        ].join(" ")}
       />
     </svg>
   );
