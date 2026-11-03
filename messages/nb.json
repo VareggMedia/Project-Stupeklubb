@@ -120,10 +120,22 @@
     "testimonialsTitle": "Hva medlemmene sier"
   },
   "ContactPage": {
-    "title": "Kontakt oss",
+    "title": "Spørsmål til oss i Bergen Stupeklubb?",
     "crumb": "Kontakt",
     "metaTitle": "Kontakt",
-    "text": "Lurer du på noe om kurs, medlemskap eller stevner? Send oss en e-post eller ring, så svarer vi så fort vi kan."
+    "text": "Ikke nøl med å ta kontakt. Kontakt hovedtrener, så formidler han spørsmål om økonomi og andre saker til rett person i klubben ved behov.",
+    "email": "E-post",
+    "phone": "Telefon",
+    "address": "Adresse",
+    "coach": {
+      "role": "Hovedtrener i Bergen Stupeklubb",
+      "text": "Paul Joachim har det daglige ansvaret for treninger, trenere og oppsettet av ukene i Bergen Stupeklubb. Han er tilgjengelig utenom ordinær arbeidstid, og du kan alltid spørre ham på trening hvis det passer bedre."
+    },
+    "visit": {
+      "title": "Her finner du oss",
+      "directions": "Veibeskrivelse",
+      "mapTitle": "Kart som viser ADO Arena i Bergen"
+    }
   },
   "GearPage": {
     "title": "Klubbutstyr",

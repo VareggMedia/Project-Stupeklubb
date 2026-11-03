@@ -120,10 +120,22 @@
     "testimonialsTitle": "What our members say"
   },
   "ContactPage": {
-    "title": "Contact us",
+    "title": "Questions for Bergen Stupeklubb?",
     "crumb": "Contact",
     "metaTitle": "Contact",
-    "text": "Wondering about courses, membership or competitions? Send us an email or call, and we'll reply as soon as we can."
+    "text": "Don't hesitate to get in touch. Contact our head coach, who will pass questions about finances and other matters on to the right person in the club.",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "coach": {
+      "role": "Head coach at Bergen Stupeklubb",
+      "text": "Paul Joachim is responsible for day-to-day training, coaches and the weekly schedule at Bergen Stupeklubb. He is available outside regular working hours, and you can always ask him at training if that suits you better."
+    },
+    "visit": {
+      "title": "Where to find us",
+      "directions": "Get directions",
+      "mapTitle": "Map showing ADO Arena in Bergen"
+    }
   },
   "GearPage": {
     "title": "Club gear",
