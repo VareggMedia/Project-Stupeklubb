@@ -11,16 +11,27 @@ export default function Sponsors() {
         </h2>
         <div className="flex flex-wrap items-center justify-center gap-8">
           {SPONSORS.map((sponsor) => (
-            <div
-              className="flex h-25 w-60 items-center justify-center"
+            <a
               key={sponsor.name}
+
+              href={sponsor.url}
+
+              target="_blank"
+
+              rel="noopener noreferrer"
+
+              aria-label={`Visit ${sponsor.name} website`}
+
+              className="flex h-25 w-60 items-center justify-center"
             >
               <img
                 src={sponsor.image}
+
                 alt={sponsor.name}
+
                 className="size-full object-contain"
               />
-            </div>
+            </a>
           ))}
         </div>
       </div>
