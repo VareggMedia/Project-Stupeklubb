@@ -9,12 +9,18 @@ export function RippleMark() {
   return (
     <svg
       viewBox="0 0 44 44"
-      className="size-6.5 shrink-0 fill-none stroke-current stroke-[1.6] text-aqua"
+      className="size-6.5 shrink-0 fill-current text-aqua"
       aria-hidden="true"
     >
-      <circle cx="22" cy="22" r="20" />
-      <circle cx="22" cy="22" r="13" />
-      <circle cx="22" cy="22" r="4" fill="currentColor" stroke="none" />
+      <path
+        fillRule="evenodd"
+        d="M1 22a21 21 0 1 0 42 0a21 21 0 1 0-42 0Z
+           M19.5 6.6h12v2h-12Z
+           M7.5 13.8h8v2h-8Z
+           M23.5 21h8v2h-8Z
+           M7.5 28.2h8v2h-8Z
+           M19.5 35.4h12v2h-12Z"
+      />
     </svg>
   );
 }

@@ -4,9 +4,10 @@
   --color-ink: #082129;
   --color-pool: #0d3f4d;
   --color-pool-light: #12586a;
-  --color-aqua: #49d6c6;
+  --color-aqua: #6bc1d3;
   --color-aqua-light: #6fe2d4;
   --color-aqua-deep: #23a596;
+  --color-aqua-bg: #cae5ea;
   --color-foam: #f2f8f7;
   --color-foam-dim: #e5eeec;
   --color-coral: #ff6f4d;
@@ -25,6 +26,9 @@
   margin-inline: auto;
   max-width: 1120px;
   padding-inline: 28px;
+}
+body {
+  @apply bg-aqua-bg text-ink font-sans;
 }
 
 @layer base {

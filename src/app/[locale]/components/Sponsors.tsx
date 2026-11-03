@@ -4,7 +4,7 @@ import { SPONSORS } from "../data/club";
 export default function Sponsors() {
   const t = useTranslations("Sponsors");
   return (
-    <section className="bg-foam pb-24" id="sponsorer">
+    <section className="bg-aqua-bg pb-24" id="sponsorer">
       <div className="wrap">
         <h2 className="mb-10 text-center font-sans text-[22px] font-semibold text-muted">
           {t("title")}

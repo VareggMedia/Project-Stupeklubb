@@ -120,10 +120,32 @@
     "testimonialsTitle": "What our members say"
   },
   "ContactPage": {
-    "title": "Contact us",
+    "title": "Questions for Bergen Stupeklubb?",
     "crumb": "Contact",
     "metaTitle": "Contact",
-    "text": "Wondering about courses, membership or competitions? Send us an email or call, and we'll reply as soon as we can."
+    "text": "Don't hesitate to get in touch. Contact our head coach, who will pass questions about finances and other matters on to the right person in the club.",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "coach": {
+      "role": "Head coach at Bergen Stupeklubb",
+      "text": "Paul Joachim is responsible for day-to-day training, coaches and the weekly schedule at Bergen Stupeklubb. He is available outside regular working hours, and you can always ask him at training if that suits you better."
+    },
+    "visit": {
+      "title": "Where to find us",
+      "directions": "Get directions",
+      "mapTitle": "Map showing ADO Arena in Bergen"
+    },
+    "whistleblowing": {
+      "eyebrow": "Mitt Varsel",
+      "jump": "Speak up – Mitt Varsel",
+      "title": "Whistleblowing in Norwegian sports",
+      "text": "Everyone should feel safe at Bergen Stupeklubb. If you experience something that goes against our values, code of ethics, rules or guidelines, speak up. We want to know about misconduct, such as bullying, harassment, embezzlement, cheating or sexual abuse.",
+      "why": "We want to hear from you so we can address misconduct properly. That way we can prevent similar incidents in the future.",
+      "report": "Report in NIF's Mitt Varsel portal",
+      "topics": "Read more about what you can report",
+      "doping": "Report doping to Anti-Doping Norway"
+    }
   },
   "GearPage": {
     "title": "Club gear",

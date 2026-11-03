@@ -30,10 +30,6 @@ export default function App() {
         <HeroWater />
         <div className="wrap relative z-[2] grid grid-cols-[1.05fr_0.95fr] items-center gap-10 pb-17.5 max-[900px]:grid-cols-1">
           <div>
-            <span className="mb-5.5 inline-flex items-center gap-2 text-[13.5px] font-semibold text-aqua">
-              <span className="size-1.5 rounded-full bg-aqua" />
-              {t("eyebrow")}
-            </span>
             <h1 className="max-w-[13ch] text-balance text-[clamp(38px,5.4vw,60px)] leading-[1.04] text-foam">
               {t("title")}
             </h1>
@@ -56,7 +52,7 @@ export default function App() {
           </div>
         </div>
         <div className="absolute inset-x-0 bottom-0 z-[2]">
-          <WaveDivider color="var(--color-foam)" />
+          <WaveDivider color="var(--color-aqua-bg)" />
         </div>
       </section>
 
@@ -89,19 +85,15 @@ export default function App() {
       </section>
 
       {/* INCLUSIVITY */}
-      <section className="bg-foam pt-22.5 pb-16 text-center">
+      <section className="bg-aqua-bg pt-22.5 pb-16 text-center">
         <div className="mx-auto max-w-160 px-7">
-          <h2 className="text-[clamp(24px,3vw,30px)]">
-            {t("inclusiveTitle")}
-          </h2>
-          <p className="mt-4 text-[16.5px] text-muted">
-            {t("inclusiveText")}
-          </p>
+          <h2 className="text-[clamp(24px,3vw,30px)]">{t("inclusiveTitle")}</h2>
+          <p className="mt-4 text-[16.5px] text-muted">{t("inclusiveText")}</p>
         </div>
       </section>
 
       {/* NEWS, ABOUT, CONTACT — shared by both doors */}
-      <section className="bg-foam pb-22.5">
+      <section className="bg-aqua-bg  pb-22.5">
         <div className="wrap grid grid-cols-3 gap-6 max-[900px]:grid-cols-1">
           <SharedCard
             href="/nyheter"
@@ -157,7 +149,7 @@ function Door({
       }`}
     >
       <span
-        className={`text-[15px] font-semibold ${isAqua ? "" : "text-aqua"}`}
+        className={`text-[15px] font-semibold ${isAqua ? "" : "text-foam"}`}
       >
         {eyebrow}
       </span>

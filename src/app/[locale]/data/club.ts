@@ -25,7 +25,7 @@ export const DOORS = {
       { key: "courses", href: "/bli-med#kurs" },
       { key: "prices", href: "/bli-med#priser" },
       { key: "firstTime", href: "/bli-med#forste-gang" },
-      { key: "registration", href: "/bli-med#pamelding" },
+      { key: "registration", href: "/pamelding" },
     ],
   },
   members: {

@@ -120,10 +120,32 @@
     "testimonialsTitle": "Hva medlemmene sier"
   },
   "ContactPage": {
-    "title": "Kontakt oss",
+    "title": "Spørsmål til oss i Bergen Stupeklubb?",
     "crumb": "Kontakt",
     "metaTitle": "Kontakt",
-    "text": "Lurer du på noe om kurs, medlemskap eller stevner? Send oss en e-post eller ring, så svarer vi så fort vi kan."
+    "text": "Ikke nøl med å ta kontakt. Kontakt hovedtrener, så formidler han spørsmål om økonomi og andre saker til rett person i klubben ved behov.",
+    "email": "E-post",
+    "phone": "Telefon",
+    "address": "Adresse",
+    "coach": {
+      "role": "Hovedtrener i Bergen Stupeklubb",
+      "text": "Paul Joachim har det daglige ansvaret for treninger, trenere og oppsettet av ukene i Bergen Stupeklubb. Han er tilgjengelig utenom ordinær arbeidstid, og du kan alltid spørre ham på trening hvis det passer bedre."
+    },
+    "visit": {
+      "title": "Her finner du oss",
+      "directions": "Veibeskrivelse",
+      "mapTitle": "Kart som viser ADO Arena i Bergen"
+    },
+    "whistleblowing": {
+      "eyebrow": "Mitt Varsel",
+      "jump": "Si ifra – Mitt Varsel",
+      "title": "Varsling i norsk idrett",
+      "text": "I Bergen Stupeklubb skal alle være trygge. Opplever du noe som bryter med våre verdier, etiske leveregler, reglement eller retningslinjer, så si ifra. Vi vil vite om kritikkverdige forhold, for eksempel mobbing, trakassering, underslag, juks eller seksuelle overgrep.",
+      "why": "Vi ønsker å høre fra deg, så vi kan ta tak i og håndtere kritikkverdige forhold på en god måte. Slik kan vi hindre lignende hendelser i fremtiden.",
+      "report": "Varsle i NIFs portal Mitt Varsel",
+      "topics": "Les mer om hva du kan varsle om",
+      "doping": "Varsle om doping hos Antidoping Norge"
+    }
   },
   "GearPage": {
     "title": "Klubbutstyr",
