@@ -135,6 +135,16 @@
       "title": "Her finner du oss",
       "directions": "Veibeskrivelse",
       "mapTitle": "Kart som viser ADO Arena i Bergen"
+    },
+    "whistleblowing": {
+      "eyebrow": "Mitt Varsel",
+      "jump": "Si ifra – Mitt Varsel",
+      "title": "Varsling i norsk idrett",
+      "text": "I Bergen Stupeklubb skal alle være trygge. Opplever du noe som bryter med våre verdier, etiske leveregler, reglement eller retningslinjer, så si ifra. Vi vil vite om kritikkverdige forhold, for eksempel mobbing, trakassering, underslag, juks eller seksuelle overgrep.",
+      "why": "Vi ønsker å høre fra deg, så vi kan ta tak i og håndtere kritikkverdige forhold på en god måte. Slik kan vi hindre lignende hendelser i fremtiden.",
+      "report": "Varsle i NIFs portal Mitt Varsel",
+      "topics": "Les mer om hva du kan varsle om",
+      "doping": "Varsle om doping hos Antidoping Norge"
     }
   },
   "GearPage": {

@@ -135,6 +135,16 @@
       "title": "Where to find us",
       "directions": "Get directions",
       "mapTitle": "Map showing ADO Arena in Bergen"
+    },
+    "whistleblowing": {
+      "eyebrow": "Mitt Varsel",
+      "jump": "Speak up – Mitt Varsel",
+      "title": "Whistleblowing in Norwegian sports",
+      "text": "Everyone should feel safe at Bergen Stupeklubb. If you experience something that goes against our values, code of ethics, rules or guidelines, speak up. We want to know about misconduct, such as bullying, harassment, embezzlement, cheating or sexual abuse.",
+      "why": "We want to hear from you so we can address misconduct properly. That way we can prevent similar incidents in the future.",
+      "report": "Report in NIF's Mitt Varsel portal",
+      "topics": "Read more about what you can report",
+      "doping": "Report doping to Anti-Doping Norway"
     }
   },
   "GearPage": {

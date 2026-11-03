@@ -4,6 +4,8 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { type Locale, useLocale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import PageHeader from "../components/PageHeader";
+import SmoothScrollLink from "../components/SmoothScrollLink";
+import { buttonStyles } from "../components/button";
 
 export async function generateMetadata({
   params,
@@ -48,7 +50,15 @@ export default function Kontakt() {
   return (
     <>
       <PageHeader title={t("title")} crumb={t("crumb")} tone="aqua">
-        <p className="max-w-[50ch] text-[17px] text-pool">{t("text")}</p>
+        <div className="flex items-end justify-between gap-x-10 gap-y-6 max-[900px]:flex-col max-[900px]:items-start">
+          <p className="max-w-[50ch] text-[17px] text-pool">{t("text")}</p>
+          <SmoothScrollLink
+            targetId="mitt-varsel"
+            className={`${buttonStyles.base} shrink-0 bg-pool text-foam hover:bg-ink`}
+          >
+            {t("whistleblowing.jump")} ↓
+          </SmoothScrollLink>
+        </div>
       </PageHeader>
 
       <div className="wrap py-20 max-[900px]:py-14">
@@ -117,6 +127,50 @@ export default function Kontakt() {
             />
           </section>
         </div>
+
+        <section
+          id="mitt-varsel"
+          className="mt-6 grid scroll-mt-28 grid-cols-[1.6fr_1fr] gap-10 rounded-[20px] bg-pool p-9 text-foam max-[900px]:grid-cols-1 max-[900px]:gap-8"
+        >
+          <div>
+            <p className="text-[13px] font-semibold tracking-wide text-aqua uppercase">
+              {t("whistleblowing.eyebrow")}
+            </p>
+            <h2 className="mt-2 text-[26px]">{t("whistleblowing.title")}</h2>
+            <p className="mt-4 max-w-[60ch] text-base text-foam/85">
+              {t("whistleblowing.text")}
+            </p>
+            <p className="mt-4 max-w-[60ch] text-base text-foam/85">
+              {t("whistleblowing.why")}
+            </p>
+          </div>
+          <div className="flex flex-col items-start justify-center gap-4">
+            <a
+              href="https://www.idrettsforbundet.no/tema/varsling/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonStyles.primary}
+            >
+              {t("whistleblowing.report")} ↗
+            </a>
+            <a
+              href="https://www.idrettsforbundet.no/tema/varsling/mer-om-tema/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[15px] font-semibold text-foam hover:text-aqua hover:underline"
+            >
+              {t("whistleblowing.topics")} ↗
+            </a>
+            <a
+              href="https://www.antidoping.no/kontroll/tips-oss-om-doping"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[15px] font-semibold text-foam hover:text-aqua hover:underline"
+            >
+              {t("whistleblowing.doping")} ↗
+            </a>
+          </div>
+        </section>
       </div>
     </>
   );
