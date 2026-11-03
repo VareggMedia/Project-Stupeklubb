@@ -35,11 +35,14 @@ export default function HeroWater() {
 
     let worker: Worker | null = null;
     let local: { resize(s: Size): void; frame(dt: number): void } | null = null;
-    let size: Size = { w: 1, h: 1, dpr: 1, crop: [0, 0, 1, 1] };
+    let size: Size = { w: 1, h: 1, dpr: 1, crop: [0, 0, 1, 1], low: false };
+    const low = matchMedia("(max-width: 900px), (pointer: coarse)");
     let inView = true;
     let disposed = false;
     let raf = 0;
-    const shown = () => inView && !document.hidden;
+    // render only while the hero is on screen, the tab is visible, and the window has focus; otherwise the last
+    // frame stays and the GPU idles
+    const shown = () => inView && !document.hidden && document.hasFocus();
 
     if ("transferControlToOffscreen" in canvas && typeof Worker !== "undefined") {
       const off = canvas.transferControlToOffscreen();
@@ -52,9 +55,10 @@ export default function HeroWater() {
           .then((res) => res.blob())
           .then((b) => createImageBitmap(b))
           .catch(() => null),
-      ]).then(([{ createRenderer }, diver]) => {
+      ]).then(([{ createRenderer, frameDue }, diver]) => {
         if (disposed) return;
         const r = createRenderer(canvas, diver);
+        diver?.close(); // uploaded to the GPU, the decoded copy is no longer needed
         if (!r) return;
         local = r;
         r.resize(size);
@@ -65,6 +69,7 @@ export default function HeroWater() {
             last = 0;
             return;
           }
+          if (!frameDue(now, last)) return;
           const dt = last ? Math.min(0.05, Math.max(0, (now - last) / 1000)) : 0; // first frame = frame 0 = poster
           last = now;
           r.frame(dt);
@@ -86,7 +91,7 @@ export default function HeroWater() {
       const ch = Math.max(1, Math.min(dh, H - offY) - y0);
       Object.assign(canvas.style, { left: `${x0}px`, top: `${y0}px`, width: `${cw}px`, height: `${ch}px` });
       const crop: Crop = [x0 / dw, 1 - (y0 + ch) / dh, cw / dw, ch / dh];
-      size = { w: cw, h: ch, dpr: devicePixelRatio || 1, crop };
+      size = { w: cw, h: ch, dpr: devicePixelRatio || 1, crop, low: low.matches };
       worker?.postMessage({ type: "size", ...size });
       local?.resize(size);
     };
@@ -101,6 +106,8 @@ export default function HeroWater() {
     });
     io.observe(layer);
     document.addEventListener("visibilitychange", sendShown);
+    window.addEventListener("focus", sendShown);
+    window.addEventListener("blur", sendShown);
 
     return () => {
       disposed = true;
@@ -109,6 +116,10 @@ export default function HeroWater() {
       ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", sendShown);
+      window.removeEventListener("focus", sendShown);
+      window.removeEventListener("blur", sendShown);
+      // the worker's context dies with terminate(); the main-thread one is released now, not at garbage collection
+      if (local) (canvas.getContext("webgl2") as WebGL2RenderingContext | null)?.getExtension("WEBGL_lose_context")?.loseContext();
       canvas.remove();
     };
   }, []);

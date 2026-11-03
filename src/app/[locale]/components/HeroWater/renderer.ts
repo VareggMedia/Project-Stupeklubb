@@ -11,7 +11,7 @@ const P = {
   grout: 0.015, tileVar: 0.155, tileAngle: -42, tileFog: 0.3, tileBlur: 0.6, breakup: 0.65, breakScale: 2.8,
   absorb: 1.25, floor: 0.93, ambient: 0.35, sunDiffuse: 0.57, scatter: 1.36, green: 0.56, sat: 0.66,
   castOn: 0.45, castX: 0.235, castY: -0.365, castBlur: 6.4, castWobble: 0.06, lightStr: 0.63,
-  lightAngle: 200, lightSoft: 0.38, vignette: 0.29, darken: 0.02, resScale: 0.75,
+  lightAngle: 200, lightSoft: 0.38, vignette: 0.29, darken: 0.02, resScale: 0.5,
 };
 
 // Aspect of the image box the shader works in (the wide poster and diver cut-out).
@@ -77,7 +77,12 @@ function sunDir(): [number, number, number] {
 }
 
 export type Crop = [number, number, number, number];
-export type Size = { w: number; h: number; dpr: number; crop: Crop };
+export type Size = { w: number; h: number; dpr: number; crop: Crop; low: boolean }; // low – phone/tablet GPU
+
+// The water moves slowly; 30 fps halves the GPU load and still reads as smooth.
+export const FRAME_MS = 1000 / 30;
+// Skip a display refresh until a 30 fps frame is due (2 ms slack, so 60 Hz rAF lands on every second tick).
+export const frameDue = (now: number, last: number) => !last || now - last >= FRAME_MS - 2;
 export type Renderer = {
   resize(s: Size): void; // CSS size of the visible part + device pixel ratio
   setPixels(pw: number, ph: number, crop: Crop): void; // exact backing size (poster)
@@ -210,8 +215,9 @@ export function createRenderer(canvas: HTMLCanvasElement | OffscreenCanvas, dive
 
   return {
     setPixels,
-    resize({ w, h, dpr, crop: c }) {
-      const scale = Math.min(Math.min(dpr || 1, 2) * P.resScale, 2400 / Math.max(w, h));
+    // pixel density only: the caustic map and grid stay fixed, so every device still matches the poster
+    resize({ w, h, dpr, crop: c, low }) {
+      const scale = Math.min(Math.min(dpr || 1, low ? 1.5 : 2) * P.resScale, 2400 / Math.max(w, h));
       setPixels(w * scale, h * scale, c);
     },
     // dt = 0 keeps the scene at its current state; the very first call therefore draws frame 0

@@ -1,5 +1,5 @@
 // Runs the hero water off the main thread on an OffscreenCanvas, so shader compiles and frames never block the page.
-import { createRenderer, type Renderer, type Size } from "./renderer";
+import { createRenderer, frameDue, type Renderer, type Size } from "./renderer";
 
 type Msg =
   | { type: "init"; canvas: OffscreenCanvas; diverUrl: string }
@@ -24,6 +24,7 @@ const tick = (now: number) => {
     last = 0;
     return;
   }
+  if (!frameDue(now, last)) return;
   const dt = last ? Math.min(0.05, Math.max(0, (now - last) / 1000)) : 0; // the first frame is frame 0, as the poster
   last = now;
   r.frame(dt);
@@ -42,6 +43,7 @@ ctx.onmessage = async ({ data: m }) => {
       .then((b) => createImageBitmap(b))
       .catch(() => null);
     r = createRenderer(m.canvas, diver);
+    diver?.close();
     if (!r) return;
     if (size) r.resize(size);
     raf(tick);
