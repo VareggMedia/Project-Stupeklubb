@@ -56,7 +56,8 @@ void main() {
 }`;
 
 export const viewVS = `#version 300 es
-in vec2 aP; out vec2 uv; void main(){ uv = aP * 0.5 + 0.5; gl_Position = vec4(aP, 0.0, 1.0); }`;
+uniform vec4 uCrop; // visible part of the image box: x, y (from the bottom), width, height in uv
+in vec2 aP; out vec2 uv; void main(){ uv = uCrop.xy + (aP * 0.5 + 0.5) * uCrop.zw; gl_Position = vec4(aP, 0.0, 1.0); }`;
 
 export const viewFS = `#version 300 es
 precision highp float;

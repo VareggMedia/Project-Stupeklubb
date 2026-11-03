@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { WAVES, causFS, causVS, viewFS, viewVS } from "./shaders";
 
 /**
- * Animated pool water behind the hero diver (desktop only).
+ * Animated pool water behind the hero diver.
  * Layers: WebGL water + caustics -> cut-out diver and board -> the same dark tint as the static photo.
- * The static hero photo stays underneath as the fallback (mobile, reduced motion, no WebGL, before the first frame).
+ * The static hero photo stays underneath as the fallback (reduced motion, no WebGL, before the first frame).
  */
 
 // Synced from the prototype's defaults.json (DEVFLOW/stupeklubben-hero-water/caustics-proto).
@@ -24,6 +24,14 @@ const P = {
 // Same geometry as the section's CSS background (hero-diver-wide.avif, cover, position 100% / max(100%, min(0, 100px - 10.42vw))).
 const IMG_W = 3840;
 const IMG_H = 2151;
+
+// Mobile (≤ 900 px) shows hero-diver.avif (2880×1920), a different shot of the same diver. The wide scene is placed so
+// its diver lands on the mobile one: wide px = MOB_K * mobile px + (MOB_TX, MOB_TY), fitted on the upper body.
+const MOB_W = 2880;
+const MOB_H = 1920;
+const MOB_K = 0.89;
+const MOB_TX = 640;
+const MOB_TY = 112;
 
 const VIEW_UNIFORMS: Record<string, keyof typeof P> = {
   uCausStr: "caustic", uBlur: "blur", uContrast: "contrast", uSparkle: "sparkle", uSky: "sky",
@@ -94,7 +102,7 @@ export default function HeroWater() {
     const box = boxRef.current;
     const canvas = canvasRef.current;
     if (!layer || !box || !canvas) return;
-    if (matchMedia("(max-width: 900px)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const gl = canvas.getContext("webgl2", { antialias: false, powerPreference: "low-power" });
     if (!gl || gl.isContextLost()) return;
     const floatRT = !!gl.getExtension("EXT_color_buffer_float");
@@ -199,19 +207,38 @@ export default function HeroWater() {
     };
     dvImg.src = "/images/hero-water/diver-wide.avif";
 
-    // place the box exactly where the CSS background image sits
+    // place the box exactly where the CSS background image sits; the canvas covers only its visible part
+    const crop = [0, 0, 1, 1];
+    const mobile = matchMedia("(max-width: 900px)");
     const layout = () => {
       const W = layer.clientWidth;
       const H = layer.clientHeight;
-      const s = Math.max(W / IMG_W, H / IMG_H);
-      const dw = IMG_W * s;
-      const dh = IMG_H * s;
-      const offX = W - dw; // position-x 100%
-      const offY = Math.max(H - dh, Math.min(0, 100 - 0.1042 * window.innerWidth));
+      const vw = window.innerWidth;
+      let offX, offY, dw, dh;
+      if (mobile.matches) {
+        // size auto max(110%, clamp(840px, 1300px - 80vw, 960px)), position 72% max(100%, clamp(-85px, 13.36vw - 142px, -65px))
+        const mh = Math.max(1.1 * H, Math.min(960, Math.max(840, 1300 - 0.8 * vw)));
+        const ms = mh / MOB_H;
+        const mx = 0.72 * (W - MOB_W * ms);
+        const my = Math.max(H - mh, Math.min(-65, Math.max(-85, 0.1336 * vw - 142)));
+        const s = ms / MOB_K;
+        [offX, offY, dw, dh] = [mx - MOB_TX * s, my - MOB_TY * s, IMG_W * s, IMG_H * s];
+      } else {
+        const s = Math.max(W / IMG_W, H / IMG_H);
+        [dw, dh] = [IMG_W * s, IMG_H * s];
+        offX = W - dw; // position-x 100%
+        offY = Math.max(H - dh, Math.min(0, 100 - 0.1042 * vw));
+      }
       Object.assign(box.style, { left: `${offX}px`, top: `${offY}px`, width: `${dw}px`, height: `${dh}px` });
-      const scale = Math.min(devicePixelRatio || 1, 2) * P.resScale;
-      canvas.width = Math.max(1, Math.round(Math.min(dw * scale, 2400)));
-      canvas.height = Math.max(1, Math.round(canvas.width * (IMG_H / IMG_W)));
+      const x0 = Math.max(0, -offX);
+      const y0 = Math.max(0, -offY);
+      const cw = Math.max(1, Math.min(dw, W - offX) - x0);
+      const ch = Math.max(1, Math.min(dh, H - offY) - y0);
+      Object.assign(canvas.style, { left: `${x0}px`, top: `${y0}px`, width: `${cw}px`, height: `${ch}px` });
+      crop.splice(0, 4, x0 / dw, 1 - (y0 + ch) / dh, cw / dw, ch / dh);
+      const scale = Math.min(Math.min(devicePixelRatio || 1, 2) * P.resScale, 2400 / Math.max(cw, ch));
+      canvas.width = Math.max(1, Math.round(cw * scale));
+      canvas.height = Math.max(1, Math.round(ch * scale));
     };
     const ro = new ResizeObserver(layout);
     ro.observe(layer);
@@ -270,7 +297,8 @@ export default function HeroWater() {
       gl.useProgram(viewProg.p);
       const U = viewProg.U;
       setWave(U);
-      gl.uniform2f(U.uRes, canvas.width, canvas.height);
+      gl.uniform2f(U.uRes, IMG_W, IMG_H); // aspect of the whole image box, not of the cropped canvas
+      gl.uniform4f(U.uCrop, crop[0], crop[1], crop[2], crop[3]);
       gl.uniformMatrix3fv(U.uCam, false, camMatrix());
       gl.uniform1f(U.uCamH, P.camHeight);
       gl.uniform1f(U.uFov, P.fov);
@@ -308,10 +336,10 @@ export default function HeroWater() {
     <div
       ref={layerRef}
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-0 z-[1] overflow-hidden transition-opacity duration-700 max-[900px]:hidden ${ready ? "opacity-100" : "opacity-0"}`}
+      className={`pointer-events-none absolute inset-0 z-[1] overflow-hidden transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`}
     >
       <div ref={boxRef} className="absolute">
-        <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+        <canvas ref={canvasRef} className="absolute" />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/hero-water/diver-wide.avif" alt="" className="absolute inset-0 h-full w-full" />
       </div>
