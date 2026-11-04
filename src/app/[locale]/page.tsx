@@ -32,8 +32,13 @@ export default function App() {
         id="om-oss"
       >
         <HeroWater />
-        <div className="wrap relative z-[2] grid grid-cols-[1.05fr_0.95fr] items-center gap-10 pb-17.5 max-[900px]:grid-cols-1">
-          <div>
+        {/* Above 1920px the hero keeps growing with the width while the 60px heading
+            stops, so the text looks small on 4K. Zoom the text block in steps to keep
+            its 1920px proportion (×1.33 at 2560px, ×2 at 3840px); its left edge stays
+            aligned with the cards. The right column is empty (the diver is the
+            background), so wide screens give the zoomed text the full width. */}
+        <div className="wrap relative z-[2] grid grid-cols-[1.05fr_0.95fr] items-center gap-10 pb-17.5 max-[900px]:grid-cols-1 min-[2080px]:grid-cols-1">
+          <div className="min-[2080px]:[zoom:1.083] min-[2240px]:[zoom:1.167] min-[2400px]:[zoom:1.25] min-[2560px]:[zoom:1.333] min-[2880px]:[zoom:1.5] min-[3200px]:[zoom:1.667] min-[3520px]:[zoom:1.833] min-[3840px]:[zoom:2]">
             <h1 className="max-w-[13ch] text-balance text-[clamp(38px,5.4vw,60px)] leading-[1.04] text-foam">
               {t("title")}
             </h1>
