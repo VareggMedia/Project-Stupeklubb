@@ -132,7 +132,7 @@ export default function HeroWater() {
     >
       <div ref={boxRef} className={styles.box}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={OVERLAY} alt="" className="absolute top-[18.41%] left-[59.74%] h-[81.59%] w-[30.31%]" />
+        <img src={OVERLAY} alt="" fetchPriority="high" className="absolute top-[18.41%] left-[59.74%] h-[81.59%] w-[30.31%]" />
       </div>
       {/* the hero's tint, over poster and canvas alike (the section background is the bare poster) */}
       <div className="absolute inset-0 bg-[rgba(8,33,41,0.33)]" />

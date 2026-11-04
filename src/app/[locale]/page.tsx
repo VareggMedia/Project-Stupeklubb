@@ -22,6 +22,8 @@ export default function App() {
       {/* HERO */}
       {/* The poster is the LCP image but a CSS background, so the browser finds it late; preload the one this width uses.
           React hoists these links into <head>. */}
+      {/* On mobile the LCP element is the diver overlay, not the poster: fetch it first. */}
+      <link rel="preload" as="image" href="/images/hero-water/diver-crop.avif" media="(max-width: 900px)" fetchPriority="high" />
       <link rel="preload" as="image" href="/images/hero-water/poster-wide.avif" media="(min-width: 901px)" fetchPriority="high" />
       <link rel="preload" as="image" href="/images/hero-water/poster-mobile.avif" media="(max-width: 900px)" fetchPriority="high" />
       {/* Desktop photo (16:9): the hero grows with the width so the diver stands
