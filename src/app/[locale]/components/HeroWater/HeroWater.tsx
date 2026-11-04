@@ -46,39 +46,46 @@ export default function HeroWater() {
     // frame stays and the GPU idles
     const shown = () => inView && !document.hidden && document.hasFocus();
 
-    if ("transferControlToOffscreen" in canvas && typeof Worker !== "undefined") {
-      const off = canvas.transferControlToOffscreen();
-      worker = new Worker(new URL("./water.worker.ts", import.meta.url), { type: "module" });
-      worker.postMessage({ type: "init", canvas: off, diverUrl: new URL(DIVER, location.href).href }, [off]);
-    } else {
-      void Promise.all([
-        import("./renderer"),
-        fetch(DIVER)
-          .then((res) => res.blob())
-          .then((b) => createImageBitmap(b))
-          .catch(() => null),
-      ]).then(([{ createRenderer, frameDue }, diver]) => {
-        if (disposed) return;
-        const r = createRenderer(canvas, diver);
-        diver?.close(); // uploaded to the GPU, the decoded copy is no longer needed
-        if (!r) return;
-        local = r;
-        r.resize(size);
-        let last = 0;
-        const tick = (now: number) => {
+    // The water starts only after the load event, in idle time: until then the poster (the same frame 0) is the hero,
+    // so the worker script, WebGL setup, and the cast-shadow image never compete with the first screen (the LCP).
+    const start = () => {
+      if (disposed) return;
+      if ("transferControlToOffscreen" in canvas && typeof Worker !== "undefined") {
+        const off = canvas.transferControlToOffscreen();
+        worker = new Worker(new URL("./water.worker.ts", import.meta.url), { type: "module" });
+        worker.postMessage({ type: "init", canvas: off, diverUrl: new URL(DIVER, location.href).href }, [off]);
+        layout(); // the worker needs the current size
+        sendShown();
+      } else {
+        void Promise.all([
+          import("./renderer"),
+          fetch(DIVER, { priority: "low" })
+            .then((res) => res.blob())
+            .then((b) => createImageBitmap(b))
+            .catch(() => null),
+        ]).then(([{ createRenderer, frameDue }, diver]) => {
+          if (disposed) return;
+          const r = createRenderer(canvas, diver);
+          diver?.close(); // uploaded to the GPU, the decoded copy is no longer needed
+          if (!r) return;
+          local = r;
+          r.resize(size);
+          let last = 0;
+          const tick = (now: number) => {
+            raf = requestAnimationFrame(tick);
+            if (!shown()) {
+              last = 0;
+              return;
+            }
+            if (!frameDue(now, last)) return;
+            const dt = last ? Math.min(0.05, Math.max(0, (now - last) / 1000)) : 0; // first frame = frame 0 = poster
+            last = now;
+            r.frame(dt);
+          };
           raf = requestAnimationFrame(tick);
-          if (!shown()) {
-            last = 0;
-            return;
-          }
-          if (!frameDue(now, last)) return;
-          const dt = last ? Math.min(0.05, Math.max(0, (now - last) / 1000)) : 0; // first frame = frame 0 = poster
-          last = now;
-          r.frame(dt);
-        };
-        raf = requestAnimationFrame(tick);
-      });
-    }
+        });
+      }
+    };
 
     // the box is placed by CSS (HeroWater.module.css); the canvas covers only its visible part
     const layout = () => {
@@ -111,8 +118,23 @@ export default function HeroWater() {
     window.addEventListener("focus", sendShown);
     window.addEventListener("blur", sendShown);
 
+    let cancelStart = () => {};
+    const schedule = () => {
+      if (typeof requestIdleCallback === "function") {
+        const id = requestIdleCallback(start, { timeout: 2000 });
+        cancelStart = () => cancelIdleCallback(id);
+      } else {
+        const id = setTimeout(start, 200); // Safari has no requestIdleCallback
+        cancelStart = () => clearTimeout(id);
+      }
+    };
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
+
     return () => {
       disposed = true;
+      window.removeEventListener("load", schedule);
+      cancelStart();
       cancelAnimationFrame(raf);
       worker?.terminate();
       ro.disconnect();

@@ -38,7 +38,7 @@ ctx.onmessage = async ({ data: m }) => {
     visible = m.v;
   } else if (m.type === "init") {
     // the silhouette must be in place before frame 0, or the cast shadow would pop in after the poster swap
-    const diver = await fetch(m.diverUrl)
+    const diver = await fetch(m.diverUrl, { priority: "low" })
       .then((res) => res.blob())
       .then((b) => createImageBitmap(b))
       .catch(() => null);
