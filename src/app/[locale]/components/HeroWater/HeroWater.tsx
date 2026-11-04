@@ -17,6 +17,8 @@ import styles from "./HeroWater.module.css";
 // overlay would cover the whole viewport and become a slow-decoding LCP element instead of the poster.
 const DIVER = "/images/hero-water/diver-wide.avif";
 const OVERLAY = "/images/hero-water/diver-crop.avif"; // px 2294,396 – 3458,2151 of the 3840×2151 box
+// the same crop at 75 % for phones and tablets: their overlay is ~600 css px wide, and it is the mobile LCP element
+const OVERLAY_MOBILE = "/images/hero-water/diver-crop-mobile.avif";
 
 export default function HeroWater() {
   const layerRef = useRef<HTMLDivElement>(null);
@@ -131,8 +133,10 @@ export default function HeroWater() {
       className={`pointer-events-none absolute inset-0 z-[1] overflow-hidden ${styles.layer}`}
     >
       <div ref={boxRef} className={styles.box}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={OVERLAY} alt="" fetchPriority="high" className="absolute top-[18.41%] left-[59.74%] h-[81.59%] w-[30.31%]" />
+        <picture>
+          <source media="(max-width: 900px)" srcSet={OVERLAY_MOBILE} />
+          <img src={OVERLAY} alt="" fetchPriority="high" className="absolute top-[18.41%] left-[59.74%] h-[81.59%] w-[30.31%]" />
+        </picture>
       </div>
       {/* the hero's tint, over poster and canvas alike (the section background is the bare poster) */}
       <div className="absolute inset-0 bg-[rgba(8,33,41,0.33)]" />
