@@ -25,7 +25,7 @@ export default function App() {
       {/* On mobile the LCP element is the diver overlay, not the poster: fetch it first. */}
       <link rel="preload" as="image" href="/images/hero-water/diver-crop-mobile.avif" media="(max-width: 900px)" fetchPriority="high" />
       <link rel="preload" as="image" href="/images/hero-water/poster-wide.avif" media="(min-width: 901px)" fetchPriority="high" />
-      <link rel="preload" as="image" href="/images/hero-water/poster-mobile.avif" media="(max-width: 900px)" fetchPriority="high" />
+      <link rel="preload" as="image" href="/images/hero-water/poster-mobile.avif" media="(max-width: 900px)" fetchPriority="low" />
       {/* Desktop photo (16:9): the hero grows with the width so the diver stands
           above the "For members" card, and the head stays 100px below the top
           (10.42vw = 18.6% of the photo height). Mobile keeps the original 3:2. */}
