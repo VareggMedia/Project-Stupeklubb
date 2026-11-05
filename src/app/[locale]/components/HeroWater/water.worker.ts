@@ -26,7 +26,8 @@ const tick = (now: number) => {
     return;
   }
   if (!frameDue(now, last, slow)) return;
-  const dt = last ? Math.min(0.05, Math.max(0, (now - last) / 1000)) : 0; // the first frame is frame 0, as the poster
+  // the first frame is frame 0, as the poster; the 0.1 s cap covers a 15 fps frame (67 ms), so the water keeps its speed
+  const dt = last ? Math.min(0.1, Math.max(0, (now - last) / 1000)) : 0;
   last = now;
   r.frame(dt);
 };
