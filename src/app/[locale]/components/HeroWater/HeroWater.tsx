@@ -42,9 +42,10 @@ export default function HeroWater() {
     let inView = true;
     let disposed = false;
     let raf = 0;
-    // render only while the hero is on screen, the tab is visible, and the window has focus; otherwise the last
-    // frame stays and the GPU idles
-    const shown = () => inView && !document.hidden && document.hasFocus();
+    // render only while the hero is on screen and the tab is visible, otherwise the last frame stays and the GPU idles;
+    // without window focus the water keeps moving at half rate (someone may keep it open beside their work)
+    const shown = () => inView && !document.hidden;
+    const slow = () => !document.hasFocus();
 
     // The water starts only after the load event, in idle time: until then the poster (the same frame 0) is the hero,
     // so the worker script, WebGL setup, and the cast-shadow image never compete with the first screen (the LCP).
@@ -77,7 +78,7 @@ export default function HeroWater() {
               last = 0;
               return;
             }
-            if (!frameDue(now, last)) return;
+            if (!frameDue(now, last, slow())) return;
             const dt = last ? Math.min(0.05, Math.max(0, (now - last) / 1000)) : 0; // first frame = frame 0 = poster
             last = now;
             r.frame(dt);
@@ -108,7 +109,7 @@ export default function HeroWater() {
     ro.observe(layer);
     layout();
 
-    const sendShown = () => worker?.postMessage({ type: "visible", v: shown() });
+    const sendShown = () => worker?.postMessage({ type: "visible", v: shown(), slow: slow() });
     const io = new IntersectionObserver(([e]) => {
       inView = e.isIntersecting;
       sendShown();

@@ -81,10 +81,13 @@ const glintDir = () => dirOf(P.sunElev + P.glintElev, P.sunAz + P.glintAz);
 export type Crop = [number, number, number, number];
 export type Size = { w: number; h: number; dpr: number; crop: Crop; low: boolean }; // low – phone/tablet GPU
 
-// The water moves slowly; 30 fps halves the GPU load and still reads as smooth.
+// The water moves slowly; 30 fps halves the GPU load and still reads as smooth. Without window focus (the page is
+// visible but the user works elsewhere) 15 fps halves it again; measured 14 % → ~7 % of an integrated GPU, full HD.
 export const FRAME_MS = 1000 / 30;
-// Skip a display refresh until a 30 fps frame is due (2 ms slack, so 60 Hz rAF lands on every second tick).
-export const frameDue = (now: number, last: number) => !last || now - last >= FRAME_MS - 2;
+export const SLOW_FRAME_MS = 1000 / 15;
+// Skip a display refresh until the next frame is due (2 ms slack, so 60 Hz rAF lands on every second or fourth tick).
+export const frameDue = (now: number, last: number, slow = false) =>
+  !last || now - last >= (slow ? SLOW_FRAME_MS : FRAME_MS) - 2;
 export type Renderer = {
   resize(s: Size): void; // CSS size of the visible part + device pixel ratio
   setPixels(pw: number, ph: number, crop: Crop): void; // exact backing size (poster)

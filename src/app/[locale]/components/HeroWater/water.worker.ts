@@ -4,7 +4,7 @@ import { createRenderer, frameDue, type Renderer, type Size } from "./renderer";
 type Msg =
   | { type: "init"; canvas: OffscreenCanvas; diverUrl: string }
   | ({ type: "size" } & Size)
-  | { type: "visible"; v: boolean };
+  | { type: "visible"; v: boolean; slow: boolean };
 
 const ctx = globalThis as unknown as {
   onmessage: ((e: MessageEvent<Msg>) => void) | null;
@@ -16,6 +16,7 @@ const raf = (cb: (now: number) => void) =>
 let r: Renderer | null = null;
 let size: Size | null = null;
 let visible = true;
+let slow = false;
 let last = 0;
 
 const tick = (now: number) => {
@@ -24,7 +25,7 @@ const tick = (now: number) => {
     last = 0;
     return;
   }
-  if (!frameDue(now, last)) return;
+  if (!frameDue(now, last, slow)) return;
   const dt = last ? Math.min(0.05, Math.max(0, (now - last) / 1000)) : 0; // the first frame is frame 0, as the poster
   last = now;
   r.frame(dt);
@@ -36,6 +37,7 @@ ctx.onmessage = async ({ data: m }) => {
     r?.resize(m);
   } else if (m.type === "visible") {
     visible = m.v;
+    slow = m.slow;
   } else if (m.type === "init") {
     // the silhouette must be in place before frame 0, or the cast shadow would pop in after the poster swap
     const diver = await fetch(m.diverUrl, { priority: "low" })
