@@ -47,7 +47,7 @@ export default function App() {
             <p className="mt-5.5 max-w-[42ch] text-[18px] text-foam/78">
               {t("lead")}
             </p>
-            <div className="mt-13.5 flex gap-7.5 border-t border-line-dark pt-6.5 max-[900px]:flex-wrap max-[900px]:gap-y-5">
+            <div className="mt-13.5 flex gap-7.5 pt-6.5 max-[900px]:flex-wrap max-[900px]:gap-y-5">
               {HERO_STATS.map((key) => (
                 <div
                   key={key}
