@@ -1,4 +1,4 @@
-import { createClient } from "next-sanity";
+import { createClient } from "@sanity/client";
 import { apiVersion, dataset, projectId } from "../env";
 
 // Read-only client for the public dataset; the CDN is fine with 60 s revalidation.

@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import WaveDivider from "./components/WaveDivider";
 import Sponsors from "./components/Sponsors";
+import HeroWater from "./components/HeroWater/HeroWater";
 import { DOORS } from "./data/club";
 
 /**
@@ -19,22 +20,34 @@ export default function App() {
   return (
     <div>
       {/* HERO */}
+      {/* The poster is the LCP image but a CSS background, so the browser finds it late; preload the one this width uses.
+          React hoists these links into <head>. */}
+      {/* On mobile the LCP element is the diver overlay, not the poster: fetch it first. */}
+      <link rel="preload" as="image" href="/images/hero-water/diver-crop-mobile.avif" media="(max-width: 900px)" fetchPriority="high" />
+      <link rel="preload" as="image" href="/images/hero-water/poster-wide.avif" media="(min-width: 901px)" fetchPriority="high" />
+      <link rel="preload" as="image" href="/images/hero-water/poster-mobile.avif" media="(max-width: 900px)" fetchPriority="low" />
       {/* Desktop photo (16:9): the hero grows with the width so the diver stands
           above the "For members" card, and the head stays 100px below the top
           (10.42vw = 18.6% of the photo height). Mobile keeps the original 3:2. */}
       <section
-        className="relative overflow-hidden bg-[linear-gradient(rgba(8,33,41,0.33),rgba(8,33,41,0.33)),url('/images/hero-diver-wide.avif')] bg-cover bg-[position:100%_max(100%,min(0px,calc(100px_-_10.42vw)))] min-h-[calc(33.3vw_+_300px)] max-[900px]:min-h-0 max-[900px]:bg-[linear-gradient(rgba(8,33,41,0.33),rgba(8,33,41,0.33)),url('/images/hero-diver.avif')] max-[900px]:bg-[length:auto_max(110%,clamp(840px,calc(1300px_-_80vw),960px))] max-[900px]:bg-[position:72%_max(100%,clamp(-85px,calc(13.36vw_-_142px),-65px))] pt-35 pb-36 max-[900px]:pb-28"
+        className="relative overflow-hidden bg-[url('/images/hero-water/poster-wide.avif')] bg-cover bg-[position:100%_max(100%,min(0px,calc(100px_-_10.42vw)))] min-h-[calc(33.3vw_+_300px)] max-[900px]:min-h-0 max-[900px]:bg-[url('/images/hero-water/poster-mobile.avif')] max-[900px]:bg-[length:auto_max(110%,clamp(840px,calc(1300px_-_80vw),960px))] max-[900px]:bg-[position:72%_max(100%,clamp(-85px,calc(13.36vw_-_142px),-65px))] pt-35 pb-36 max-[900px]:pt-49 max-[900px]:pb-28"
         id="om-oss"
       >
-        <div className="wrap grid grid-cols-[1.05fr_0.95fr] items-center gap-10 pb-17.5 max-[900px]:grid-cols-1">
-          <div>
+        <HeroWater />
+        {/* Above 1920px the hero keeps growing with the width while the 60px heading
+            stops, so the text looks small on 4K. Zoom the text block in steps to keep
+            its 1920px proportion (×1.33 at 2560px, ×2 at 3840px); its left edge stays
+            aligned with the cards. The right column is empty (the diver is the
+            background), so wide screens give the zoomed text the full width. */}
+        <div className="wrap relative z-[2] grid grid-cols-[1.05fr_0.95fr] items-center gap-10 pb-17.5 max-[900px]:grid-cols-1 min-[2080px]:grid-cols-1">
+          <div className="min-[2080px]:[zoom:1.083] min-[2240px]:[zoom:1.167] min-[2400px]:[zoom:1.25] min-[2560px]:[zoom:1.333] min-[2880px]:[zoom:1.5] min-[3200px]:[zoom:1.667] min-[3520px]:[zoom:1.833] min-[3840px]:[zoom:2]">
             <h1 className="max-w-[13ch] text-balance text-[clamp(38px,5.4vw,60px)] leading-[1.04] text-foam">
               {t("title")}
             </h1>
             <p className="mt-5.5 max-w-[42ch] text-[18px] text-foam/78">
               {t("lead")}
             </p>
-            <div className="mt-13.5 flex gap-7.5 border-t border-line-dark pt-6.5 max-[900px]:flex-wrap max-[900px]:gap-y-5">
+            <div className="mt-13.5 flex gap-7.5 pt-6.5 max-[900px]:flex-wrap max-[900px]:gap-y-5">
               {HERO_STATS.map((key) => (
                 <div
                   key={key}
@@ -49,7 +62,7 @@ export default function App() {
             </div>
           </div>
         </div>
-        <div className="absolute inset-x-0 bottom-0">
+        <div className="absolute inset-x-0 bottom-0 z-[2]">
           <WaveDivider color="var(--color-aqua-bg)" />
         </div>
       </section>

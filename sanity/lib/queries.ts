@@ -1,4 +1,4 @@
-import { defineQuery } from "next-sanity";
+import { defineQuery } from "groq";
 
 const BILDE = `{ alt, hotspot, crop, asset->{ _id, metadata { lqip, dimensions { width, height } } } }`;
 
