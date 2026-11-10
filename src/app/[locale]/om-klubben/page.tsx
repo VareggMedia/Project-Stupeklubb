@@ -30,7 +30,7 @@ export default function OmKlubben() {
       <div className="wrap py-20 max-[900px]:py-14">
         <div className="grid grid-cols-3 gap-6 max-[900px]:grid-cols-1">
           {ABOUT.map((key) => (
-            <section key={key} className="rounded-[20px] bg-foam-dim p-9">
+            <section key={key} className="rounded-20 bg-foam-dim p-9">
               <h2 className="text-[26px]">{t(`cards.${key}.title`)}</h2>
               <p className="mt-3 text-base text-muted">
                 {t(`cards.${key}.text`)}
@@ -46,7 +46,7 @@ export default function OmKlubben() {
           {TESTIMONIALS.map((q) => (
             <figure
               key={q.key}
-              className="rounded-[20px] border border-line-light bg-white p-8"
+              className="rounded-20 border border-line-light bg-white p-8"
             >
               <blockquote className="font-display text-xl leading-snug">
                 «{tQuotes(q.key)}»

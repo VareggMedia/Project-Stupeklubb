@@ -85,8 +85,8 @@ export default function Navbar() {
                 key={l.href}
                 href={l.href}
                 aria-current={isActive(l.href) ? "page" : undefined}
-                className={`text-[14.5px] font-medium transition-colors duration-150 hover:text-aqua ${
-                  isActive(l.href) ? "text-aqua" : "text-foam/82"
+                className={`text-[14.5px] font-bold transition-colors duration-150 hover:text-light_coral ${
+                  isActive(l.href) ? "text-coral font-bold " : "text-foam/82"
                 }`}
               >
                 {t(l.key)}
@@ -123,8 +123,8 @@ export default function Navbar() {
             href={l.href}
             onClick={closeMenu}
             aria-current={isActive(l.href) ? "page" : undefined}
-            className={`border-b border-line-dark px-1 py-3 text-[15px] ${
-              isActive(l.href) ? "text-aqua" : "text-foam"
+            className={`border-b border-line-dark font-bold px-1 py-3 text-[15px] ${
+              isActive(l.href) ? "text-coral" : "text-foam"
             }`}
           >
             {t(l.key)}

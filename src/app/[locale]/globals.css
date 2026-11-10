@@ -10,10 +10,13 @@
   --color-aqua-bg: #cae5ea;
   --color-foam: #f2f8f7;
   --color-foam-dim: #e5eeec;
-  --color-coral: #ff6f4d;
+  --color-coral: #ff8568;
+  --color-light_coral: #ffb09d;
+  --color-salmon: #ffc5b8;
   --color-yellow: #ffea00;
   --color-muted: #3a5560;
   --color-mist: #7d9aa1;
+  --color-board: #a3d4db;
   --color-line-dark: rgba(255, 255, 255, 0.16);
   --color-line-light: rgba(8, 33, 41, 0.12);
 
@@ -24,8 +27,12 @@
 /* Shared page container */
 @utility wrap {
   margin-inline: auto;
-  max-width: 1120px;
-  padding-inline: 28px;
+  max-width: 1220px;
+  padding-inline: 16px;
+
+  @variant md {
+    padding-inline: 28px;
+  }
 }
 body {
   @apply bg-aqua-bg text-ink font-sans;
@@ -68,4 +75,10 @@ body {
     linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
 
   background-size: 32px 32px;
+}
+.rounded-20 {
+  border-radius: 20px;
+}
+.active {
+  color: #ff6f4d;
 }

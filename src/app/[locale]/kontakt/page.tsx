@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, SquareParking } from "lucide-react";
 import { type Locale, useLocale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import PageHeader from "../components/PageHeader";
@@ -44,6 +44,10 @@ const MAP_QUERY = encodeURIComponent(
   "ADO Arena, Lungegårdskaien 40, 5015 Bergen",
 );
 
+const PARKING_QUERY = encodeURIComponent(
+  "Bygarasjen, Vestre Strømkaien 3, 5008 Bergen",
+);
+
 export default function Kontakt() {
   const t = useTranslations("ContactPage");
   const locale = useLocale();
@@ -62,7 +66,7 @@ export default function Kontakt() {
       </PageHeader>
 
       <div className="wrap py-20 max-[900px]:py-14">
-        <div className="grid grid-cols-[1.6fr_1fr] gap-6 max-[900px]:grid-cols-1">
+        <div className="grid grid-cols-[1fr_1fr] gap-6 max-[900px]:grid-cols-1">
           <section className="flex gap-8 rounded-[20px] bg-foam-dim p-9 max-[600px]:flex-col max-[600px]:gap-6">
             {/* TODO: Replace with the photo of Paul Joachim (PJ1.jpg) once it is in public/images. */}
             <div
@@ -99,7 +103,7 @@ export default function Kontakt() {
 
           <section className="flex flex-col rounded-[20px] border border-line-light bg-white p-9">
             <h2 className="text-[26px]">{t("visit.title")}</h2>
-            <div className="mt-6">
+            <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 max-[420px]:grid-cols-1">
               <ContactLine icon={<MapPin size={19} />} label={t("address")}>
                 <address className="not-italic">
                   ADO Arena
@@ -117,13 +121,34 @@ export default function Kontakt() {
                   {t("visit.directions")} ↗
                 </a>
               </ContactLine>
+              <ContactLine
+                icon={<SquareParking size={19} />}
+                label={t("visit.parking")}
+              >
+                <address className="not-italic">
+                  Bygarasjen
+                  <br />
+                  Vestre Strømkaien 3
+                  <br />
+                  5008 Bergen
+                </address>
+                <a
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${PARKING_QUERY}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-block text-[15px] font-semibold text-pool hover:underline"
+                >
+                  {t("visit.directions")} ↗
+                </a>
+              </ContactLine>
             </div>
+            {/* Walking route from the parking garage to the arena, so both are pinned */}
             <iframe
               title={t("visit.mapTitle")}
-              src={`https://www.google.com/maps?q=${MAP_QUERY}&hl=${locale}&z=15&output=embed`}
+              src={`https://www.google.com/maps?saddr=${PARKING_QUERY}&daddr=${MAP_QUERY}&dirflg=w&hl=${locale}&output=embed`}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="mt-6 min-h-64 w-full flex-1 rounded-xl border-0"
+              className="mt-6 min-h-74 w-full flex-1 rounded-xl border-0"
             />
           </section>
         </div>

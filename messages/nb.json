@@ -134,11 +134,12 @@
     "visit": {
       "title": "Her finner du oss",
       "directions": "Veibeskrivelse",
-      "mapTitle": "Kart som viser ADO Arena i Bergen"
+      "mapTitle": "Kart som viser ADO Arena og parkering i Bygarasjen i Bergen",
+      "parking": "Parkering"
     },
     "whistleblowing": {
       "eyebrow": "Mitt Varsel",
-      "jump": "Si ifra – Mitt Varsel",
+      "jump": "Mitt Varsel",
       "title": "Varsling i norsk idrett",
       "text": "I Bergen Stupeklubb skal alle være trygge. Opplever du noe som bryter med våre verdier, etiske leveregler, reglement eller retningslinjer, så si ifra. Vi vil vite om kritikkverdige forhold, for eksempel mobbing, trakassering, underslag, juks eller seksuelle overgrep.",
       "why": "Vi ønsker å høre fra deg, så vi kan ta tak i og håndtere kritikkverdige forhold på en god måte. Slik kan vi hindre lignende hendelser i fremtiden.",
@@ -249,6 +250,14 @@
       "bottle": "[Drikkeflaske]"
     },
     "bringNote": "Klubbtøy er ikke nødvendig for å begynne. Det kan du kjøpe senere.",
+    "findUsTitle": "Her finner du oss",
+    "findUs": {
+      "arena": "ADO Arena",
+      "parking": "Parkering",
+      "walk": "Ca. 5 minutter å gå til arenaen",
+      "directions": "Veibeskrivelse",
+      "mapTitle": "Kart som viser ADO Arena i Bergen"
+    },
     "firstTimeTitle": "Første gang? Dette skjer",
     "firstTime": {
       "arrive": {

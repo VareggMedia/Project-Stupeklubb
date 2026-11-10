@@ -57,7 +57,11 @@ export default function NyhetKarusell({ kort, kloner, labels }: Props) {
       const second = track.children[antall + 1] as HTMLElement | undefined;
       // Sub-pixel rects, so percentage card widths do not drift off centre
       const card = first?.getBoundingClientRect().width ?? 0;
-      const step = second && first ? second.getBoundingClientRect().left - first.getBoundingClientRect().left : card;
+      const step =
+        second && first
+          ? second.getBoundingClientRect().left -
+            first.getBoundingClientRect().left
+          : card;
       return { card, step, group: step * antall };
     };
 
@@ -89,7 +93,9 @@ export default function NyhetKarusell({ kort, kloner, labels }: Props) {
       if (!step) return;
       // Mobile snaps to whole cards; desktop moves one card from wherever the scroll is
       const from = offset;
-      const to = mobile.matches ? (Math.round(offset / step) + retning) * step : offset + retning * step;
+      const to = mobile.matches
+        ? (Math.round(offset / step) + retning) * step
+        : offset + retning * step;
       anim = { from, to, start: performance.now() };
     };
     moveRef.current = move;
@@ -130,7 +136,8 @@ export default function NyhetKarusell({ kort, kloner, labels }: Props) {
       const dx = e.clientX - start.x;
       const dy = e.clientY - start.y;
       start = null;
-      if (Math.abs(dx) >= SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) move(dx < 0 ? 1 : -1);
+      if (Math.abs(dx) >= SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy))
+        move(dx < 0 ? 1 : -1);
       resumeTimer = window.setTimeout(() => {
         paused = false;
         restartTimer();
@@ -166,7 +173,7 @@ export default function NyhetKarusell({ kort, kloner, labels }: Props) {
   }, [antall]);
 
   const pilStyles =
-    "pointer-events-auto flex size-[72px] cursor-pointer items-center justify-center text-ink opacity-30 transition duration-150 hover:scale-[1.08] hover:opacity-[0.48] focus-visible:opacity-[0.48]";
+    " pointer-events-auto flex size-[72px] cursor-pointer items-center justify-center text-ink opacity-30 transition duration-150 hover:scale-[1.08] hover:opacity-[0.78] focus-visible:opacity-[0.78]";
 
   return (
     <div
@@ -205,9 +212,7 @@ export default function NyhetKarusell({ kort, kloner, labels }: Props) {
         </div>
       </div>
       {/* Arrows over the faded edges – desktop only; mobile uses swipe */}
-      <div
-        className="pointer-events-none absolute top-[calc(50%+10px)] right-[-1px] left-[-1px] z-20 flex -translate-y-1/2 justify-between select-none max-[800px]:hidden"
-      >
+      <div className="pointer-events-none absolute top-[calc(50%+10px)] right-[-1px] left-[-1px] z-20 flex -translate-y-1/2 justify-between select-none max-[800px]:hidden">
         <button
           type="button"
           className={pilStyles}
