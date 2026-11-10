@@ -20,7 +20,10 @@ export default function PageHeader({
   return (
     <section
       className={`pt-32 pb-16 max-[900px]:pt-28 max-[900px]:pb-12 ${
-        isAqua ? "bg-aqua text-ink" : "bg-pool text-foam"
+        // The global focus ring is aqua, which disappears on an aqua header, so use ink here.
+        isAqua
+          ? "bg-aqua text-ink [&_:focus-visible]:outline-ink"
+          : "bg-pool text-foam"
       }`}
     >
       <div className="wrap">
@@ -28,7 +31,9 @@ export default function PageHeader({
           <Link href="/" className="hover:underline">
             {t("home")}
           </Link>
-          <span className="mx-2 opacity-60">/</span>
+          <span aria-hidden="true" className="mx-2 opacity-60">
+            /
+          </span>
           <span aria-current="page">{crumb}</span>
         </nav>
         <h1 className="mt-5 max-w-[18ch] text-balance text-[clamp(36px,5vw,58px)] leading-[1.03]">

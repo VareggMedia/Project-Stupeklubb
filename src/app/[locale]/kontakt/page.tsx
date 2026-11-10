@@ -50,6 +50,7 @@ const PARKING_QUERY = encodeURIComponent(
 
 export default function Kontakt() {
   const t = useTranslations("ContactPage");
+  const tCommon = useTranslations("Common");
   const locale = useLocale();
   return (
     <>
@@ -60,7 +61,7 @@ export default function Kontakt() {
             targetId="mitt-varsel"
             className={`${buttonStyles.base} shrink-0 bg-pool text-foam hover:bg-ink`}
           >
-            {t("whistleblowing.jump")} ↓
+            {t("whistleblowing.jump")} <span aria-hidden="true">↓</span>
           </SmoothScrollLink>
         </div>
       </PageHeader>
@@ -118,7 +119,10 @@ export default function Kontakt() {
                   rel="noopener noreferrer"
                   className="mt-2 inline-block text-[15px] font-semibold text-pool hover:underline"
                 >
-                  {t("visit.directions")} ↗
+                  {t("visit.directions")}
+                  <span className="sr-only"> {t("visit.toArena")}</span>{" "}
+                  <span aria-hidden="true">↗</span>
+                  <span className="sr-only"> {tCommon("newTab")}</span>
                 </a>
               </ContactLine>
               <ContactLine
@@ -138,7 +142,10 @@ export default function Kontakt() {
                   rel="noopener noreferrer"
                   className="mt-2 inline-block text-[15px] font-semibold text-pool hover:underline"
                 >
-                  {t("visit.directions")} ↗
+                  {t("visit.directions")}
+                  <span className="sr-only"> {t("visit.toParking")}</span>{" "}
+                  <span aria-hidden="true">↗</span>
+                  <span className="sr-only"> {tCommon("newTab")}</span>
                 </a>
               </ContactLine>
             </div>
@@ -176,7 +183,8 @@ export default function Kontakt() {
               rel="noopener noreferrer"
               className={buttonStyles.primary}
             >
-              {t("whistleblowing.report")} ↗
+              {t("whistleblowing.report")} <span aria-hidden="true">↗</span>
+              <span className="sr-only"> {tCommon("newTab")}</span>
             </a>
             <a
               href="https://www.idrettsforbundet.no/tema/varsling/mer-om-tema/"
@@ -184,7 +192,8 @@ export default function Kontakt() {
               rel="noopener noreferrer"
               className="text-[15px] font-semibold text-foam hover:text-aqua hover:underline"
             >
-              {t("whistleblowing.topics")} ↗
+              {t("whistleblowing.topics")} <span aria-hidden="true">↗</span>
+              <span className="sr-only"> {tCommon("newTab")}</span>
             </a>
             <a
               href="https://www.antidoping.no/kontroll/tips-oss-om-doping"
@@ -192,7 +201,8 @@ export default function Kontakt() {
               rel="noopener noreferrer"
               className="text-[15px] font-semibold text-foam hover:text-aqua hover:underline"
             >
-              {t("whistleblowing.doping")} ↗
+              {t("whistleblowing.doping")} <span aria-hidden="true">↗</span>
+              <span className="sr-only"> {tCommon("newTab")}</span>
             </a>
           </div>
         </section>

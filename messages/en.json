@@ -6,7 +6,9 @@
   "Common": {
     "home": "Home",
     "breadcrumb": "Breadcrumbs",
-    "age": "age {age}"
+    "age": "age {age}",
+    "newTab": "(opens in a new tab)",
+    "skipToContent": "Skip to content"
   },
   "LanguageSwitcher": {
     "label": "Language"
@@ -135,7 +137,9 @@
       "title": "Where to find us",
       "directions": "Get directions",
       "mapTitle": "Map showing ADO Arena and parking at Bygarasjen in Bergen",
-      "parking": "Parking"
+      "parking": "Parking",
+      "toArena": "to ADO Arena",
+      "toParking": "to Bygarasjen"
     },
     "whistleblowing": {
       "eyebrow": "Mitt Varsel",
@@ -256,7 +260,9 @@
       "parking": "Parking",
       "walk": "About a 5-minute walk to the arena",
       "directions": "Get directions",
-      "mapTitle": "Map showing ADO Arena in Bergen"
+      "mapTitle": "Map showing ADO Arena in Bergen",
+      "toArena": "to ADO Arena",
+      "toParking": "to Bygarasjen"
     },
     "firstTimeTitle": "First time? Here's what happens",
     "firstTime": {

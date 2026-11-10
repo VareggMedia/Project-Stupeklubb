@@ -86,7 +86,9 @@ export default function Navbar() {
                 href={l.href}
                 aria-current={isActive(l.href) ? "page" : undefined}
                 className={`text-[14.5px] font-bold transition-colors duration-150 hover:text-light_coral ${
-                  isActive(l.href) ? "text-coral font-bold " : "text-foam/82"
+                  isActive(l.href)
+                    ? "text-coral underline decoration-2 underline-offset-8"
+                    : "text-foam/82"
                 }`}
               >
                 {t(l.key)}
@@ -124,7 +126,9 @@ export default function Navbar() {
             onClick={closeMenu}
             aria-current={isActive(l.href) ? "page" : undefined}
             className={`border-b border-line-dark font-bold px-1 py-3 text-[15px] ${
-              isActive(l.href) ? "text-coral" : "text-foam"
+              isActive(l.href)
+                ? "text-coral underline decoration-2 underline-offset-8"
+                : "text-foam"
             }`}
           >
             {t(l.key)}

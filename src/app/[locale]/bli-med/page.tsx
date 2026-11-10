@@ -167,7 +167,13 @@ export default function BliMed() {
                       rel="noopener noreferrer"
                       className="mt-1.5 inline-block text-[15px] font-semibold text-pool hover:underline"
                     >
-                      {t("findUs.directions")} ↗
+                      {t("findUs.directions")}
+                      <span className="sr-only">
+                        {" "}
+                        {t("findUs.toArena")}
+                      </span>{" "}
+                      <span aria-hidden="true">↗</span>
+                      <span className="sr-only"> {tCommon("newTab")}</span>
                     </a>
                   </div>
                 </div>
@@ -191,7 +197,13 @@ export default function BliMed() {
                       rel="noopener noreferrer"
                       className="mt-1.5 inline-block text-[15px] font-semibold text-pool hover:underline"
                     >
-                      {t("findUs.directions")} ↗
+                      {t("findUs.directions")}
+                      <span className="sr-only">
+                        {" "}
+                        {t("findUs.toParking")}
+                      </span>{" "}
+                      <span aria-hidden="true">↗</span>
+                      <span className="sr-only"> {tCommon("newTab")}</span>
                     </a>
                   </div>
                 </div>

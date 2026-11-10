@@ -6,7 +6,9 @@
   "Common": {
     "home": "Forside",
     "breadcrumb": "Brødsmuler",
-    "age": "{age} år"
+    "age": "{age} år",
+    "newTab": "(åpnes i ny fane)",
+    "skipToContent": "Hopp til innhold"
   },
   "LanguageSwitcher": {
     "label": "Språk"
@@ -135,7 +137,9 @@
       "title": "Her finner du oss",
       "directions": "Veibeskrivelse",
       "mapTitle": "Kart som viser ADO Arena og parkering i Bygarasjen i Bergen",
-      "parking": "Parkering"
+      "parking": "Parkering",
+      "toArena": "til ADO Arena",
+      "toParking": "til Bygarasjen"
     },
     "whistleblowing": {
       "eyebrow": "Mitt Varsel",
@@ -256,7 +260,9 @@
       "parking": "Parkering",
       "walk": "Ca. 5 minutter å gå til arenaen",
       "directions": "Veibeskrivelse",
-      "mapTitle": "Kart som viser ADO Arena i Bergen"
+      "mapTitle": "Kart som viser ADO Arena i Bergen",
+      "toArena": "til ADO Arena",
+      "toParking": "til Bygarasjen"
     },
     "firstTimeTitle": "Første gang? Dette skjer",
     "firstTime": {
