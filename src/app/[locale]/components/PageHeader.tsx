@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/src/i18n/navigation";
 import type { ReactNode } from "react";
+import { ArrowLeft } from "lucide-react";
 
 type PageHeaderProps = {
   title: string;
@@ -28,13 +29,20 @@ export default function PageHeader({
     >
       <div className="wrap">
         <nav aria-label={t("breadcrumb")} className="text-[14px] font-semibold">
-          <Link href="/" className="hover:underline">
+          <Link
+            href="/"
+            className="group inline-flex items-center gap-1 hover:underline"
+          >
+            <ArrowLeft
+              size={14}
+              aria-hidden="true"
+              className="transition-transform duration-150 group-hover:-translate-x-0.5"
+            />
             {t("home")}
           </Link>
           <span aria-hidden="true" className="mx-2 opacity-60">
             /
           </span>
-          <span aria-current="page">{crumb}</span>
         </nav>
         <h1 className="mt-5 max-w-[18ch] text-balance text-[clamp(36px,5vw,58px)] leading-[1.03]">
           {title}
