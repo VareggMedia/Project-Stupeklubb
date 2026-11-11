@@ -1,0 +1,26 @@
+/* The image box sits exactly where the section's poster background sits, in CSS, so the diver overlay is in place
+   before any JavaScript runs (it is the LCP element). The box is always the wide scene (3840×2151). */
+.layer {
+  container-type: size;
+}
+
+/* desktop: cover, position 100% / max(100%, min(0, 100px - 10.42vw)) */
+.box {
+  --w: max(100cqw, 100cqh * 3840 / 2151);
+  position: absolute;
+  width: var(--w);
+  aspect-ratio: 3840 / 2151;
+  left: calc(100cqw - var(--w));
+  top: max(100cqh - var(--w) * 2151 / 3840, min(0px, 100px - 10.42vw));
+}
+
+/* mobile: the poster is the crop of the wide scene at wide px = 0.89 * mobile px + (640, 112), mobile 2880×1920,
+   shown at height --mh, position 72% / max(100%, clamp(-85px, 13.36vw - 142px, -65px)); 1708.8 = 0.89 * 1920 */
+@media (max-width: 900px) {
+  .box {
+    --mh: max(110cqh, clamp(840px, 1300px - 80vw, 960px));
+    --w: calc(var(--mh) * 3840 / 1708.8);
+    left: calc(0.72 * (100cqw - var(--mh) * 1.5) - var(--mh) * 640 / 1708.8);
+    top: calc(max(100cqh - var(--mh), clamp(-85px, 13.36vw - 142px, -65px)) - var(--mh) * 112 / 1708.8);
+  }
+}

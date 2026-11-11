@@ -10,7 +10,7 @@ type sendResult = {
 }
 
 export default async function sendSkjema(data: PåmeldingData): Promise<sendResult> {
-    const resend = new Resend(process.env.RESEND_API)
+    const resend = new Resend(process.env.RESEND_API_KEY)
     const {email, navn} = data;
 
     try{
