@@ -87,7 +87,7 @@ export default function Navbar() {
                 aria-current={isActive(l.href) ? "page" : undefined}
                 className={`text-[14.5px] font-bold transition-colors duration-150 hover:text-light_coral ${
                   isActive(l.href)
-                    ? "text-coral underline decoration-2 underline-offset-8"
+                    ? "text-coral  decoration-2 underline-offset-8"
                     : "text-foam/82"
                 }`}
               >
