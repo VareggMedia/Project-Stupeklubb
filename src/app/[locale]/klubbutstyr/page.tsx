@@ -7,7 +7,10 @@ export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/klubbutstyr">): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale: locale as Locale, namespace: "GearPage" });
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: "GearPage",
+  });
   return { title: t("title") };
 }
 
@@ -15,10 +18,8 @@ export async function generateMetadata({
 export default function Klubbutstyr() {
   const t = useTranslations("GearPage");
   return (
-    <PageHeader title={t("title")} crumb={t("title")} tone="pool">
-      <p className="max-w-[50ch] text-[17px] text-foam/80">
-        {t("text")}
-      </p>
+    <PageHeader title={t("title")} crumb={t("title")} tone="aqua">
+      <p className="max-w-[50ch] text-[17px] text-pool">{t("text")}</p>
     </PageHeader>
   );
 }

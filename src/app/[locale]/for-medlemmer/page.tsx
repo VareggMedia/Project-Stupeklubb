@@ -56,12 +56,11 @@ export default function ForMedlemmer() {
             <Link
               key={l.href}
               href={l.href}
-              className="flex flex-col gap-1.5 rounded-2xl bg-foam p-6 text-ink transition-transform duration-150 hover:-translate-y-0.5"
+              className="flex flex-col gap  rounded bg-foam p-3 text-ink transition-transform duration-150 hover:-translate-y-0.5 hover:bg-light_coral shadow-2xl "
             >
               <span className="font-display text-[22px] font-bold">
                 {tDoors(l.key)}
               </span>
-              <span className="text-sm text-muted">{t(`hints.${l.key}`)}</span>
             </Link>
           ))}
         </div>
@@ -71,7 +70,7 @@ export default function ForMedlemmer() {
         {SHOW_NOTICE && (
           <div
             role="status"
-            className="flex items-center gap-3.5 rounded-2xl border border-[#e0c46c] bg-[#fff4d6] px-6 py-4.5 text-base"
+            className="flex items-center gap-3.5 rounded-20 border border-[#e0c46c] bg-board px-6 py-4.5 text-base"
           >
             <CircleAlert size={22} className="shrink-0" />
             <p>
@@ -79,45 +78,45 @@ export default function ForMedlemmer() {
             </p>
           </div>
         )}
-
-        <section id="treningstider" className="scroll-mt-24">
-          <h2 className="mb-5.5 text-[clamp(28px,3.4vw,34px)]">
-            {t("scheduleTitle")}
-          </h2>
-          <div className="overflow-x-auto rounded-[18px] border border-line-light bg-white">
-            <table className="w-full min-w-150 text-left text-[15px]">
-              <thead className="bg-foam-dim text-sm">
-                <tr>
-                  <th className="px-5 py-3.5 font-semibold">{t("group")}</th>
-                  {DAYS.map((d) => (
-                    <th key={d} className="px-5 py-3.5 font-semibold">
-                      {t(`days.${d}`)}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {SCHEDULE.map((row) => (
-                  <tr key={row.group} className="border-t border-line-light">
-                    <th className="px-5 py-4 font-semibold">
-                      {t(`groups.${row.group}`)}
-                    </th>
-                    {row.times.map((hasTraining, i) => (
-                      <td key={i} className="px-5 py-4">
-                        {hasTraining ? t("time") : "–"}
-                      </td>
+        <div className="bg-board rounded-20 p-3">
+          <section id="treningstider" className="scroll-mt-24">
+            <h2 className="mb-5.5 text-[clamp(28px,3.4vw,34px)]">
+              {t("scheduleTitle")}
+            </h2>
+            <div className="overflow-x-auto rounded border border-line-light bg-white">
+              <table className="w-full min-w-150 text-left text-[15px]">
+                <thead className="bg-foam-dim text-sm">
+                  <tr>
+                    <th className="px-5 py-3.5 font-semibold">{t("group")}</th>
+                    {DAYS.map((d) => (
+                      <th key={d} className="px-5 py-3.5 font-semibold">
+                        {t(`days.${d}`)}
+                      </th>
                     ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <div className="grid grid-cols-2 gap-6 max-[900px]:grid-cols-1">
+                </thead>
+                <tbody>
+                  {SCHEDULE.map((row) => (
+                    <tr key={row.group} className="border-t border-line-light">
+                      <th className="px-5 py-4 font-semibold">
+                        {t(`groups.${row.group}`)}
+                      </th>
+                      {row.times.map((hasTraining, i) => (
+                        <td key={i} className="px-5 py-4">
+                          {hasTraining ? t("time") : "–"}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+        <div className="bg-board p-3 rounded-20 grid grid-cols-2 gap-6 max-[900px]:grid-cols-1">
           <section
             id="stevner"
-            className="scroll-mt-24 rounded-[18px] border border-line-light bg-white px-8 py-7.5"
+            className="scroll-mt-24 rounded border border-line-light bg-white px-8 py-7.5"
           >
             <h2 className="mb-3 text-[28px]">{t("eventsTitle")}</h2>
             <ul>
@@ -137,7 +136,7 @@ export default function ForMedlemmer() {
 
           <section
             id="resultater"
-            className="scroll-mt-24 rounded-[18px] border border-line-light bg-white px-8 py-7.5"
+            className="scroll-mt-24 rounded border border-line-light bg-white px-8 py-7.5"
           >
             <h2 className="mb-3 text-[28px]">{t("resultsTitle")}</h2>
             <ul>
@@ -158,36 +157,37 @@ export default function ForMedlemmer() {
             </ul>
           </section>
         </div>
-
-        <section id="praktisk" className="scroll-mt-24">
-          <h2 className="mb-5.5 text-[clamp(28px,3.4vw,34px)]">
-            {t("practicalTitle")}
-          </h2>
-          <div className="grid grid-cols-3 gap-5 max-[900px]:grid-cols-1">
-            {PRACTICAL.map((p) => (
-              <div
-                key={p.key}
-                className="flex flex-col gap-2 rounded-2xl bg-foam-dim p-6.5"
-              >
-                <h3 className="font-sans text-[19px] font-semibold">
-                  {t(`practical.${p.key}.title`)}
-                </h3>
-                <p className="text-[15px] text-muted">
-                  {t(`practical.${p.key}.text`)}
-                </p>
-                {"href" in p && (
-                  <Link
-                    href={p.href}
-                    className="mt-auto inline-flex items-center gap-1.5 pt-2 text-[15px] font-semibold text-pool hover:underline"
-                  >
-                    {t("goToGear")}
-                    <ArrowUpRight size={16} />
-                  </Link>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
+        <div className="bg-board  p-3 rounded-20 ">
+          <section id="praktisk" className="scroll-mt-24">
+            <h2 className="mb-5.5 text-[clamp(28px,3.4vw,34px)]">
+              {t("practicalTitle")}
+            </h2>
+            <div className="grid grid-cols-3 gap-5 max-[900px]:grid-cols-1">
+              {PRACTICAL.map((p) => (
+                <div
+                  key={p.key}
+                  className="flex flex-col gap-2 rounded bg-white p-6.5"
+                >
+                  <h3 className="font-sans text-[19px] font-semibold">
+                    {t(`practical.${p.key}.title`)}
+                  </h3>
+                  <p className="text-[15px] text-muted">
+                    {t(`practical.${p.key}.text`)}
+                  </p>
+                  {"href" in p && (
+                    <Link
+                      href={p.href}
+                      className="mt-auto inline-flex items-center gap-1.5 pt-2 text-[15px] font-semibold text-pool hover:underline"
+                    >
+                      {t("goToGear")}
+                      <ArrowUpRight size={16} />
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
     </>
   );

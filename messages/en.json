@@ -6,7 +6,9 @@
   "Common": {
     "home": "Home",
     "breadcrumb": "Breadcrumbs",
-    "age": "age {age}"
+    "age": "age {age}",
+    "newTab": "(opens in a new tab)",
+    "skipToContent": "Skip to content"
   },
   "LanguageSwitcher": {
     "label": "Language"
@@ -37,7 +39,7 @@
     "members": {
       "eyebrow": "Already a member?",
       "links": {
-        "schedule": "Training times",
+        "schedule": "Practice Schedule",
         "events": "Events and calendar",
         "results": "Results",
         "practical": "Fees and practical info"
@@ -134,11 +136,14 @@
     "visit": {
       "title": "Where to find us",
       "directions": "Get directions",
-      "mapTitle": "Map showing ADO Arena in Bergen"
+      "mapTitle": "Map showing ADO Arena and parking at Bygarasjen in Bergen",
+      "parking": "Parking",
+      "toArena": "to ADO Arena",
+      "toParking": "to Bygarasjen"
     },
     "whistleblowing": {
       "eyebrow": "Mitt Varsel",
-      "jump": "Speak up – Mitt Varsel",
+      "jump": "Speak up",
       "title": "Whistleblowing in Norwegian sports",
       "text": "Everyone should feel safe at Bergen Stupeklubb. If you experience something that goes against our values, code of ethics, rules or guidelines, speak up. We want to know about misconduct, such as bullying, harassment, embezzlement, cheating or sexual abuse.",
       "why": "We want to hear from you so we can address misconduct properly. That way we can prevent similar incidents in the future.",
@@ -189,7 +194,7 @@
         "value": "From NOK [PRICE] / term"
       },
       "where": {
-        "label": "Where",
+        "label": "Where ?",
         "value": "ADO Arena, city centre"
       },
       "skills": {
@@ -249,6 +254,16 @@
       "bottle": "[Water bottle]"
     },
     "bringNote": "You don't need club clothing to start. You can buy it later.",
+    "findUsTitle": "Where to find us",
+    "findUs": {
+      "arena": "ADO Arena",
+      "parking": "Parking",
+      "walk": "About a 5-minute walk to the arena",
+      "directions": "Get directions",
+      "mapTitle": "Map showing ADO Arena in Bergen",
+      "toArena": "to ADO Arena",
+      "toParking": "to Bygarasjen"
+    },
     "firstTimeTitle": "First time? Here's what happens",
     "firstTime": {
       "arrive": {

@@ -60,7 +60,7 @@ export default async function Nyheter({
                 width={1200}
                 height={800}
                 sizes="(max-width: 900px) 100vw, 600px"
-                className="aspect-[3/2] w-full rounded-3xl object-cover"
+                className="aspect-[3/2] w-full rounded-20 object-cover"
                 priority
               />
               <div className="flex flex-col gap-4">
@@ -102,7 +102,7 @@ export default async function Nyheter({
               {t("more")}
             </h2>
             {resten.length === 1 ? (
-              <div className="max-w-[422px]">
+              <div className="max-w-105.5">
                 <NyhetKort nyhet={resten[0]} locale={locale} />
               </div>
             ) : (

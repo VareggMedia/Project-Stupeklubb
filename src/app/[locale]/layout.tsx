@@ -23,7 +23,10 @@ export async function generateMetadata({
   params,
 }: LayoutProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale: locale as Locale, namespace: "Metadata" });
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: "Metadata",
+  });
   return {
     // Pages set only their own title, e.g. "Om klubben | Bergen Stupeklubb"
     title: { default: t("siteTitle"), template: `%s | ${t("siteTitle")}` },
@@ -41,6 +44,7 @@ export default async function RootLayout({
 }: LayoutProps<"/[locale]">) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
+  const tCommon = await getTranslations({ locale, namespace: "Common" });
 
   return (
     <html
@@ -49,8 +53,17 @@ export default async function RootLayout({
     >
       <body className="flex min-h-full flex-col bg-foam font-sans leading-normal text-ink">
         <NextIntlClientProvider>
+          {/* Skip link: hidden until focused with Tab, lets keyboard users jump past the menu */}
+          <a
+            href="#innhold"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded focus:bg-foam focus:px-4 focus:py-2.5 focus:font-semibold focus:text-ink"
+          >
+            {tCommon("skipToContent")}
+          </a>
           <Navbar />
-          <main>{children}</main>
+          <main id="innhold" tabIndex={-1} className="outline-none">
+            {children}
+          </main>
           <Footer />
         </NextIntlClientProvider>
       </body>
