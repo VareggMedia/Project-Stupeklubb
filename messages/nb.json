@@ -8,7 +8,8 @@
     "breadcrumb": "Brødsmuler",
     "age": "{age} år",
     "newTab": "(åpnes i ny fane)",
-    "skipToContent": "Hopp til innhold"
+    "skipToContent": "Hopp til innhold",
+    "backToTop": "Til toppen"
   },
   "LanguageSwitcher": {
     "label": "Språk"

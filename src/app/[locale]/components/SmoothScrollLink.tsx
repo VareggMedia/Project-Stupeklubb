@@ -1,5 +1,6 @@
 "use client";
 import type { ReactNode } from "react";
+import { scrollBehavior } from "@/lib/scroll/scroll";
 
 // In-page anchor that scrolls smoothly (unless the user prefers reduced motion).
 // Without JS it still works as a plain jump link.
@@ -20,8 +21,7 @@ export default function SmoothScrollLink({
         const target = document.getElementById(targetId);
         if (!target) return;
         e.preventDefault();
-        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+        target.scrollIntoView({ behavior: scrollBehavior() });
         history.replaceState(null, "", `#${targetId}`);
       }}
     >
