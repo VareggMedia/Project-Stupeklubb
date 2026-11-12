@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import WaveDivider from "./components/WaveDivider";
 import Sponsors from "./components/Sponsors";
 import HeroWater from "./components/HeroWater/HeroWater";
+import RippleHeading from "./components/RippleHeading";
 import { DOORS } from "./data/club";
 
 /**
@@ -41,12 +42,9 @@ export default function App() {
             background), so wide screens give the zoomed text the full width. */}
         <div className="wrap relative z-[2] grid grid-cols-[1.05fr_0.95fr] items-center gap-10 pb-17.5 max-[900px]:grid-cols-1 min-[2080px]:grid-cols-1">
           <div className="min-[2080px]:[zoom:1.083] min-[2240px]:[zoom:1.167] min-[2400px]:[zoom:1.25] min-[2560px]:[zoom:1.333] min-[2880px]:[zoom:1.5] min-[3200px]:[zoom:1.667] min-[3520px]:[zoom:1.833] min-[3840px]:[zoom:2]">
-            <h1 className="max-w-[13ch] text-balance text-[clamp(38px,5.4vw,60px)] leading-[1.04] text-foam">
+            <RippleHeading className="max-w-[13ch] text-balance text-[clamp(38px,5.4vw,60px)] leading-[1.04] text-foam">
               {t("title")}
-            </h1>
-            <p className="mt-5.5 max-w-[42ch] text-[18px] text-foam/78">
-              {t("lead")}
-            </p>
+            </RippleHeading>
             <div className="mt-13.5 flex gap-7.5 pt-6.5 max-[900px]:flex-wrap max-[900px]:gap-y-5">
               {HERO_STATS.map((key) => (
                 <div
