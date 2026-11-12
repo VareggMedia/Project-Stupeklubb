@@ -7,6 +7,7 @@ import { routing } from "@/src/i18n/routing";
 import "./globals.css";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
+import BackToTop from "./components/BackToTop";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -65,6 +66,7 @@ export default async function RootLayout({
             {children}
           </main>
           <Footer />
+          <BackToTop />
         </NextIntlClientProvider>
       </body>
     </html>
