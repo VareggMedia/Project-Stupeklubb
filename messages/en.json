@@ -8,7 +8,8 @@
     "breadcrumb": "Breadcrumbs",
     "age": "age {age}",
     "newTab": "(opens in a new tab)",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "backToTop": "Back to top"
   },
   "LanguageSwitcher": {
     "label": "Language"
