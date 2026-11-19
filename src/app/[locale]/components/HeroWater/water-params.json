@@ -1,0 +1,177 @@
+{
+  "_about": "Settings for the animated pool water in the front-page hero. Change a number, save, and redeploy. Fields starting with _ are notes and are not read by the code. The parameter names match the water tuner, so values copied from it fit here. Note: the hero background before the animation starts is a still picture of the first frame (poster-*.avif); after big changes it no longer matches perfectly until it is made again.",
+
+  "camera": {
+    "_about": "The virtual camera that looks down at the pool. It decides the perspective of the whole scene.",
+    "_help": {
+      "camHeight": "How high above the water the camera hangs, in metres. Higher = the pool looks further away.",
+      "fov": "Field of view in degrees. Bigger = wider, more fish-eye; smaller = more zoomed in.",
+      "pitch": "How much the camera tilts away from looking straight down, in degrees. 0 = straight down.",
+      "roll": "Sideways tilt of the camera, in degrees.",
+      "yaw": "Turns the camera around the vertical axis, in degrees."
+    },
+    "camHeight": 5,
+    "fov": 55,
+    "pitch": 38,
+    "roll": 9,
+    "yaw": 0
+  },
+
+  "waves": {
+    "_about": "The surface waves. Twelve small waves of different sizes are added together; they bend the light that reaches the pool floor.",
+    "_help": {
+      "amp": "Wave height in metres. Bigger = rougher water and stronger light patterns.",
+      "speed": "How fast the waves move. 1 = physically correct speed for their size; lower = calmer.",
+      "tile": "Size in metres of the area the wave pattern covers before it repeats. Bigger = longer, softer waves."
+    },
+    "amp": 0.008,
+    "speed": 0.3,
+    "tile": 2.4
+  },
+
+  "waveGroups": {
+    "_about": "The twelve waves are split into three groups: big, middle, and small. Each group slowly gets stronger and weaker on its own (a smooth random drift), so the water never repeats exactly.",
+    "_help": {
+      "bigMix": "Overall share of the big waves (0 = off, 1 = full).",
+      "midMix": "Overall share of the middle waves.",
+      "smallMix": "Overall share of the small waves.",
+      "bigGain": "How much the big waves drift stronger and weaker over time (0 = steady).",
+      "midGain": "Same drift for the middle waves.",
+      "smallGain": "Same drift for the small waves.",
+      "bigRate": "How quickly the big waves drift, in cycles per second. Smaller = slower changes.",
+      "midRate": "Drift speed of the middle waves.",
+      "smallRate": "Drift speed of the small waves."
+    },
+    "bigMix": 1,
+    "midMix": 0.8,
+    "smallMix": 0.55,
+    "bigGain": 0.5,
+    "midGain": 0.45,
+    "smallGain": 0.4,
+    "bigRate": 0.02,
+    "midRate": 0.045,
+    "smallRate": 0.1
+  },
+
+  "sunAndSky": {
+    "_about": "Where the sun is and how the sky and sun light the water.",
+    "_help": {
+      "sunElev": "Sun height above the horizon, in degrees. 90 = straight overhead.",
+      "sunAz": "Sun direction around the pool, in degrees.",
+      "sunDiffuse": "Plain sunlight on the pool floor (without the moving light patterns).",
+      "ambient": "Soft base light everywhere, so shadows never go black.",
+      "sky": "How much the sky reflects in the water surface, mostly at flat viewing angles.",
+      "sparkle": "Strength of the bright sun glints on the wave tops.",
+      "glintElev": "Moves the glints up or down on screen, in degrees, without moving the sun itself.",
+      "glintAz": "Moves the glints sideways, in degrees. Used to keep them away from the hero text."
+    },
+    "sunElev": 62,
+    "sunAz": 135,
+    "sunDiffuse": 0.57,
+    "ambient": 0.35,
+    "sky": 0.25,
+    "sparkle": 0.2,
+    "glintElev": 8.5,
+    "glintAz": 13.5
+  },
+
+  "caustics": {
+    "_about": "Caustics are the bright, moving lines of light on the pool floor, made by the waves focusing sunlight.",
+    "_help": {
+      "caustic": "Brightness of the light lines.",
+      "blur": "Softness of the light lines. Higher = blurrier.",
+      "contrast": "Below 1 the lines look softer and wider; above 1 they look sharper and thinner.",
+      "mix2": "Blends in a second, rotated copy of the pattern so it does not look like a repeating tile (0 = off).",
+      "variation": "Makes some areas of the floor brighter and others dimmer (0 = even everywhere).",
+      "varScale": "Size of those bright and dim areas. Smaller = bigger areas.",
+      "breakup": "Breaks the light lines into pieces instead of long unbroken threads (0 = off).",
+      "breakScale": "Size of the pieces. Bigger = smaller pieces."
+    },
+    "caustic": 0.83,
+    "blur": 1.4,
+    "contrast": 0.63,
+    "mix2": 0.5,
+    "variation": 0.65,
+    "varScale": 0.45,
+    "breakup": 0.65,
+    "breakScale": 2.8
+  },
+
+  "poolFloor": {
+    "_about": "The pool bottom: its depth and the tiles on it.",
+    "_help": {
+      "depth": "Water depth in metres. Deeper = more blue and the light lines spread out more.",
+      "floor": "Brightness of the floor itself.",
+      "tileStr": "How visible the tiles are (0 = plain floor).",
+      "tileSize": "Tile size in metres.",
+      "grout": "Width of the lines between tiles, in metres.",
+      "tileVar": "Small colour differences from tile to tile, so they do not look perfect.",
+      "tileAngle": "Direction of the tile rows, in degrees (lined up with the diving board).",
+      "tileFog": "How fast the tiles fade out with distance.",
+      "tileBlur": "How much the tiles blur with distance."
+    },
+    "depth": 3.5,
+    "floor": 0.93,
+    "tileStr": 0.22,
+    "tileSize": 0.38,
+    "grout": 0.015,
+    "tileVar": 0.155,
+    "tileAngle": -42,
+    "tileFog": 0.3,
+    "tileBlur": 0.6
+  },
+
+  "waterColor": {
+    "_about": "The colour of the water itself.",
+    "_help": {
+      "absorb": "How much the water swallows light per metre (red goes first, so deeper looks bluer).",
+      "scatter": "Light bouncing around inside the water, giving it its turquoise haze.",
+      "green": "Shifts the water colour from blue (-1) towards green (+1).",
+      "sat": "Colour saturation of the final picture (1 = normal, lower = greyer)."
+    },
+    "absorb": 1.25,
+    "scatter": 1.36,
+    "green": 0.56,
+    "sat": 0.66
+  },
+
+  "diverShadow": {
+    "_about": "The shadow of the diver and the diving board on the pool floor.",
+    "_help": {
+      "castOn": "Shadow darkness (0 = no shadow).",
+      "castX": "Shadow offset sideways, as a share of the picture width.",
+      "castY": "Shadow offset up or down, as a share of the picture height.",
+      "castBlur": "Shadow softness. Higher = softer edges.",
+      "castWobble": "How much the waves bend the shadow."
+    },
+    "castOn": 0.45,
+    "castX": 0.235,
+    "castY": -0.365,
+    "castBlur": 6.4,
+    "castWobble": 0.06
+  },
+
+  "screenLight": {
+    "_about": "Finishing light over the whole picture, like a photographer's grading.",
+    "_help": {
+      "lightStr": "Strength of a soft light gradient across the picture (0 = off).",
+      "lightAngle": "Direction the gradient comes from, in degrees.",
+      "lightSoft": "How wide and soft the gradient is.",
+      "vignette": "Darkens the corners (0 = off).",
+      "darken": "Makes the whole picture a little darker."
+    },
+    "lightStr": 0.63,
+    "lightAngle": 200,
+    "lightSoft": 0.38,
+    "vignette": 0.29,
+    "darken": 0.02
+  },
+
+  "quality": {
+    "_about": "Performance settings.",
+    "_help": {
+      "resScale": "Render resolution compared with the screen (0.5 = half). Lower = lighter for the graphics card, slightly softer picture."
+    },
+    "resScale": 0.5
+  }
+}
