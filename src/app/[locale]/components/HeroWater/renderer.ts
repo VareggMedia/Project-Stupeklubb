@@ -1,18 +1,21 @@
 // WebGL water + caustics for the hero, shared by the worker, the main-thread fallback, and the poster tool.
 // Frame 0 (T = 0, random walks at rest) is deterministic, so the CSS poster can be exactly that frame.
 import { WAVES, causFS, causVS, viewFS, viewVS } from "./shaders";
+import WATER from "./water-params.json";
 
-// Synced from the prototype's defaults.json (DEVFLOW/stupeklubben-hero-water/caustics-proto).
-const P = {
-  camHeight: 5, fov: 55, pitch: 38, roll: 9, yaw: 0, depth: 3.5, tile: 2.4, amp: 0.008, speed: 0.3,
-  bigMix: 1, midMix: 0.8, smallMix: 0.55, bigGain: 0.5, midGain: 0.45, smallGain: 0.4, bigRate: 0.02,
-  midRate: 0.045, smallRate: 0.1, sunElev: 62, sunAz: 135, caustic: 0.83, blur: 1.4, contrast: 0.63,
-  sparkle: 0.2, glintElev: 8.5, glintAz: 13.5, sky: 0.25, mix2: 0.5, variation: 0.65, varScale: 0.45, tileStr: 0.22, tileSize: 0.38,
-  grout: 0.015, tileVar: 0.155, tileAngle: -42, tileFog: 0.3, tileBlur: 0.6, breakup: 0.65, breakScale: 2.8,
-  absorb: 1.25, floor: 0.93, ambient: 0.35, sunDiffuse: 0.57, scatter: 1.36, green: 0.56, sat: 0.66,
-  castOn: 0.45, castX: 0.235, castY: -0.365, castBlur: 6.4, castWobble: 0.06, lightStr: 0.63,
-  lightAngle: 200, lightSoft: 0.38, vignette: 0.29, darken: 0.02, resScale: 0.5,
-};
+// All tunable values live in water-params.json, grouped in sections with plain-English notes (`_about`, `_help`).
+// Here the sections are flattened into one object P (camHeight, fov, amp, …); keys starting with _ are skipped.
+type Values<S> = Omit<S, "_about" | "_help">;
+type Sections = typeof WATER;
+type Params = Values<Sections["camera"]> & Values<Sections["waves"]> & Values<Sections["waveGroups"]> &
+  Values<Sections["sunAndSky"]> & Values<Sections["caustics"]> & Values<Sections["poolFloor"]> &
+  Values<Sections["waterColor"]> & Values<Sections["diverShadow"]> & Values<Sections["screenLight"]> &
+  Values<Sections["quality"]>;
+const P = Object.fromEntries(
+  Object.entries(WATER)
+    .filter(([key]) => !key.startsWith("_"))
+    .flatMap(([, section]) => Object.entries(section).filter(([key]) => !key.startsWith("_"))),
+) as Params;
 
 // Aspect of the image box the shader works in (the wide poster and diver cut-out).
 export const IMG_W = 3840;

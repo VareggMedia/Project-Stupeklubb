@@ -105,6 +105,8 @@ Forsiden har animert vann bak stuperen (`components/HeroWater/`):
 - **Reserve** – uten WebGL eller med «redusert bevegelse» i systemet blir plakaten stående.
 - **Stuperen** er et eget bilde oppå vannet (`diver-crop.avif`, på mobil `diver-crop-mobile.avif`). Plasseringen styres i `HeroWater.module.css` og må stemme med plakaten.
 
+**Justere vannet** – alle tallene (kamera, bølger, sol, lysmønster, bunn, farge, skygge, kvalitet) ligger i `components/HeroWater/water-params.json`, delt i seksjoner med en kort forklaring på engelsk ved hver verdi (`_about`, `_help`). Endre et tall, se det lokalt med `npm run dev`, og lag en PR. Navnene er de samme som i vann-tuneren, så verdier derfra kan limes rett inn.
+
 Endres vannet eller shaderne, må plakatene lages på nytt, ellers hopper bildet når animasjonen starter.
 
 ## Miljøvariabler
